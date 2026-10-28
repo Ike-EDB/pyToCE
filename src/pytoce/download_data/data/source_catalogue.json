@@ -1,0 +1,86 @@
+{
+  "schema_version": "pytoce_source_catalogue_schema_v1",
+  "open_sources": [
+    {
+      "source_id": "remind_mfa_code",
+      "kind": "source_code",
+      "version": "0.2.0",
+      "revision": "bf95c898e0f6f363196bccb62d34e02d82e4726b",
+      "tag": "v0.2.0",
+      "repository": "https://github.com/pik-piam/remind-mfa",
+      "url": "https://codeload.github.com/pik-piam/remind-mfa/tar.gz/bf95c898e0f6f363196bccb62d34e02d82e4726b",
+      "filename": "remind_mfa_v0_2_0.tar.gz",
+      "bytes": 550640,
+      "sha256": "eee4f40d0c8512c6edd8d5e7a7993e5708f3bfc13a31e72cbe42ff26a59fea24",
+      "license": "GPL-3.0-only",
+      "license_url": "https://github.com/pik-piam/remind-mfa/blob/bf95c898e0f6f363196bccb62d34e02d82e4726b/LICENSE",
+      "citation": "REMIND-MFA v0.2.0, pik-piam/remind-mfa, commit bf95c898e0f6f363196bccb62d34e02d82e4726b."
+    },
+    {
+      "source_id": "remind_mfa_input_data",
+      "kind": "source_data",
+      "version": "1.0.0",
+      "revision": "rev1.0.0_h12_1584d780_mfa",
+      "doi": "10.5281/zenodo.18019915",
+      "repository": "https://zenodo.org/records/18019915",
+      "url": "https://zenodo.org/api/records/18019915/files/remind_mfa_data.zip/content",
+      "filename": "input_data_1_0_0.zip",
+      "bytes": 531566,
+      "md5": "fd0af323db821c83ed03e29258fa159a",
+      "sha256": "73bcf80f53513dcdf6f946afabb333a13792f087029550a95ea6c52f8d068419",
+      "license": "CC-BY-SA-4.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "citation": "Durrwaechter et al. (2025), REMIND-MFA input data v1.0.0, doi:10.5281/zenodo.18019915."
+    },
+    {
+      "source_id": "aesa_pb_lcia",
+      "kind": "lcia_source",
+      "version": "0.9.2",
+      "revision": "00003e27a04bfc5662bf561cf7a092ba5324d67c",
+      "branch": "ei_312",
+      "repository": "https://github.com/Ike-EDB/PB-LCIA",
+      "url": "https://codeload.github.com/Ike-EDB/PB-LCIA/tar.gz/00003e27a04bfc5662bf561cf7a092ba5324d67c",
+      "filename": "pb_lcia_0_9_2.tar.gz",
+      "bytes": 967253,
+      "sha256": "3e7520cc95a48dd00ab366ed53e103eed04224da21c9f099912e4f52ad1ec144",
+      "license": "BSD-3-Clause",
+      "license_url": "https://github.com/Ike-EDB/PB-LCIA/blob/00003e27a04bfc5662bf561cf7a092ba5324d67c/LICENSE",
+      "citation": "IKE-EDB, PB-LCIA ecoinvent 3.12 adaptation v0.9.2, branch ei_312, commit 00003e27a04bfc5662bf561cf7a092ba5324d67c. Upstream implementation: Tulus, V. (2023), v0.9.0, doi:10.5281/zenodo.7575887."
+    }
+  ],
+  "licensed_inputs": [
+    {
+      "source_id": "ecoinvent_3_12_cutoff_ecospold02",
+      "kind": "licensed_source_data",
+      "version": "3.12",
+      "revision": "allocation_cutoff_by_classification_ecospold02",
+      "system_model": "Allocation, cut-off by classification",
+      "format": "EcoSpold 2 in 7z",
+      "filename": "ecoinvent_3.12_cutoff_ecoSpold02.7z",
+      "bytes": 121193783,
+      "sha256": "c00cf9a5704f2b8139995e8af9a62c5a432bd33b60f3c978788073e82bdc416f",
+      "member_count": 26556,
+      "ecospold_member_count": 26533,
+      "member_names_sha256": "0239f84fd6141f2e3edf64cbc376c1559f6fae86516603b8422c85297da48cb0",
+      "license": "LicenseRef-ecoinvent-3.12",
+      "citation": "ecoinvent Association (2025), ecoinvent database 3.12, Allocation, cut-off by classification."
+    },
+    {
+      "source_id": "ecoinvent_3_12_lcia_implementation",
+      "kind": "licensed_lcia_factors",
+      "version": "3.12",
+      "revision": "lcia_implementation",
+      "format": "ecoinvent LCIA implementation in 7z",
+      "filename": "ecoinvent 3.12_LCIA_implementation.7z",
+      "bytes": 16814072,
+      "sha256": "ac6d6de67b7c46be0b935554d1e851811e3073dba8e8364e52fa27c409af0c53",
+      "member_count": 2,
+      "workbook_member": "LCIA Implementation 3.12.xlsx",
+      "workbook_filename": "lcia_implementation.xlsx",
+      "workbook_bytes": 16989111,
+      "workbook_sha256": "6bc4e6475877e8e90d8a6184b681366154cc5f6ec42c7cec54eb871224b33e02",
+      "license": "LicenseRef-ecoinvent-3.12",
+      "citation": "ecoinvent Association (2025), LCIA Implementation 3.12."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "dry_mass": 0.9,
+  "water": 0.1,
+  "dry_elements": {
+    "carbon": 0.6,
+    "hydrogen": 0.1,
+    "oxygen": 0.25,
+    "nitrogen": 0.01,
+    "sulfur": 0.005,
+    "chlorine": 0.005,
+    "iron": 0.01,
+    "titanium": 0.01,
+    "vanadium": 0.01
+  },
+  "supplies": {
+    "mc_ammonia": 0.003,
+    "mc_inorganic": 0.001,
+    "phb_v_proxy": 0.00003,
+    "mc_ng": 0.8,
+    "mc_hcl": 0.0001,
+    "phb_facility": 0.00001,
+    "mc_tio2": 0.0002,
+    "phb_water_a": 0.28,
+    "phb_water_b": 0.42,
+    "mc_cao": 0.004,
+    "mc_naoh": 0.006
+  },
+  "process_emissions": {
+    "Benzene": 0.0000001,
+    "Benzo(a)pyrene": 0.000000002,
+    "Hexachlorobenzene": 0.000000003,
+    "Pentachlorobenzene": 0.000000004,
+    "Pentachlorophenol": 0.000000005,
+    "Toluene": 0.0000002,
+    "Carbon monoxide, fossil": 0.0001,
+    "Methane, fossil": 0.00001,
+    "NMVOC, non-methane volatile organic compounds": 0.00002,
+    "Particulate Matter, < 2.5 um": 0.00003,
+    "Particulate Matter, > 2.5 um and < 10um": 0.00001,
+    "Dioxins, measured as 2,3,7,8-tetrachlorodibenzo-p-dioxin": 0.000000000001,
+    "Ammonia": 0.00001,
+    "Nitrogen oxides": 0.0005,
+    "Hydrochloric acid": 0.000002
+  },
+  "ash_dry_mass": 0.8,
+  "ash_dry_elements": {
+    "carbon": 0.12,
+    "nitrogen": 0.0002,
+    "titanium": 0.02,
+    "vanadium": 0.01,
+    "zinc": 0.0004
+  }
+}

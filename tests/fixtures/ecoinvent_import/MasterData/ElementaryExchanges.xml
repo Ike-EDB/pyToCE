@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<elementaryExchanges xmlns="http://www.EcoInvent.org/EcoSpold02">
+  <elementaryExchange id="eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee">
+    <name>fixture emission</name>
+    <unitName>kg</unitName>
+    <compartment>
+      <compartment>air</compartment>
+      <subcompartment>unspecified</subcompartment>
+    </compartment>
+  </elementaryExchange>
+</elementaryExchanges>

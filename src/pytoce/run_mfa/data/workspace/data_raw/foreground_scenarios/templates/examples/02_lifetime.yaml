@@ -1,0 +1,20 @@
+schema_version: pytoce_foreground_scenario_schema_v1
+foreground_scenario: example_lifetime
+ssp_scenario: SSP2
+description: >-
+  Mean lifetime changes while retaining the default ratio of standard deviation to
+  mean.
+changes:
+  - parameter: lifetime_mean
+    good: Packaging
+    trajectory:
+      mode: linear_from_2019
+      target_year: 2050
+      target_mode: absolute
+      target_value: 6.0
+  - parameter: lifetime_mean
+    goods: [Transportation, Buildings & Construction]
+    changes:
+      - year: 2050
+        mode: delta_from_2019
+        value: 2.0

@@ -1,0 +1,18 @@
+schema_version: pytoce_foreground_scenario_schema_v1
+foreground_scenario: example_socioeconomic_drivers
+ssp_scenario: SSP2
+description: SSP2 population and GDP-per-capita driver schedules.
+changes:
+  - parameter: population
+    region: EUR
+    changes:
+      - year: 2030
+        mode: multiplier_from_2019
+        value: 1.0
+  - parameter: gdppc
+    regions:
+      - EUR
+      - USA
+    changes:
+      - year: 2030
+        mode: retain_2019

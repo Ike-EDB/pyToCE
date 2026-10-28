@@ -1,0 +1,101 @@
+/* Keep long qualified API names inside the generated index columns. */
+.genindextable {
+    table-layout: fixed;
+}
+
+.genindextable td,
+.rst-content .sig {
+    overflow-wrap: anywhere;
+}
+
+/* Let long paths and inline identifiers wrap on narrow screens. */
+.rst-content a,
+.rst-content code.docutils.literal,
+.rst-content .docutils.literal,
+.rst-content .docutils.literal span.pre,
+.rst-content tt,
+.rst-content tt span.pre {
+    overflow-wrap: break-word;
+    white-space: normal !important;
+    word-break: normal;
+}
+
+/* Keep API field descriptions inside the available content width. */
+html.writer-html5 .rst-content dl.field-list {
+    grid-template-columns: max-content minmax(0, 1fr);
+}
+
+@media screen and (max-width: 640px) {
+    .rst-content dl.py.function > dd {
+        margin-left: 0;
+    }
+
+    html.writer-html5 .rst-content dl.field-list {
+        display: block;
+    }
+
+    html.writer-html5 .rst-content dl.field-list > dt {
+        margin-bottom: 0.25rem;
+        padding-left: 0;
+    }
+
+    html.writer-html5 .rst-content dl.field-list > dd {
+        margin: 0 0 1rem;
+    }
+}
+
+/* Let scientific descriptions wrap instead of hiding them beyond a table edge. */
+.wy-table-responsive table td,
+.wy-table-responsive table th {
+    white-space: normal;
+}
+
+.wy-table-responsive table p {
+    white-space: normal;
+}
+
+.wy-table-responsive table code {
+    overflow-wrap: anywhere;
+}
+
+/* Read the Docs sidebar color. */
+.wy-side-nav-search {
+  background: #e6f2f7;
+  border-bottom: 1px solid #d8e0e7;
+}
+
+.wy-side-nav-search>a,
+.wy-side-nav-search .wy-dropdown>a,
+.wy-side-nav-search>div.version {
+  color: #24343c;
+}
+
+.wy-side-nav-search>a:hover,
+.wy-side-nav-search .wy-dropdown>a:hover {
+  color: #c83737;
+}
+
+.wy-side-nav-search img.logo {
+  display: block;
+  height: auto;
+  margin: 0.75rem auto 1rem;
+  max-height: 5.5rem;
+  max-width: 82%;
+  width: auto;
+}
+
+.wy-side-nav-search input[type="text"] {
+  border: 1px solid #c9d4dc;
+  box-shadow: none;
+}
+
+.wy-nav-top {
+  background: #e6f2f7;
+  border-bottom: 1px solid #d8e0e7;
+  color: #24343c;
+}
+
+.wy-nav-top a,
+.wy-nav-top i {
+  color: #24343c;
+}

@@ -1,0 +1,5 @@
+schema_version: pytoce_foreground_scenario_schema_v1
+foreground_scenario: remind_mfa_default
+ssp_scenario: SSP2
+description: Default REMIND-MFA SSP2 trajectories evaluated with the pyToCE MFA model.
+changes: []

@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pytoce_foreground_scenario_schema_v1",
+  "title": "pyToCE foreground scenario",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "foreground_scenario",
+    "ssp_scenario",
+    "changes"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "pytoce_foreground_scenario_schema_v1"
+    },
+    "foreground_scenario": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "ssp_scenario": {
+      "const": "SSP2"
+    },
+    "description": {
+      "type": "string"
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {"$ref": "#/$defs/parameter_entry"},
+          {"$ref": "#/$defs/treatment_group_entry"},
+          {"$ref": "#/$defs/feedstock_group_entry"}
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "change_point": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["year", "mode"],
+      "properties": {
+        "year": {"type": "integer", "minimum": 2020, "maximum": 2100},
+        "mode": {
+          "enum": [
+            "absolute",
+            "retain_default",
+            "multiplier_from_default",
+            "delta_from_default",
+            "retain_2019",
+            "multiplier_from_2019",
+            "delta_from_2019",
+            "retain_2019_propensity_pretrade_collected",
+            "retain_default_propensity_pretrade_collected"
+          ]
+        },
+        "value": {"type": "number"},
+        "interpolation": {"const": "step"}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "enum": [
+                  "absolute",
+                  "multiplier_from_default",
+                  "delta_from_default",
+                  "multiplier_from_2019",
+                  "delta_from_2019"
+                ]
+              }
+            },
+            "required": ["mode"]
+          },
+          "then": {"required": ["value"]}
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "enum": [
+                  "retain_default",
+                  "retain_2019",
+                  "retain_2019_propensity_pretrade_collected",
+                  "retain_default_propensity_pretrade_collected"
+                ]
+              }
+            },
+            "required": ["mode"]
+          },
+          "then": {"not": {"required": ["value"]}}
+        }
+      ]
+    },
+    "scalar_trajectory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "target_year", "target_mode", "target_value"],
+      "properties": {
+        "mode": {"const": "linear_from_2019"},
+        "target_year": {"type": "integer", "minimum": 2020, "maximum": 2100},
+        "target_mode": {
+          "enum": ["absolute", "multiplier_from_2019", "delta_from_2019"]
+        },
+        "target_value": {"type": "number"}
+      }
+    },
+    "parameter_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["parameter"],
+      "properties": {
+        "parameter": {"type": "string"},
+        "selector": {"type": "string"},
+        "region": {"type": "string"},
+        "regions": {"type": "array", "items": {"type": "string"}},
+        "material": {"type": "string"},
+        "materials": {"type": "array", "items": {"type": "string"}},
+        "good": {"type": "string"},
+        "goods": {"type": "array", "items": {"type": "string"}},
+        "process": {"type": "string"},
+        "processes": {"type": "array", "items": {"type": "string"}},
+        "route": {"type": "string"},
+        "routes": {"type": "array", "items": {"type": "string"}},
+        "changes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/change_point"}
+        },
+        "trajectory": {"$ref": "#/$defs/scalar_trajectory"}
+      },
+      "oneOf": [
+        {"required": ["changes"], "not": {"required": ["trajectory"]}},
+        {"required": ["trajectory"], "not": {"required": ["changes"]}}
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "changes": {
+                "contains": {
+                  "type": "object",
+                  "properties": {
+                    "mode": {
+                      "enum": [
+                        "retain_2019_propensity_pretrade_collected",
+                        "retain_default_propensity_pretrade_collected"
+                      ]
+                    }
+                  },
+                  "required": ["mode"]
+                }
+              }
+            },
+            "required": ["changes"]
+          },
+          "then": {
+            "properties": {
+              "parameter": {"enum": ["waste_imports", "waste_exports"]}
+            }
+          }
+        }
+      ]
+    },
+    "treatment_group_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["parameter_group", "selector", "trajectory"],
+      "properties": {
+        "parameter_group": {"const": "collected_waste_treatment_shares"},
+        "selector": {"const": "uniform_all_h12"},
+        "trajectory": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "target_year", "target_values"],
+          "properties": {
+            "mode": {"const": "linear_from_2019"},
+            "target_year": {"type": "integer", "minimum": 2020, "maximum": 2100},
+            "target_values": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "mechanical_recycling_rate",
+                "chemical_recycling_rate",
+                "incineration_rate",
+                "landfill_share"
+              ],
+              "properties": {
+                "mechanical_recycling_rate": {"type": "number"},
+                "chemical_recycling_rate": {"type": "number"},
+                "incineration_rate": {"type": "number"},
+                "landfill_share": {"type": "number"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "feedstock_group_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["parameter_group", "selector", "trajectory"],
+      "properties": {
+        "parameter_group": {"const": "virgin_feedstock_shares"},
+        "selector": {"const": "uniform_all_h12"},
+        "trajectory": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mode", "target_year", "target_values"],
+          "properties": {
+            "mode": {"const": "linear_from_2019"},
+            "target_year": {"type": "integer", "minimum": 2020, "maximum": 2100},
+            "target_values": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["fossil_share", "bio_production_rate", "daccu_production_rate"],
+              "properties": {
+                "fossil_share": {"type": "number"},
+                "bio_production_rate": {"type": "number"},
+                "daccu_production_rate": {"type": "number"}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

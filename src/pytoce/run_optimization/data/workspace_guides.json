@@ -1,0 +1,206 @@
+{
+  "guides": [
+    {
+      "guide_id": "allocated_cc_inputs",
+      "workspace_path": "data_raw/allocated_cc",
+      "title": "Allocated carrying capacity inputs",
+      "purpose": "This directory contains the templates and allocated carrying capacity (aCC) results used by run_asr and run_optimization. Results can be calculated through the pyaesa tutorial workflow or supplied by the user.",
+      "created_by": "set_workspace",
+      "inputs": [
+        "Package templates under `templates/`.",
+        "Complete aCC results placed under `results/`."
+      ],
+      "expected_contents": [
+        {
+          "name": "templates/",
+          "description": "aCC YAML and CSV templates with a short input guide"
+        },
+        {
+          "name": "results/",
+          "description": "one directory for each complete aCC result"
+        }
+      ],
+      "tables_and_schemas": [
+        "Each result contains `allocated_cc_result.yaml` and the two CSV files named by its `annual_allocated_cc` and `cumulative_gwp100_allocated_cc` fields. The templates use `annual_allocated_cc.csv` and `cumulative_gwp100_allocated_cc.csv`; all inputs follow the installed v1 schemas for EF v3.1."
+      ],
+      "units_signs_and_identifiers": [
+        "aCC values are finite, strictly positive, and stated in the exact LCIA unit.",
+        "Result and case names use lowercase `snake_case`; case names identify the supplied inputs and their documented definitions."
+      ],
+      "pandas_example": "import pandas as pd\n\nannual = pd.read_csv(\n    workspace / \"data_raw/allocated_cc/results/<allocated_cc_result>/annual_allocated_cc.csv\"\n)",
+      "reuse_and_refresh": [
+        "`set_workspace(refresh=True)` restores the package templates and leaves user-provided results unchanged.",
+        "Use a new result name after changing its contents."
+      ],
+      "provenance": [
+        "Every CSV row records its source in `cc_authority`.",
+        "The processed result identifier includes the normalized input contents and source-file hashes."
+      ],
+      "scientific_limitations": [
+        "The article supplies annual steady-state allocated carrying capacities and cumulative 2019-2100 GWP100 allocated carrying capacities as separate inputs. For the dynamic climate change carrying capacity, the calculation first sums each draw's annual allocated carrying capacities over 2019-2100 and then calculates the requested percentiles.",
+        "pyToCE uses complete allocated carrying capacity values. P5, P50 and P95 are the 5th, 50th (median), and 95th percentiles of the allocated carrying capacity distributions. Each is used as a separate deterministic allocated carrying capacity value in the ASR calculations."
+      ]
+    },
+    {
+      "guide_id": "allocated_cc_results",
+      "workspace_path": "data_raw/allocated_cc/results",
+      "title": "Allocated carrying capacity (aCC) results",
+      "purpose": "Place each complete aCC result in a separately named directory here.",
+      "created_by": "set_workspace",
+      "inputs": [
+        "One YAML file and two complete CSV files for each aCC result."
+      ],
+      "expected_contents": [
+        {
+          "name": "<allocated_cc_result>/",
+          "description": "one named result containing the YAML description and annual and cumulative CSV inputs"
+        }
+      ],
+      "tables_and_schemas": [
+        "Annual rows cover every input label, all 16 EF v3.1 impact categories, each world region, and every year from 2019 through 2100. Cumulative rows contain one 2019-2100 GWP100 allocated carrying capacity value for each input label and world region."
+      ],
+      "units_signs_and_identifiers": [
+        "Every aCC value is finite, strictly positive, and uses the registered LCIA unit.",
+        "The directory name and `allocated_cc_result` value must match. Case names use lowercase `snake_case`."
+      ],
+      "pandas_example": "import pandas as pd\n\nannual = pd.read_csv(\n    workspace / \"data_raw/allocated_cc/results/<allocated_cc_result>/annual_allocated_cc.csv\"\n)",
+      "reuse_and_refresh": [
+        "`set_workspace(refresh=True)` leaves every result in this directory unchanged.",
+        "Copy a template into a new directory and complete all required fields before running optimization."
+      ],
+      "provenance": [
+        "The `cc_authority` column gives the source for each value; the package also records both source-file and table hashes."
+      ],
+      "scientific_limitations": [
+        "Case names identify the supplied inputs. Record the allocation method, statistic, and data source for each case.",
+        "Templates are examples."
+      ]
+    },
+    {
+      "guide_id": "processed_allocated_cc",
+      "workspace_path": "data_processed/allocated_cc",
+      "title": "Processed allocated carrying capacity inputs",
+      "purpose": "This directory contains the processed tables created from each allocated carrying capacity (aCC) result.",
+      "created_by": "run_optimization",
+      "inputs": [
+        "A complete aCC result under `data_raw/allocated_cc/results/` and matching LCIA units from the prepared backgrounds."
+      ],
+      "expected_contents": [
+        {
+          "name": "<allocated_cc_result>/",
+          "description": "annual and cumulative allocated carrying capacity tables, two LCIA method tables, and `manifest.json`"
+        }
+      ],
+      "tables_and_schemas": [
+        "Each result contains the annual and cumulative allocated carrying capacity tables, the LCIA method tables, and `manifest.json`."
+      ],
+      "units_signs_and_identifiers": [
+        "aCC values use the exact LCIA unit.",
+        "The readable directory name selects the result; the manifest records its content identifier."
+      ],
+      "pandas_example": "import pandas as pd\n\nannual = pd.read_parquet(\n    workspace / \"data_processed/allocated_cc/<allocated_cc_result>/annual_allocated_cc.parquet\"\n)",
+      "reuse_and_refresh": [
+        "A complete result is reused.",
+        "`run_optimization(refresh=True)` recalculates the selected optimization result."
+      ],
+      "provenance": [
+        "The manifest records table hashes, source-file hashes, case names, and method identities. The processed tables retain LCIA units and row-level `cc_authority` values."
+      ],
+      "scientific_limitations": [
+        "Global aCC values are sums of the 12 regional values.",
+        "Changing an aCC input requires a new result name."
+      ]
+    },
+    {
+      "guide_id": "optimization_response_banks",
+      "workspace_path": "data_processed/optimization_response_bank",
+      "title": "Reusable optimization response tables",
+      "purpose": "These tables provide the provider responses used to evaluate candidate interventions.",
+      "created_by": "run_optimization",
+      "inputs": [
+        "The four prepared REMIND backgrounds, selected LCIA methods, and provider services."
+      ],
+      "expected_contents": [
+        {
+          "name": "four_remind/",
+          "description": "method-specific response results for the four REMIND backgrounds"
+        }
+      ],
+      "tables_and_schemas": [
+        "Each method directory contains provider_unit_responses.parquet, timex_year_weights.parquet, native_unit_responses.parquet, direct_characterization_factors.parquet, and a completion manifest.",
+        "`timex_year_weights.parquet` records `temporal_provider_share` values by `background_scenario`, `occurrence_year` and `provider_anchor_year` for annual activity years 2019-2100. These fixed-service weights link provider technology anchors. PA receiving parameters and cumulative climate change calculations use their respective input records. The manifest's `occurrence_years` pair gives the period bounds."
+      ],
+      "units_signs_and_identifiers": [
+        "Provider-service responses retain the background scenario, dated provider year, service, LCIA method, impact category and original product unit. `unit_score` is the signed net impact for one unit of the demanded reference product. `unit_contribution_norm` is the sum of absolute characterized supplier contributions for that same unit. The `unit` column gives the impact category unit; `provider_unit` gives the reference-product quantity unit.",
+        "Native activity responses retain the source year and database, the database used to construct the LCA matrix (`matrix_database`), and database/code identifiers for the activity and its reference product. `unit_score` and `unit_contribution_norm` use the same signed-score and absolute-contribution definitions for one reference-product unit. The `unit` column gives the impact category unit; `endpoint_unit` gives the reference-product quantity unit.",
+        "Direct characterization factors retain the original flow database, code, name, environmental compartment and unit, together with the LCIA method identifiers, factor and whether it is registered. A factor has the impact category unit per native elementary-flow unit. Explicit zero factors remain recorded. Portable flow identities link these factors to the native biosphere."
+      ],
+      "pandas_example": "import pandas as pd\n\nresponses = pd.read_parquet(\n    workspace / \"data_processed/optimization_response_bank/four_remind/<readable_response_method_union>/provider_unit_responses.parquet\"\n)",
+      "reuse_and_refresh": [
+        "The first optimization call creates the required response tables. Later calls reuse a completed matching result.",
+        "Completed response tables and prepared backgrounds are reused across compatible optimization requests."
+      ],
+      "provenance": [
+        "The manifest records the four prepared backgrounds, selected methods, provider services, and response-table identities."
+      ],
+      "scientific_limitations": [
+        "Native activity and provider-service responses are calculated separately for every REMIND background.",
+        "Polyamide treatment evaluates the complete waste mixture before interpolating impacts between dated general backgrounds: original ecoinvent through 2025, then the matching premise years. Polyamide receiving uses each native anchor's source parameters.",
+        "Direct characterization factors are read once for all required original flows. An absent factor is stored numerically as zero with `present=false`, identifying an uncharacterized flow. A registered zero factor has `present=true`.",
+        "A requested method must be present in every required prepared background."
+      ]
+    },
+    {
+      "guide_id": "optimization_results",
+      "workspace_path": "results/<foreground_scenario>/optimization_results",
+      "title": "Optimization results",
+      "purpose": "This directory contains the selected result for each requested optimization block, REMIND background, and allocated carrying capacity (aCC) input label.",
+      "created_by": "run_optimization",
+      "inputs": [
+        "The requested foreground scenario's completed MFA, one processed aCC result, selected baseline LCA results, and shared response tables. A missing shared response bank requires all four prepared REMIND backgrounds."
+      ],
+      "expected_contents": [
+        {
+          "name": "<allocated_cc_result>/<optimization_lcia_selection>/<readable_request_selection>__stock_lp_v6/selected_results/joint_lines_v1_stock_lp_v6__<result_lcia_selection>__grid_20pct__refinement_10_5pct/",
+          "description": "selected 2050 interventions and their 2100 results"
+        }
+      ],
+      "tables_and_schemas": [
+        "Tables report the selected intervention values, MFA feasibility, annual and cumulative absolute sustainability ratios (ASRs), environmental results, life cycle stages, and feedstock requirements. The method summary records the search history.",
+        "selected_coordinates.parquet reports endpoints, physical_status, diagnostic_code (null when feasible), requested_intervention_identity, realized_intervention_identity, repair_status and the actual stock-LP/MFA/pool counts. candidate_identity identifies the requested intervention, optimization block and completion year; a feasible returned intervention contains the actual trajectory that satisfies the MFA constraints.",
+        "selected_annual_interventions.parquet has candidate_identity, year, region, parameter_id and value columns. Values are fractions: demand/lifetime controls use a null region for 2019 through 2100; collection, four treatment shares and three virgin-feedstock shares retain all 12 world regions for 2020 through 2100. Regional 2019 remains the unchanged baseline. Paths using the unchanged parent controls retain the parent's actual regional values. Attempted paths remain present for unsuccessful timings as diagnostic trajectories. Join the MFA status using `candidate_identity`.",
+        "`selection_roles.parquet` maps each block, background and allocated carrying capacity label to selected 2050 and delayed request and MFA identities. Join `selection_candidate_identity` to coordinate `candidate_identity`; join score and feedstock `physical_candidate_identity` to the coordinate MFA identity. In the stage table, literal `candidate_identity` contains that MFA identity. Keep all role links and count each distinct MFA result once in aggregation. Compare MFA trajectories and inventories using their corresponding identities and complete records. Selection stability and `declared_neighborhood_verified` remain distinct.",
+        "Repair statuses are linear_feasible, stock_projection_feasible, local_pool_feasible, stock_infeasible_fixed_controls, unique_fixed_path_infeasible and repair_unresolved. The first three have admitted MFA trajectories; repair_unresolved records exhaustion of the declared repair alternatives. A stock_projection_feasible path comes from the single minimum-departure stock LP and passes complete MFA with the common local stock-roundoff convention. Solver-reported stock infeasibility applies to the submitted fixed-control formulation. A pool success records the minimum departure within the declared pool. Numerical/model failures remain execution errors.",
+        "mfa_evaluation_count and stock_lp_count report actual calls; pool_candidate_count and pool_evaluation_count distinguish the deduplicated pool from tested members. demand_departure_pp is mean absolute demand departure from linear in percentage points over adjustable years, reported for feasible paths.",
+        "Saved endpoint records retain `physical_repair_elapsed_seconds` and `environmental_evaluation_elapsed_seconds`; `method_summary.json` reports request totals. Incremental fields identify work performed in the call that produced the saved product and remain unchanged when it is reused. Count each distinct evaluation once when aggregating work.",
+        "An unsuccessful 2100 timing retains its coordinates, returned rejected trajectory (which may be the LP projection) and selection-role links as diagnostic records. Environmental, ASR, feedstock, and stage rows use paths admitted by the MFA. The valid 2050 selection and feasible timings remain reported; the selected endpoints remain fixed. Selected coordinate and unique MFA candidate counts include unsuccessful timing outcomes.",
+        "selected_feedstock_requirements.parquet reports 2019–2100 quantities in Mt by material, constituent, product and virgin feedstock route. Eligible polyolefins use separate gross virgin ethylene and propylene inputs after recovered-monomer substitution; other constituents use domestic plus exported new polymer. Keep the product and quantity fields separate. Route labels select fossil, biogenic or DAC-based technology.",
+        "`selected_annual_acc_asr.parquet` has `annual` and `cumulative_2019_2100` periods; cumulative `year=2100` denotes the period end. `compliant` compares every saved row with ASR=1. `controlled_for_selection` and nullable `selection_compliant` apply only to 2050 regional selection coordinates: annual 2020-2100 and cumulative climate change over 2019-2100. Annual 2019, global and delayed rows are diagnostic rather than selection constraints. Numerators and allocated carrying capacities have matched native impact category units. Use the admitted method/category correspondence for units. P5, P50 and P95 are the 5th, 50th (median), and 95th percentiles of the allocated carrying capacity distributions, each used as a separate deterministic input.",
+        "`selected_environmental_scores.parquet` contains annual candidate totals in native method units. `selected_life_cycle_stage_scores.parquet` contains annual and cumulative periods; cumulative `year` and `physical_event_year` are null, with period bounds 2019 and 2100. Select one period before aggregation. Environmental and ASR global rows use `global`; stage rows use `global_derived`. A global ASR divides separately summed regional numerators and denominators. Aggregate within one region scope, assessment period, and impact category.",
+        "`score` is signed LCIA impact; `contribution_norm` sums absolute characterized contributions in the same native unit. Candidate-minus-parent provider and PA adjustments reconstruct candidate totals; a negative adjustment means the candidate's burden is below its parent's burden. A sparse absent side represents zero activity at its exact coordinate. Stage results retain their recorded stage coordinates.",
+        "The repair timer covers repair or repair reuse, including admission, solve and pool work. The environmental timer includes completion, scoring and feedstock-identity calculation. Both are per-worker elapsed durations excluding initialization and final result encoding. Concurrent worker durations can overlap."
+      ],
+      "units_signs_and_identifiers": [
+        "Endpoint demand reduction, lifetime extension, collection, treatment shares and feedstock shares are percentage targets; annual controls are fractions. Explicit treatment and feedstock shares each total 100 percent. Null circularity endpoints mean unchanged parent controls. `mechanical_fraction_of_recycling` is mechanical recycling divided by mechanical plus chemical recycling; it is undefined when total recycling is zero. An unsuccessful timing is represented by its diagnostic records.",
+        "Demand reduction scales the contemporaneous stock target. Lifetime extension changes the mean with the original relative dispersion. Completion in 2100 uses fresh linear transitions to the selected endpoints and the same demand-only repair. Active circularity combines each calendar year's parent value with the endpoint using the revised completion weight. Inactive controls and controls using the unchanged parent retain the actual parent path."
+      ],
+      "pandas_example": "import pandas as pd\n\nselected = pd.read_parquet(\n    workspace\n    / \"results/<foreground_scenario>/optimization_results\"\n    / \"<allocated_cc_result>/<optimization_lcia_selection>\"\n    / \"<readable_request_selection>__stock_lp_v6/selected_results\"\n    / \"joint_lines_v1_stock_lp_v6__<result_lcia_selection>__grid_20pct__refinement_10_5pct\"\n    / \"selected_coordinates.parquet\"\n)",
+      "reuse_and_refresh": [
+        "A result with its completion manifest is reused.",
+        "`run_optimization(refresh=True)` refreshes only the selected optimization result."
+      ],
+      "provenance": [
+        "The manifest records the candidate search, selected aCC result, response tables, and selected baseline LCA results used for each selection."
+      ],
+      "scientific_limitations": [
+        "The search compares endpoint settings. A feasible linear path stays unchanged even if environmentally noncompliant. Only demand may be repaired; lifetime and the other active controls keep prescribed linear transitions. One conditional stock LP minimizes demand departure.",
+        "Full MFA uses the common local stock-roundoff convention. An MFA rejection leads to the original immutable demand-only local pool. Solver-reported infeasibility is conditional on the submitted stock formulation. Every admitted MFA path passes full MFA through 2100.",
+        "Repair selects a path using stock constraints and MFA feasibility, after which that path receives environmental scores. A local repair is nearest within that pool only; numerical LP optima can be nonunique, and unresolved repair leaves other paths unexamined. Paths with zero demand reduction, including Block II, retain their fixed demand timing.",
+        "Final verification covers scalar/coordinated endpoint alternatives at the final requested refinement step around the same winner. Unresolved neighboring repairs prevent an unqualified verification claim. The default initial grid is 20 percentage points, followed by 10 then 5 percentage-point refinement; users can select the documented coarse grid and strictly decreasing refinement steps. Steps of 5 points or finer and the final requested step are unpruned. Improvements between evaluated endpoints can be missed.",
+        "The demand-repair grid remains one percentage point. The selected endpoints are ranked among the combinations evaluated by the finite starts and refinement steps. Intervention distance compares endpoints with the requested parent at the target year. Annual trajectories and demand-repair departure are reported separately. Saved candidate records count endpoint outcomes, including unsuccessful ones.",
+        "Absolute environmental sustainability compliance requires ASR at most 1 for each region and each studied year from 2020 to 2100 for the steady-state EF 3.1 carrying capacities, and over the cumulative 2019-2100 period for the dynamic climate change carrying capacity. Annual 2019 values are reported as the reference-year results. Compliant selection minimizes the CE intervention distance for the corresponding block, then retains the combination whose highest ASR is closest to one. If no tested combination is fully compliant, the result uses `selected_noncompliant`. Fallback combinations are ranked successively by the number of fully compliant regions, fully compliant impact categories, compliant region-impact category pairs, and individual compliant ASRs. Remaining ties minimize maximum positive ASR exceedance, mean positive ASR exceedance, and CE intervention distance. Cumulative GWP100 is counted separately from annual climate change.",
+        "Results remain separate for the selected REMIND backgrounds."
+      ]
+    }
+  ]
+}

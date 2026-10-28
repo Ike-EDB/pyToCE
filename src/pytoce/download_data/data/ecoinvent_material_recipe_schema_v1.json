@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "pyToCE local ecoinvent plastics recipe",
+  "description": "Input derived locally from licensed ecoinvent data. The schema specifies fields and numeric bounds; the recipe derivation determines the allocation treatment, exchange signs and balances.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "method",
+    "identity",
+    "source_identity",
+    "preparation_processed_kg_per_bale_kg",
+    "preparation_reject_kg_per_bale_kg",
+    "polymers",
+    "hydrothermal_products",
+    "cracker_products",
+    "conversion",
+    "mechanical_recovery",
+    "recycling_operations",
+    "datasets"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "pytoce_ecoinvent_material_recipe_schema_v1"
+    },
+    "method": {
+      "const": "pytoce_ecoinvent_physical_plastics_v5"
+    },
+    "identity": {
+      "type": "string",
+      "pattern": "^pytoce_ecoinvent_material_recipe_schema_v1::[0-9a-f]{64}$",
+      "description": "SHA-256 of canonical JSON excluding this identity field."
+    },
+    "source_identity": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Source catalog identifier followed by :: and the authenticated archive SHA-256."
+    },
+    "preparation_processed_kg_per_bale_kg": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "description": "Mass of processed plastic in kg per kg of the original waste bale. Named nonplastic outputs are excluded from tracked plastic; an inseparable minor dust fraction remains included."
+    },
+    "preparation_reject_kg_per_bale_kg": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "description": "Mass of plastic reject in kg per kg of the original waste bale; its treatment is included in the native preparation inventory."
+    },
+    "polymers": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "$ref": "#/$defs/polymer"
+      },
+      "description": "HDPE, LDPE, PP in that order. Monomer inputs and product carbon are kg/kg granulate; the original allocation is undone only for material inputs."
+    },
+    "hydrothermal_products": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "$ref": "#/$defs/yield"
+      },
+      "description": "Naphtha, distillate gas oil, heavy gas oil, heavy wax residue in order; kg/kg processed plastic feed, with kg carbon/kg product."
+    },
+    "cracker_products": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "$ref": "#/$defs/yield"
+      },
+      "description": "Ethylene, propylene, C4, pyrolysis gas BTX, hydrogen, external fuel gas, external fuel oil in order; kg/kg naphtha-equivalent feed, with kg carbon/kg product."
+    },
+    "datasets": {
+      "type": "array",
+      "minItems": 35,
+      "maxItems": 35,
+      "items": {
+        "$ref": "#/$defs/dataset"
+      },
+      "description": "Exact licensed member identities: chemical conversion, manufacturing, three UPR references, seven recycling operations and three pelletizing operations."
+    },
+    "conversion": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {
+        "$ref": "#/$defs/conversion"
+      },
+      "description": "Sixteen fixed manufacturing operations. Principal feed is kg gross principal per kg finished principal. Native-service normalization is separate; reconstructed finished-output services use unity, and finished PUR includes conversion in its production inventory."
+    },
+    "recycling_operations": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "description": "Native dry feed per kg reference output for seven preparation operations and PET finishing. Preparation bases normalize allocated LCI burdens; the admitted PET finishing ratio also supplies flakes per finished pellet kg.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["operation", "dry_feed_kg_per_reference_kg"],
+        "properties": {
+          "operation": {"enum": ["hdpe", "ldpe", "pp", "pvc", "pet", "ps", "weee", "pet_finishing"]},
+          "dry_feed_kg_per_reference_kg": {"type": "number", "exclusiveMinimum": 0}
+        }
+      }
+    },
+    "mechanical_recovery": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "$ref": "#/$defs/mechanical_recovery"
+      },
+      "description": "Fixed named principal recovery and loss fates in kg/kg dry incoming principal. These are fixed engineering source transfers. Managed mass is the remaining principal after recovered, waterborne and airborne outputs."
+    }
+  },
+  "$defs": {
+    "polymer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "polymer",
+        "ethylene_kg_per_kg",
+        "propylene_kg_per_kg",
+        "carbon_kg_per_kg",
+        "allocation_factor"
+      ],
+      "properties": {
+        "polymer": {
+          "enum": [
+            "hdpe",
+            "ldpe",
+            "pp"
+          ]
+        },
+        "ethylene_kg_per_kg": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "propylene_kg_per_kg": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "carbon_kg_per_kg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "allocation_factor": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "yield": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product",
+        "kg_per_kg_feed",
+        "carbon_kg_per_kg"
+      ],
+      "properties": {
+        "product": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kg_per_kg_feed": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "carbon_kg_per_kg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "member",
+        "sha256",
+        "activity_id",
+        "product_id"
+      ],
+      "properties": {
+        "member": {
+          "type": "string",
+          "pattern": "^datasets/[0-9a-f-]{36}_[0-9a-f-]{36}\\.spold$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "activity_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "product_id": {
+          "type": "string",
+          "format": "uuid"
+        }
+      }
+    },
+    "conversion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation",
+        "principal_feed_kg_per_finished_kg",
+        "finished_kg_per_native_service_kg",
+        "principal_exits"
+      ],
+      "properties": {
+        "operation": {
+          "enum": [
+            "conversion_injection",
+            "conversion_film",
+            "conversion_pipe",
+            "conversion_blow",
+            "conversion_calendering",
+            "conversion_foaming",
+            "fibres_pet_conversion",
+            "fibres_pp_conversion",
+            "fibres_pa6_conversion",
+            "fibres_pa66_conversion",
+            "conversion_tyre",
+            "pur_conversion_included_in_finished_products",
+            "others_esbr_compounding_conversion",
+            "others_epoxy_coating_conversion",
+            "others_road_marking_conversion",
+            "others_upr_hand_lay_up_conversion"
+          ]
+        },
+        "principal_feed_kg_per_finished_kg": {
+          "type": "number",
+          "minimum": 1
+        },
+        "finished_kg_per_native_service_kg": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "principal_exits": {
+          "type": "array",
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/principal_exit"
+          }
+        }
+      }
+    },
+    "principal_exit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "kg_per_finished_kg"
+      ],
+      "properties": {
+        "name": {
+          "enum": [
+            "principal_remainder",
+            "styrene_air",
+            "post_release_solid",
+            "butadiene_air",
+            "extrusion_dust",
+            "container_residue",
+            "methyl_methacrylate_air",
+            "preparation_residue",
+            "settled_overspray",
+            "airborne_overspray",
+            "caprolactam_air",
+            "caprolactam_collected_water",
+            "spinning_equipment_deposits"
+          ]
+        },
+        "kg_per_finished_kg": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "mechanical_recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "recovered_kg_per_input_kg",
+        "waterborne_kg_per_input_kg",
+        "airborne_kg_per_input_kg",
+        "managed_treatment"
+      ],
+      "properties": {
+        "name": {
+          "enum": [
+            "hdpe_granulate",
+            "ldpe_granulate",
+            "pp_granulate",
+            "pet_granulate",
+            "ps_granulate",
+            "engineering_granulate",
+            "pa_granulate",
+            "pvc_granulate",
+            "tps_compound",
+            "phb_granulate",
+            "biopolyester_granulate"
+          ]
+        },
+        "recovered_kg_per_input_kg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "waterborne_kg_per_input_kg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "airborne_kg_per_input_kg": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "managed_treatment": {
+          "enum": [
+            "incineration",
+            "landfill"
+          ]
+        }
+      }
+    }
+  }
+}

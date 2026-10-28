@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pytoce_cumulative_gwp100_allocated_cc_schema_v1",
+  "title": "Cumulative GWP100 allocated carrying capacities for 2019-2100",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "allocated_cc_case",
+    "region",
+    "impact_category_id",
+    "period_start",
+    "period_end",
+    "cumulative_allocated_cc",
+    "unit",
+    "budget_metric",
+    "cc_authority"
+  ],
+  "properties": {
+    "allocated_cc_case": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "region": {
+      "type": "string"
+    },
+    "impact_category_id": {
+      "const": "climate_change"
+    },
+    "period_start": {
+      "const": 2019
+    },
+    "period_end": {
+      "const": 2100
+    },
+    "cumulative_allocated_cc": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "budget_metric": {
+      "const": "ef31_climate_change_gwp100_all_ghg"
+    },
+    "cc_authority": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

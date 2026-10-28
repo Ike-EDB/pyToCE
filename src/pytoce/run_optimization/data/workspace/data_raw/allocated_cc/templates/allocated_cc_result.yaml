@@ -1,0 +1,8 @@
+schema_version: pytoce_allocated_cc_result_schema_v1
+allocated_cc_result: example_allocated_cc
+description: Replace with a short description.
+ssp_scenario: SSP2
+lcia_method:
+  - ef31
+annual_allocated_cc: annual_allocated_cc.csv
+cumulative_gwp100_allocated_cc: cumulative_gwp100_allocated_cc.csv

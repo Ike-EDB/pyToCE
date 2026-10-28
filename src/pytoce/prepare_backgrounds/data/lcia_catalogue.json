@@ -1,0 +1,387 @@
+{
+  "schema_version": "pytoce_lcia_catalogue_schema_v1",
+  "sources": {
+    "ef31": {
+      "publisher": "ecoinvent Association",
+      "ecoinvent_version": "3.12",
+      "source_archive": "ecoinvent 3.12_LCIA_implementation.7z",
+      "source_archive_sha256": "ac6d6de67b7c46be0b935554d1e851811e3073dba8e8364e52fa27c409af0c53",
+      "source_workbook": "LCIA Implementation 3.12.xlsx",
+      "source_workbook_sha256": "6bc4e6475877e8e90d8a6184b681366154cc5f6ec42c7cec54eb871224b33e02",
+      "source_report": "https://support.ecoinvent.org/hubfs/Knowledge%20Base/Database/Releases/3.12/LCIA%20Implementation%20v3.12.pdf",
+      "selection_authority": "Commission Recommendation (EU) 2021/2279, Annex I, Table 2",
+      "selection_authority_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32021H2279",
+      "selection_explanatory_url": "https://eplca.jrc.ec.europa.eu/uploads/EF_categories_description.pdf",
+      "selection_rule": "retain the standard 16 EF v3.1 midpoint categories in filtered ecoinvent-workbook order; exclude nine additional implementation-workbook subgroup indicators",
+      "license": "User-supplied licensed ecoinvent supporting data"
+    },
+    "pb_lcia": {
+      "repository": "Ike-EDB/PB-LCIA",
+      "branch": "ei_312",
+      "version": "0.9.2",
+      "commit": "00003e27a04bfc5662bf561cf7a092ba5324d67c",
+      "archive_sha256": "3e7520cc95a48dd00ab366ed53e103eed04224da21c9f099912e4f52ad1ec144",
+      "license": "BSD-3-Clause",
+      "doi": "10.5281/zenodo.7575887",
+      "doi_citation_role": "Upstream implementation: Victor Tulus (2023), v0.9.0. The ecoinvent 3.12 adaptation uses v0.9.2."
+    }
+  },
+  "impact_categories": [
+    {
+      "order": 1,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "acidification",
+      "tuple": [
+        "EF v3.1",
+        "acidification",
+        "accumulated exceedance (AE)"
+      ],
+      "unit": "mol H+-Eq",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 2,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "climate_change",
+      "tuple": [
+        "EF v3.1",
+        "climate change",
+        "global warming potential (GWP100)"
+      ],
+      "unit": "kg CO2-Eq",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 3,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "ecotoxicity_freshwater",
+      "tuple": [
+        "EF v3.1",
+        "ecotoxicity: freshwater",
+        "comparative toxic unit for ecosystems (CTUe)"
+      ],
+      "unit": "CTUe",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 4,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "energy_resources_non_renewable",
+      "tuple": [
+        "EF v3.1",
+        "energy resources: non-renewable",
+        "abiotic depletion potential (ADP): fossil fuels"
+      ],
+      "unit": "MJ, net calorific value",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 5,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "eutrophication_freshwater",
+      "tuple": [
+        "EF v3.1",
+        "eutrophication: freshwater",
+        "fraction of nutrients reaching freshwater end compartment (P)"
+      ],
+      "unit": "kg P-Eq",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 6,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "eutrophication_marine",
+      "tuple": [
+        "EF v3.1",
+        "eutrophication: marine",
+        "fraction of nutrients reaching marine end compartment (N)"
+      ],
+      "unit": "kg N-Eq",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 7,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "eutrophication_terrestrial",
+      "tuple": [
+        "EF v3.1",
+        "eutrophication: terrestrial",
+        "accumulated exceedance (AE)"
+      ],
+      "unit": "mol N-Eq",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 8,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "human_toxicity_carcinogenic",
+      "tuple": [
+        "EF v3.1",
+        "human toxicity: carcinogenic",
+        "comparative toxic unit for human (CTUh)"
+      ],
+      "unit": "CTUh",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 9,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "human_toxicity_non_carcinogenic",
+      "tuple": [
+        "EF v3.1",
+        "human toxicity: non-carcinogenic",
+        "comparative toxic unit for human (CTUh)"
+      ],
+      "unit": "CTUh",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 10,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "ionising_radiation_human_health",
+      "tuple": [
+        "EF v3.1",
+        "ionising radiation: human health",
+        "human exposure efficiency relative to u235"
+      ],
+      "unit": "kBq U235-Eq",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 11,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "land_use",
+      "tuple": [
+        "EF v3.1",
+        "land use",
+        "soil quality index"
+      ],
+      "unit": "dimensionless",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 12,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "material_resources_metals_minerals",
+      "tuple": [
+        "EF v3.1",
+        "material resources: metals/minerals",
+        "abiotic depletion potential (ADP): elements (ultimate reserves)"
+      ],
+      "unit": "kg Sb-Eq",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 13,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "ozone_depletion",
+      "tuple": [
+        "EF v3.1",
+        "ozone depletion",
+        "ozone depletion potential (ODP)"
+      ],
+      "unit": "kg CFC-11-Eq",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 14,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "particulate_matter_formation",
+      "tuple": [
+        "EF v3.1",
+        "particulate matter formation",
+        "impact on human health"
+      ],
+      "unit": "disease incidence",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 15,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "photochemical_oxidant_formation_human_health",
+      "tuple": [
+        "EF v3.1",
+        "photochemical oxidant formation: human health",
+        "tropospheric ozone concentration increase"
+      ],
+      "unit": "kg NMVOC-Eq",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 16,
+      "method_id": "ef31",
+      "method_version": "3.1",
+      "impact_category_id": "water_use",
+      "tuple": [
+        "EF v3.1",
+        "water use",
+        "user deprivation potential (deprivation-weighted water consumption)"
+      ],
+      "unit": "m3 world Eq deprived",
+      "source_member": "LCIA Implementation 3.12.xlsx"
+    },
+    {
+      "order": 17,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "atmospheric_aerosol_loading_aod_global",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "atmospheric aerosol loading",
+        "AOD (Global)"
+      ],
+      "unit": "yr/kg",
+      "source_member": "aesa_Atmospheric_aerosol_loading.yaml"
+    },
+    {
+      "order": 18,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "biogeochemical_flows_nitrogen_inverse_modelling_surface_water",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "biogeochemical flows",
+        "nitrogen",
+        "inverse modelling",
+        "surface water"
+      ],
+      "unit": "Tg N",
+      "source_member": "aesa_BiogeochemicalFlows_N_inverseModelling_surfaceWater.yaml"
+    },
+    {
+      "order": 19,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "biogeochemical_flows_phosphorus",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "biogeochemical flows",
+        "phosphorus"
+      ],
+      "unit": "Tg P",
+      "source_member": "aesa_BiogeochemicalFlows_P.yaml"
+    },
+    {
+      "order": 20,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "biosphere_integrity_functional_diversity_total",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "change in biosphere integrity",
+        "functional diversity",
+        "total"
+      ],
+      "unit": "% BII loss",
+      "source_member": "aesa_ChangeBiosphereIntegrity_FunctionalDiversity_Hierarchist.yaml"
+    },
+    {
+      "order": 21,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "climate_change_atmospheric_co2_concentration",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "climate change",
+        "atmospheric CO2 concentration"
+      ],
+      "unit": "ppm",
+      "source_member": "aesa_ClimateChange_AtmosphericCO2Concentration.yaml"
+    },
+    {
+      "order": 22,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "climate_change_energy_imbalance",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "climate change",
+        "energy imbalance at top-of-atmosphere"
+      ],
+      "unit": "Wm-2",
+      "source_member": "aesa_ClimateChange_EnergyImbalance.yaml"
+    },
+    {
+      "order": 23,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "freshwater_use_global",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "freshwater use",
+        "global"
+      ],
+      "unit": "km3",
+      "source_member": "aesa_FreshwaterUse_Global.yaml"
+    },
+    {
+      "order": 24,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "land_system_change_global",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "land-system change",
+        "global"
+      ],
+      "unit": "% forested land",
+      "source_member": "aesa_LandSystemChange_Global.yaml"
+    },
+    {
+      "order": 25,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "ocean_acidification_carbonate_ion_concentration",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "ocean acidification",
+        "carbonate ion concentration"
+      ],
+      "unit": "omega aragonite",
+      "source_member": "aesa_OceanAcidification_CarbontateIonConcentration.yaml"
+    },
+    {
+      "order": 26,
+      "method_id": "pb_lcia",
+      "method_version": "0.9.2",
+      "impact_category_id": "ozone_depletion_stratospheric_o3_concentration",
+      "tuple": [
+        "AESA (PBs-LCIA)",
+        "0.9.2",
+        "ozone depletion",
+        "stratospheric O3 concentration"
+      ],
+      "unit": "Dobson unit",
+      "source_member": "aesa_OzoneDepletion_StratosphericO3Concentration.yaml"
+    }
+  ],
+  "excluded_pb_source_members": [
+    "aesa_BiogeochemicalFlows_N_directlyFixated.yaml",
+    "aesa_ChangeBiosphereIntegrity_FunctionalDiversity_Hierarchist_land_use.yaml",
+    "aesa_ChangeBiosphereIntegrity_FunctionalDiversity_Hierarchist_CO2eq_emissions.yaml"
+  ]
+}

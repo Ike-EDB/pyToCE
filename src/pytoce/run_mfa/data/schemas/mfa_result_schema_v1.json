@@ -1,0 +1,223 @@
+{
+  "schema_version": "pytoce_mfa_result_schema_v1",
+  "sankey_method": {
+    "identity": "pytoce_mfa_sankey_pooled_process_nodes_v1",
+    "node_coordinates": ["foreground_scenario", "year", "region", "material", "good", "element", "process"],
+    "node_good": "Use all at fabrication and eol only; preserve the flow's good at every other process, including use, good_market and sysenv.",
+    "edge_identity_coordinates": ["source_node_id", "target_node_id", "source_flow_name"],
+    "edge_semantics": "Retain every original flow coordinate, good, amount, unit and nominal element basis. Source and target nodes each use their own process-specific good.",
+    "reporting_years": [2019, 2100],
+    "zero_flow_policy": "Omit exact zero amounts."
+  },
+  "artifacts": [
+    {
+      "path": "resolved_annual_input_parameters.parquet",
+      "required_columns": [
+        "parameter_id",
+        "year",
+        "resolved_value",
+        "requested_value",
+        "default_value",
+        "unit"
+      ]
+    },
+    {
+      "path": "derived_annual_outputs.parquet",
+      "required_columns": [
+        "parameter_id",
+        "year",
+        "region",
+        "amount",
+        "unit",
+        "parameter_role",
+        "material",
+        "good",
+        "process",
+        "route",
+        "derivation_status"
+      ]
+    },
+    {
+      "path": "flows.parquet",
+      "required_columns": [
+        "foreground_scenario",
+        "year",
+        "source_flow_name",
+        "amount",
+        "unit",
+        "region",
+        "material",
+        "good",
+        "element",
+        "basis"
+      ]
+    },
+    {
+      "path": "stocks.parquet",
+      "required_columns": [
+        "foreground_scenario",
+        "year",
+        "source_stock_name",
+        "stock_quantity",
+        "amount",
+        "unit",
+        "region",
+        "material",
+        "good",
+        "element",
+        "basis"
+      ]
+    },
+    {
+      "path": "material_realization.parquet",
+      "required_columns": [
+        "year",
+        "region",
+        "flow_name",
+        "source_material",
+        "source_constituent",
+        "destination_material",
+        "destination_constituent",
+        "product",
+        "amount",
+        "unit"
+      ]
+    },
+    {
+      "path": "nominal_feedstock_equivalents.parquet",
+      "required_columns": [
+        "year",
+        "region",
+        "material",
+        "feedstock",
+        "amount",
+        "unit",
+        "basis"
+      ]
+    },
+    {
+      "path": "cohort_state.parquet",
+      "required_columns": [
+        "foreground_scenario",
+        "event_year",
+        "cohort_year",
+        "region",
+        "good",
+        "stock_quantity",
+        "amount",
+        "unit",
+        "cohort_origin_status",
+        "time_interval_years"
+      ]
+    },
+    {
+      "path": "cohort_material_identity.parquet",
+      "required_columns": [
+        "foreground_scenario",
+        "cohort_year",
+        "region",
+        "material",
+        "good",
+        "material_share",
+        "unit",
+        "material_identity_status"
+      ]
+    },
+    {
+      "path": "cohort_composition.parquet",
+      "required_columns": [
+        "element",
+        "material",
+        "content_fraction",
+        "unit",
+        "parameter_origin"
+      ]
+    },
+    {
+      "path": "physical_reconciliation_ledger.parquet",
+      "required_columns": [
+        "year",
+        "region",
+        "material",
+        "quantity",
+        "requested_amount",
+        "admitted_amount",
+        "delta",
+        "unit",
+        "method"
+      ]
+    },
+    {
+      "path": "stock_balance.parquet",
+      "required_columns": [
+        "validation_check",
+        "status"
+      ]
+    },
+    {
+      "path": "transition_ledger.parquet",
+      "required_columns": [
+        "year",
+        "region",
+        "good",
+        "opening_stock",
+        "closing_stock",
+        "stock_target",
+        "transition_method"
+      ]
+    },
+    {
+      "path": "waste_trade_propensity_ledger.parquet",
+      "required_columns": [
+        "year",
+        "region",
+        "local_pretrade_collected_mt",
+        "import_propensity",
+        "export_propensity",
+        "import_propensity_basis",
+        "export_propensity_basis",
+        "import_propensity_authority_identity",
+        "export_propensity_authority_identity",
+        "source_input_waste_imports_mt",
+        "source_input_waste_exports_mt",
+        "balanced_waste_imports_mt",
+        "balanced_waste_exports_mt",
+        "global_trade_balance_residual_mt",
+        "status"
+      ]
+    },
+    {
+      "path": "sankey/edges.parquet",
+      "required_columns": [
+        "foreground_scenario",
+        "year",
+        "region",
+        "material",
+        "good",
+        "element",
+        "source_flow_name",
+        "source_process",
+        "target_process",
+        "source_node_id",
+        "target_node_id",
+        "amount",
+        "unit",
+        "basis",
+        "edge_id"
+      ]
+    },
+    {
+      "path": "sankey/nodes.parquet",
+      "required_columns": [
+        "foreground_scenario",
+        "year",
+        "region",
+        "material",
+        "good",
+        "element",
+        "process",
+        "node_id"
+      ]
+    }
+  ]
+}

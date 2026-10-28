@@ -1,0 +1,16 @@
+schema_version: pytoce_foreground_scenario_schema_v1
+foreground_scenario: example_stock_volume
+ssp_scenario: SSP2
+description: >-
+  Relative changes to in-use stock targets for every world region and end-use group.
+changes:
+  - parameter: stock_projection
+    selector: uniform_all_h12_goods
+    changes:
+      - year: 2030
+        mode: multiplier_from_default
+        value: 1.05
+        interpolation: step
+      - year: 2050
+        mode: delta_from_default
+        value: 0.0

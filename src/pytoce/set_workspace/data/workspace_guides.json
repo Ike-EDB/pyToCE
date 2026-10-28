@@ -1,0 +1,179 @@
+{
+  "schema_version": "pytoce_set_workspace_workspace_guides_schema_v1",
+  "guides": [
+    {
+      "guide_id": "data_raw",
+      "workspace_path": "data_raw",
+      "title": "Raw source data",
+      "purpose": "This directory holds user-supplied licensed inputs, downloaded source archives, editable foreground scenario files, and allocated carrying capacity (aCC) inputs.",
+      "created_by": "set_workspace",
+      "inputs": ["Scenario and aCC templates installed by `set_workspace`.", "Licensed ecoinvent archives and complete aCC results supplied by the user.", "Public sources downloaded by `download_data` and premise IAM files downloaded by `prepare_backgrounds`."],
+      "expected_contents": [
+        {"name": "foreground_scenarios/", "description": "default inputs, schemas, authoring templates, and runnable YAML scenarios"},
+        {"name": "ecoinvent/", "description": "licensed ecoinvent 3.12 archives, extracted LCIA workbook, source manifest, and adjacent guide"},
+        {"name": "remind_mfa/", "description": "REMIND-MFA 0.2.0 code and input data 1.0.0 archives with their source manifest and guide"},
+        {"name": "pb_lcia/", "description": "AESA PB-LCIA source archive, source manifest, and guide"},
+        {"name": "premise/", "description": "premise IAM files downloaded for each prepared background scenario"},
+        {"name": "allocated_cc/", "description": "allocated carrying capacity templates and complete results"},
+        {"name": "methodological_notes/", "description": "article and Methodological appendix PDFs, per-unit LCI workbook, and citation guide"}
+      ],
+      "tables_and_schemas": ["Each child guide names the applicable manifest or schema."],
+      "units_signs_and_identifiers": ["Source archives preserve their native bytes and units.", "Folder names use readable source or workflow names; hashes remain inside manifests."],
+      "pandas_example": "import pandas as pd\n\ndefaults = pd.read_parquet(\n    workspace / \"data_raw/foreground_scenarios/default_inputs/default_input_values.parquet\"\n)",
+      "reuse_and_refresh": ["`set_workspace` installs missing package inputs.", "Each workflow's guide describes its refresh scope."],
+      "scientific_limitations": ["Raw files provide the sources for subsequent processing and calculations.", "The user supplies licensed ecoinvent content locally."]
+    },
+    {
+      "guide_id": "methodological_notes",
+      "workspace_path": "data_raw/methodological_notes",
+      "title": "Methodological documentation",
+      "purpose": "This directory contains the per-unit life cycle inventory (LCI) workbook, citation guidance, and article and Methodological appendix PDFs.",
+      "created_by": "set_workspace",
+      "inputs": ["Documentation resources supplied with pyToCE."],
+      "expected_contents": [
+        {"name": "LCI_per_unit.xlsx", "description": "per-unit inventory quantities, provider identifiers, equations, source references, and reading guidance"},
+        {"name": "pytoce_article.pdf", "description": "article PDF"},
+        {"name": "pytoce_methodological_appendix.pdf", "description": "Methodological appendix PDF"},
+        {"name": "recommended_citations.txt", "description": "software, data, and methodological citations"}
+      ],
+      "tables_and_schemas": ["The workbook's Read me sheet explains its linked inventory and source tables; each table retains its quantity basis and provenance."],
+      "units_signs_and_identifiers": ["Inventory quantities retain the reference units and process boundaries stated in the workbook."],
+      "pandas_example": "import pandas as pd\n\nworkbook = pd.ExcelFile(workspace / \"data_raw/methodological_notes/LCI_per_unit.xlsx\")\nprint(workbook.sheet_names)",
+      "reuse_and_refresh": ["`set_workspace` installs missing documentation and preserves existing files by default.", "`set_workspace(refresh=True)` restores package-named documentation files along with the other packaged workspace files; files with other names are preserved."],
+      "scientific_limitations": ["The workbook documents the model's life cycle inventories.", "Reproduction of the referenced native exchange vectors requires separately licensed ecoinvent inputs.", "The workbook's Sources and Source uses sheets link the quantities to their references."]
+    },
+    {
+      "guide_id": "data_processed",
+      "workspace_path": "data_processed",
+      "title": "Reusable processed calculation inputs",
+      "purpose": "This directory holds reusable inputs produced from raw sources for MFA, LCA, monitoring ASR, and optimization.",
+      "created_by": "set_workspace",
+      "inputs": ["Raw sources under `data_raw/`.", "Compiled foreground scenarios, extracted REMIND-MFA files, prepared Brightway backgrounds, processed allocated carrying capacity (aCC) results, and response tables."],
+      "expected_contents": [
+        {"name": "ecoinvent/", "description": "plastics recipe derived locally from licensed EcoSpold inputs"},
+        {"name": "foreground_scenarios/", "description": "compiled annual foreground-scenario inputs"},
+        {"name": "remind_mfa/", "description": "extracted REMIND-MFA 0.2.0 execution source"},
+        {"name": "brightway/", "description": "dependency-controlled Brightway storage"},
+        {"name": "prepared_backgrounds/", "description": "shared and background-specific prospective LCA data"},
+        {"name": "allocated_cc/", "description": "processed aCC results"},
+        {"name": "optimization_response_bank/", "description": "reusable environmental responses for optimization"}
+      ],
+      "tables_and_schemas": ["Each processed product records its schema, source identities, and input hashes in its completion file."],
+      "units_signs_and_identifiers": ["Scientific tables use their declared native or model units.", "Readable foreground and background names identify child directories."],
+      "pandas_example": "import pandas as pd\n\ncompiled = pd.read_parquet(\n    workspace / \"data_processed/foreground_scenarios/remind_mfa_default/compiled_annual_input_parameters.parquet\"\n)",
+      "reuse_and_refresh": ["Completed children are selected by readable directory name and manifest existence.", "Check the creating workflow's guide for its supported refresh options and scope."],
+      "scientific_limitations": ["Processed inputs support the subsequent MFA, LCA, and ASR calculations.", "Manage Brightway's internal directory through Brightway's own operations."]
+    },
+    {
+      "guide_id": "results",
+      "workspace_path": "results",
+      "title": "Scientific results",
+      "purpose": "This directory contains completed MFA, LCA, monitoring ASR, and optimization results for each foreground scenario.",
+      "created_by": "set_workspace",
+      "inputs": ["Completed foreground scenarios, REMIND-MFA sources, selected prepared backgrounds, and processed allocated carrying capacity (aCC) results when optimization is requested."],
+      "expected_contents": [
+        {"name": "<foreground_scenario>/", "description": "one readable scenario directory containing `mfa_results/` and, when requested, `lca_results/`, `asr_results/`, and `optimization_results/`"}
+      ],
+      "tables_and_schemas": ["Each result directory has its own manifest and adjacent guide."],
+      "units_signs_and_identifiers": ["Units are explicit in result tables.", "Directory names use the readable foreground scenario; content hashes are stored in manifests."],
+      "pandas_example": "import pandas as pd\n\nscores = pd.read_parquet(\n    workspace / \"results/remind_mfa_default/lca_results/<selection>/scores.parquet\"\n)",
+      "reuse_and_refresh": ["Public workflows reuse a completed result when its manifest exists.", "After changing an input under the same name, use `refresh=True` on the workflow that creates the result."],
+      "scientific_limitations": ["Results are valid only for the inputs and methods recorded in their manifests.", "Global values are derived from the 12 regional results."]
+    },
+    {
+      "guide_id": "foreground_scenarios",
+      "workspace_path": "data_raw/foreground_scenarios",
+      "title": "Foreground scenario inputs",
+      "purpose": "This directory contains the versioned parameter catalog and all YAML materials used to write prospective plastics scenarios.",
+      "created_by": "set_workspace",
+      "inputs": ["REMIND-MFA SSP2 defaults and parameter definitions supplied with the package.", "YAML files placed by the user only in `scenarios/`."],
+      "expected_contents": [
+        {"name": "default_inputs/", "description": "machine-readable parameter catalog and annual default values"},
+        {"name": "schemas/", "description": "JSON contracts for scenario and result structures"},
+        {"name": "templates/", "description": "non-runnable templates, examples, annual CSV view, and focused authoring guide"},
+        {"name": "scenarios/", "description": "the sole runnable scenario-discovery directory"}
+      ],
+      "tables_and_schemas": ["`default_inputs/default_input_values.parquet` supplies coordinate-level defaults; `schemas/foreground_scenario_schema_v1.json` defines YAML structure."],
+      "units_signs_and_identifiers": ["Each parameter's unit, bounds, role, dimensions, and valid modes are in `default_inputs/parameter_catalogue.json`.", "YAML stems and `foreground_scenario` use lowercase `snake_case`."],
+      "pandas_example": "import pandas as pd\n\ndefaults = pd.read_parquet(\n    workspace / \"data_raw/foreground_scenarios/default_inputs/default_input_values.parquet\"\n)",
+      "reuse_and_refresh": ["`set_workspace(refresh=True)` restores package files and preserves user templates and scenarios whose filenames differ from the packaged files.", "After editing a runnable YAML under the same name, use `run_mfa(foreground_scenario=\"your_name\", refresh=True)` or choose a new name."],
+      "scientific_limitations": ["History through 2019 is immutable for ordinary foreground scenarios.", "Scenarios use `SSP2`; the MFA calculates the derived outputs from the authored inputs."]
+    },
+    {
+      "guide_id": "default_inputs",
+      "workspace_path": "data_raw/foreground_scenarios/default_inputs",
+      "title": "Default annual foreground inputs",
+      "purpose": "This directory provides the parameter catalog and complete annual default values used before MFA execution.",
+      "created_by": "set_workspace",
+      "inputs": ["REMIND-MFA input data 1.0.0 for SSP2, packaged with pyToCE."],
+      "expected_contents": [
+        {"name": "parameter_catalogue.json", "description": "roles, dimensions, modes, constraints, dependencies, and provenance for every foreground parameter"},
+        {"name": "default_input_values.parquet", "description": "complete annual default input values at applicable coordinates"},
+        {"name": "default_input_values_manifest.json", "description": "REMIND-MFA source, Zenodo DOI, CC-BY-SA-4.0 license, and exact table provenance"}
+      ],
+      "tables_and_schemas": ["The Parquet table contains parameter, year, applicable coordinates, unit, role, and default value; the JSON catalog defines parameter semantics."],
+      "units_signs_and_identifiers": ["Units are parameter-specific and explicit; shares are fractions.", "Parameter IDs and coordinates match the machine-readable catalog exactly."],
+      "pandas_example": "import pandas as pd\n\ndefaults = pd.read_parquet(\n    workspace / \"data_raw/foreground_scenarios/default_inputs/default_input_values.parquet\"\n)\nprint(defaults.query(\"parameter_id == 'collection_rate'\").head())",
+      "reuse_and_refresh": ["Scenario compilation reads these package defaults when creating a new compiled result.", "`set_workspace(refresh=True)` restores these files."],
+      "scientific_limitations": ["These files supply scenario inputs and fixed references for the MFA.", "Default stocks and flows are produced by `run_mfa`.", "The compact default table remains CC-BY-SA-4.0 material derived from the REMIND-MFA input-data release identified by the adjacent manifest." ]
+    },
+    {
+      "guide_id": "scenario_schemas",
+      "workspace_path": "data_raw/foreground_scenarios/schemas",
+      "title": "Foreground and MFA schemas",
+      "purpose": "This directory exposes the versioned machine-readable contracts for scenario inputs, compiled annual inputs, and MFA result artifacts.",
+      "created_by": "set_workspace",
+      "inputs": ["Schema resources supplied with the package and used by the scenario compiler and MFA calculation."],
+      "expected_contents": [
+        {"name": "foreground_scenario_schema_v1.json", "description": "runnable YAML scenario structure with scalar and grouped trajectories"},
+        {"name": "compiled_annual_input_parameters_schema_v1.json", "description": "compiled 2020-2100 input-table contract"},
+        {"name": "mfa_result_schema_v1.json", "description": "files and tables in a completed MFA result"}
+      ],
+      "tables_and_schemas": ["Each JSON file defines one v1 structure; the template guide explains how to write a scenario."],
+      "units_signs_and_identifiers": ["YAML values use the units defined in the parameter catalog. Compiled and result tables record units; technical field names remain stable `snake_case` identifiers."],
+      "pandas_example": "import pandas as pd\n\nschema = pd.read_json(\n    workspace / \"data_raw/foreground_scenarios/schemas/foreground_scenario_schema_v1.json\",\n    typ=\"series\",\n)",
+      "reuse_and_refresh": ["Schemas are installed once and restored by `set_workspace(refresh=True)`.", "These schemas describe the file structure. `run_mfa` also checks scenario values and mass-balance feasibility."],
+      "scientific_limitations": ["Schemas check the input file structure. `run_mfa` checks values and the feasibility of the resulting stocks and flows."]
+    },
+    {
+      "guide_id": "scenario_examples",
+      "workspace_path": "data_raw/foreground_scenarios/templates/examples",
+      "title": "Foreground scenario examples",
+      "purpose": "This directory contains focused, non-runnable YAML examples for each legal foreground-scenario syntax family.",
+      "created_by": "set_workspace",
+      "inputs": ["Examples supplied with the package and aligned with the parameter catalog and `README_foreground_scenarios.md`."],
+      "expected_contents": [
+        {"name": "01_stock_volume.yaml", "description": "stock trajectory syntax"},
+        {"name": "02_lifetime.yaml", "description": "conditional lifetime change points"},
+        {"name": "03_plastic_family_mix.yaml", "description": "new-inflow material composition"},
+        {"name": "04_circularity_treatment.yaml", "description": "collection and complete treatment shares, including landfill"},
+        {"name": "05_virgin_feedstock.yaml", "description": "fossil, biogenic, and DACCU feedstock shares"},
+        {"name": "06_waste_trade.yaml", "description": "balanced regional waste-trade changes"},
+        {"name": "07_socioeconomic_drivers.yaml", "description": "supported socioeconomic-driver syntax"}
+      ],
+      "tables_and_schemas": ["All files follow `../../schemas/foreground_scenario_schema_v1.json`; exact defaults remain in `../../default_inputs/default_input_values.parquet`."],
+      "units_signs_and_identifiers": ["Example values use each parameter's catalog unit and readable world region/material/good coordinates.", "Examples demonstrate the supported scenario syntax."],
+      "pandas_example": "import pandas as pd\n\ndefaults = pd.read_parquet(\n    workspace / \"data_raw/foreground_scenarios/default_inputs/default_input_values.parquet\"\n)",
+      "reuse_and_refresh": ["Copy an example to `../../scenarios/` before editing.", "Package refresh restores the packaged examples and preserves user files with other names."],
+      "scientific_limitations": ["Example intervention values illustrate the scenario input format."]
+    },
+    {
+      "guide_id": "scenarios",
+      "workspace_path": "data_raw/foreground_scenarios/scenarios",
+      "title": "Runnable foreground scenarios",
+      "purpose": "This is the only directory from which executable foreground scenarios are selected.",
+      "created_by": "set_workspace",
+      "inputs": ["Complete YAML definitions copied from templates or authored under the documented schema."],
+      "expected_contents": [
+        {"name": "remind_mfa_default.yaml", "description": "REMIND-MFA default scenario inputs with pyToCE constituent processing and recovery"},
+        {"name": "frozen_2019_default_baseline.yaml", "description": "2019frozen_SSP2demand, the publication-facing name of the baseline that follows default non-controls while holding regional 2019 collection, complete treatment composition and virgin feedstock composition until intervention"},
+        {"name": "<foreground_scenario>.yaml", "description": "optional user-authored scenario whose stem matches `foreground_scenario`"}
+      ],
+      "tables_and_schemas": ["Runnable files follow `../schemas/foreground_scenario_schema_v1.json`; the templates guide documents ordinary change points and grouped linear trajectories."],
+      "units_signs_and_identifiers": ["Values use catalog units and explicit coordinates; readable filenames use lowercase `snake_case`.", "Shares are fractions and complete partitions must close exactly."],
+      "pandas_example": "import pandas as pd\n\ndefaults = pd.read_parquet(\n    workspace / \"data_raw/foreground_scenarios/default_inputs/default_input_values.parquet\"\n)",
+      "reuse_and_refresh": ["`run_mfa` selects a completed readable-name result by its completion manifest.", "After changing a YAML under the same name, call `run_mfa(foreground_scenario=\"your_name\", refresh=True)` or use a new readable name."],
+      "scientific_limitations": ["Scenario changes apply from 2020 onward.", "2019frozen_SSP2demand retains SSP2-driven default stock demand, lifetimes, end-use material composition and trade propensities. Its runtime identifier remains `frozen_2019_default_baseline`. Mechanical recovery and its air, water and managed solid losses use fixed constituent recipes; recycling allocation respects available receiving demand."]
+    }
+  ]
+}

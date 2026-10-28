@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pytoce_annual_allocated_cc_schema_v1",
+  "title": "Annual allocated carrying capacities",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "allocated_cc_case",
+    "lcia_method",
+    "region",
+    "impact_category_id",
+    "year",
+    "allocated_cc",
+    "unit",
+    "cc_authority"
+  ],
+  "properties": {
+    "allocated_cc_case": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "lcia_method": {
+      "type": "string",
+      "minLength": 1
+    },
+    "region": {
+      "type": "string"
+    },
+    "impact_category_id": {
+      "type": "string"
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 2019,
+      "maximum": 2100
+    },
+    "allocated_cc": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cc_authority": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

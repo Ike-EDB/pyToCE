@@ -1,0 +1,109 @@
+{
+  "guides": [
+    {
+      "guide_id": "premise_sources",
+      "workspace_path": "data_raw/premise",
+      "title": "Premise scenario files",
+      "purpose": "This directory groups official encrypted integrated assessment model (IAM) scenario files downloaded by `prepare_backgrounds` for readable background scenarios.",
+      "created_by": "prepare_backgrounds",
+      "inputs": ["Official premise scenario downloader and the selected REMIND or REMIND-EU SSP2 background scenario names and source revisions."],
+      "expected_contents": [{"name": "<background_scenario>/", "description": "one verified IAM file and manifest per readable background scenario"}],
+      "tables_and_schemas": ["Each child manifest records the official filename, byte length, hash, scenario coordinates, and premise source."],
+      "units_signs_and_identifiers": ["File bytes remain unchanged and retain premise's native IAM schema.", "Child names are readable `background_scenario` values; hashes remain in manifests."],
+      "pandas_example": "import pandas as pd\n\nmanifest = pd.read_json(\n    workspace / \"data_raw/premise/<background_scenario>/manifest.json\", typ=\"series\"\n)",
+      "reuse_and_refresh": ["A completed child is reused when its manifest exists.", "Completed IAM files are reused from their completion manifests."],
+      "scientific_limitations": ["An IAM scenario file supplies the prospective transformation input for background preparation.", "The selected foreground and background shared socioeconomic pathway is SSP2."]
+    },
+    {
+      "guide_id": "premise_source",
+      "workspace_path": "data_raw/premise/<background_scenario>",
+      "title": "Premise scenario input",
+      "purpose": "This directory contains the unchanged premise IAM file for one background scenario.",
+      "created_by": "prepare_backgrounds",
+      "inputs": ["One exact official premise scenario file for the selected IAM model, pathway, and global mean surface temperature (GMST) class."],
+      "expected_contents": [
+        {"name": "<premise_filename>.csv", "description": "verified encrypted official IAM scenario file"},
+        {"name": "manifest.json", "description": "file hash, byte length, scenario coordinates, premise source, and completion marker; written last"}
+      ],
+      "tables_and_schemas": ["The manifest identifies the exact scenario file; premise 2.4.6 reads it through its supported API."],
+      "units_signs_and_identifiers": ["The premise IAM file retains its original quantities, dimensions, and units.", "`background_scenario`, IAM model/pathway, and GMST interval remain distinct manifest fields."],
+      "pandas_example": "import pandas as pd\n\nmanifest = pd.read_json(\n    workspace / \"data_raw/premise/<background_scenario>/manifest.json\", typ=\"series\"\n)\nprint(manifest[\"identity\"])",
+      "reuse_and_refresh": ["Manifest existence selects ordinary reuse.", "Completed IAM-source directories are immutable."],
+      "scientific_limitations": ["Foreground scenario inputs determine technology adoption rates.", "The NPi, NDC, PkBudg1000, and PkBudg650 backgrounds are separate alternatives. Their GMST intervals follow the premise catalog classifications. Use the IAM file corresponding to the selected background scenario."]
+    },
+    {
+      "guide_id": "prepared_backgrounds",
+      "workspace_path": "data_processed/prepared_backgrounds",
+      "title": "Prepared prospective backgrounds",
+      "purpose": "This directory contains shared Brightway, LCIA, and provider data and one prepared product for each SSP2 background scenario.",
+      "created_by": "prepare_backgrounds",
+      "inputs": ["Verified ecoinvent and PB-LCIA files, official premise IAM files, a premise decryption key for new backgrounds, and the package provider and LCIA catalogs. Request the key from the premise developers as described at https://premise.readthedocs.io/en/latest/getting_started/preparation.html."],
+      "expected_contents": [
+        {"name": "shared/", "description": "shared base database, biosphere, LCIA, matrix, and provider files"},
+        {"name": "<background_scenario>/", "description": "databases, provider mappings, reports, and manifest for one background scenario"}
+      ],
+      "tables_and_schemas": ["The shared and background manifests list every table and source result used in preparation."],
+      "units_signs_and_identifiers": ["Original licensed inventories retain their native exchanges, units and flow identifiers. The provider catalog separately identifies direct inventories, adapted inventories with specified exchange changes, and reconstructed foreground inventories; native LCIA characterization factors are retained.", "Readable background scenario names identify directories; database names identify the recorded databases, while table content identifiers and file hashes are recorded in manifests."],
+      "pandas_example": "import pandas as pd\n\nbackgrounds = pd.read_parquet(\n    workspace / \"data_processed/prepared_backgrounds/<background_scenario>/background_scenarios.parquet\"\n)",
+      "reuse_and_refresh": ["`prepare_backgrounds` reuses each completed background.", "Each scenario has separate premise and dated provider databases and reuses the shared ecoinvent, biosphere, LCIA, matrix, and provider-interface data."],
+      "scientific_limitations": ["The general background uses ecoinvent 3.12 through 2025, then linear interpolation to the matching premise 2030 anchor for 2026-2029. From 2030, matching-pathway anchors occur every five years through 2060 and every ten years thereafter through 2100; intermediate years use linear interpolation.", "Premise 2020/2025 is used only for provider technologies available in those years. Other provider inputs and the general background remain linked to ecoinvent through 2025.", "Dry tire-family SBR uses native waste-rubber incineration and a 25/75 PS/PE analogue for landfill, open burning and open dumping. Non-tire SBR in Others uses the finished compound-22 composition, including its auxiliary materials, and the corresponding waste-treatment calculations. The same selected analogues and receiving factors are applied to each modeled SBR grade."]
+    },
+    {
+      "guide_id": "prepared_shared",
+      "workspace_path": "data_processed/prepared_backgrounds/shared",
+      "title": "Shared prepared background data",
+      "purpose": "This directory contains the Brightway, biosphere, LCIA, matrix, and provider data used by every prepared background scenario.",
+      "created_by": "prepare_backgrounds",
+      "inputs": ["Verified licensed ecoinvent source, PB-LCIA source, installed scientific package versions, and transparent package catalogs."],
+      "expected_contents": [
+        {"name": "impact_categories.parquet", "description": "ordered EF v3.1 and PB-LCIA methods and impact categories"},
+        {"name": "database_authority.parquet", "description": "database names, roles, activity counts, dependencies and backend metadata"},
+        {"name": "matrix_authority.parquet", "description": "database names identifying the shared processed matrix owners"},
+        {"name": "biosphere_authority.parquet", "description": "reference to the shared ecoinvent biosphere database"},
+        {"name": "provider_service_routes.parquet", "description": "provider routes, applicable foreground services and resolved open-dump class shares"},
+        {"name": "material_carbon.parquet", "description": "constituent carbon by virgin feedstock route and ultimate origin, with source values and accounting conventions"},
+        {"name": "pa_receiving_reference.json", "description": "original thermal, water, recycling, municipal, sanitary-landfill, open-burning and dump calibration for PA fiber receiving"},
+        {"name": "provider_source_authorities.parquet", "description": "native, literature and project-method sources, including the licensed open-dump market quantities and calculation"},
+        {"name": "provider_method_authorities.parquet", "description": "method records joined to source IDs, boundaries, allocation, transfer assumptions, and limitations"},
+        {"name": "USLCI_DATA_USE_NOTICE.txt", "description": "USLCI ABS source attribution and complete data-use notice, with the source version and identifiers"},
+        {"name": "provider_service_manifest.json", "description": "provider files and Brightway interface database"},
+        {"name": "preparation_report.json", "description": "source import and LCIA preparation provenance"},
+        {"name": "manifest.json", "description": "source versions, file hashes, and completion status; written last"}
+      ],
+      "tables_and_schemas": ["Each Parquet descriptor in the manifest records its columns, row count, scientific content identifier and file hash; data types are stored in the Parquet file. `impact_categories.parquet` lists the LCIA categories available to the calculation.", "`material_carbon.parquet` contains every modeled constituent combined with each of the three virgin supply routes. Its fossil, biogenic and atmospheric-DAC carbon columns are kg C per kg modeled constituent; explicit zeros are retained. `source_inputs_json` records the recipe, native source identities, used parameters and accounting basis.", "`pa_receiving_reference.json` follows `pytoce_pa_receiving_reference_schema_v1`. Thermal references contain HWI element contents in kg element/kg wet waste, ash dry fractions in kg dry/kg received ash and ash composition in kg element/kg dry ash. Gas references identify the engines, furnaces, fuels and net heating values in MJ per fuel unit. Water and landfill references provide evaporation in m3/m3, leachate in m3/kg wet waste, sludge/soil/ash compositions and treatment factors for the selected CH and RoW/GLO processes. Recycling references contain allocated dry feed and wash-water purchases per kg reference output; their ratio gives fresh wash water per kg incoming dry PA and finish, independently of the principal PA recovery yield. Municipal references identify the mixed-plastic furnace and two ash functions. Open-burning and open-dump references identify elementary flows, the five dump climate classes and placement support. These shared composition and operating references are combined with the dated supply rows in each prepared background.", "Packaged fate mappings are inputs to route construction. For cured coatings, road markings, and thermosets, compiled routes select the corresponding cured-material receiver, including incorporated auxiliaries. `provider_service_routes.parquet` records the final provider selections and resolved dump-class shares."],
+      "units_signs_and_identifiers": ["Method units, factors, native flow identifiers, and provider functional units are preserved.", "Provider services use readable names; licensed native codes remain only in the user's prepared workspace."],
+      "pandas_example": "import pandas as pd\n\nshared = workspace / \"data_processed/prepared_backgrounds/shared\"\nmethods = pd.read_parquet(shared / \"impact_categories.parquet\")",
+      "reuse_and_refresh": ["Completed data are reused from their completion manifests.", "Completed preparation products are immutable."],
+      "scientific_limitations": ["Use the shared files together with a prepared background for LCA.", "The ordered catalog defines the selected characterization methods.", "The five open-dump class shares are conditional shares from the licensed baseline RoW polyethylene waste market, calculated once and applied to every world region and year. The same fixed class shares are applied across regions and years. Native quantities remain in these workspace tables under the source license.", "Project-composed activities use exact native ecoinvent biosphere flows and the selected characterization factors.", "Constituent carbon is calculated from the declared polymer or formulation basis. Baseline composition remains fixed across prospective background anchors. Virgin manufacturing route and ultimate carbon origin are selected separately; native LCI exchanges retain their specified quantities."]
+    },
+    {
+      "guide_id": "prepared_background",
+      "workspace_path": "data_processed/prepared_backgrounds/<background_scenario>",
+      "title": "Prepared background scenario",
+      "purpose": "This directory contains one complete SSP2 background used by `run_lca`.",
+      "created_by": "prepare_backgrounds",
+      "inputs": ["The shared data, exact IAM file, ecoinvent base, premise 2.4.6 transformations, and provider selections for the same background scenario."],
+      "expected_contents": [
+        {"name": "background_scenarios.parquet", "description": "scenario coordinates, general anchor years, technical provider timeline map and source identities"},
+        {"name": "lcia_methods.parquet", "description": "registered Brightway method identifiers"},
+        {"name": "impact_categories.parquet", "description": "ordered selected methods and impact categories"},
+        {"name": "provider_crosswalk.parquet", "description": "annual mapping from each activity year to its bracketing general background databases, interpolation weights and date roles"},
+        {"name": "provider_technology_crosswalk.parquet", "description": "provider frontier database for each anchor year, with its ordinary general background database, technology source database and source roles"},
+        {"name": "provider_semantic_ledger.parquet", "description": "provider routes, activities, exchanges, direct carbon flows, normalization, citations, and limitations"},
+        {"name": "pa_receiving_sources.json", "description": "dated thermal, gas, CH water, recycling, municipal and sanitary-landfill receiving rows and suppliers for PA fibers"},
+        {"name": "database_authority.parquet", "description": "shared, premise anchor and provider frontier database records; premise anchor rows additionally record scenario, year and provenance"},
+        {"name": "matrix_authority.parquet", "description": "shared and dated database names, with scenario and anchor year coordinates where applicable"},
+        {"name": "biosphere_authority.parquet", "description": "reference to the shared ecoinvent biosphere database"},
+        {"name": "preparation_report.json", "description": "premise configuration, background years, reports, and shared database provenance"},
+        {"name": "scenario_report_<anchor_years>.xlsx", "description": "flattened official premise scenario report"},
+        {"name": "change_report_<anchor_years>.xlsx", "description": "flattened official premise change report"},
+        {"name": "manifest.json", "description": "background content identifier, inputs, sources, and completion marker; written last"}
+      ],
+      "tables_and_schemas": ["Each Parquet descriptor in the manifest records its columns, row count, scientific content identifier and file hash; data types are stored in the Parquet file. The Excel reports retain the premise format.", "The background crosswalk records annual interpolation; the technology crosswalk records dated database mappings. The provider semantic ledger describes the selected and constructed activities, exchanges, sources and limitations.", "`pa_receiving_sources.json` is ordered by provider anchor year and follows `pytoce_pa_receiving_sources_schema_v1`. Each record contains normalized HWI, emission-control and ash rows, source production, product/flow identities, units, polyacrylamide and catalyst suppliers. Treatment coefficients use endpoint units per native reference-product unit; gas coefficients use endpoint units per MJ output. Fuel and other gas rows share that normalization, so row/fuel ratios need no further division. The gas section provides combustion factors and gas handling for sanitary landfill and wastewater. Water and landfill sections contain the linked collection, treatment, sludge and ash operations with their complete supplies; internal child rows identify routing and are replaced once by the actual-load calculations. Raw phosphorus and treated phosphate retain their distinct quantities and molecular conversion. Recycling rows contain wash, finishing and pellet-delivery operations. Municipal rows contain the furnace, bottom-ash market/disposal and residual-ash market/disposal. The manifest links these dated supplies to the shared original reference. Actual PA principal, finish and water determine the received load; manufacturing supplies integrated equipment-cleaning energy once."],
+      "units_signs_and_identifiers": ["Provider records retain the native reference units, activity and flow identifiers, dated source and specified transformation. Adapted or reconstructed foreground activities are distinguished from their native background suppliers; LCIA factors remain those of the registered method.", "World region, provider location, IAM scenario, GMST interval, general anchor role, and provider-only role remain distinct fields.", "In `provider_semantic_ledger.parquet`, `provider_service_id` identifies the service or activity described by the record; it contains either a catalog service identifier or a constructed activity code."],
+      "pandas_example": "import pandas as pd\n\nproviders = pd.read_parquet(\n    workspace / \"data_processed/prepared_backgrounds/<background_scenario>/provider_semantic_ledger.parquet\"\n)",
+      "reuse_and_refresh": ["Manifest existence selects completed products for reuse.", "Completed backgrounds are immutable."],
+      "scientific_limitations": ["Provider records retain the source inventory geography. MFA regions identify where the modeled material flows occur.", "The article and methodological appendix document the provider construction, background years, recycling processes, and treatment analogues. Premise removes source and import uncertainty distributions during transformation. Background calculations use deterministic central inventories. The licensed source data remain unchanged."]
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pytoce_optimization_selected_result_schema_v1",
+  "title": "pyToCE selected optimization result manifest",
+  "description": "Structure of the manifest written after all selected optimization result files are complete.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifacts",
+    "complete",
+    "method_identity",
+    "parent_identities",
+    "product_identity",
+    "schema_sha256",
+    "schema_version",
+    "summary_sha256"
+  ],
+  "properties": {
+    "artifacts": {
+      "$ref": "#/$defs/selected_results_artifacts"
+    },
+    "complete": {
+      "const": true
+    },
+    "method_identity": {
+      "$ref": "#/$defs/identity"
+    },
+    "parent_identities": {
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": {
+        "$ref": "#/$defs/readable_name"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/identity"
+      }
+    },
+    "product_identity": {
+      "$ref": "#/$defs/identity"
+    },
+    "schema_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "schema_version": {
+      "const": "pytoce_optimization_selected_result_schema_v1"
+    },
+    "summary_sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "$defs": {
+    "identity": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^\\S(?:.*\\S)?$"
+    },
+    "readable_name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "parquet_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "columns",
+        "media_type",
+        "row_count",
+        "sha256",
+        "size_bytes"
+      ],
+      "properties": {
+        "columns": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "media_type": {
+          "const": "application/vnd.apache.parquet"
+        },
+        "row_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "json_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "media_type",
+        "sha256",
+        "size_bytes"
+      ],
+      "properties": {
+        "media_type": {
+          "const": "application/json"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "selected_results_artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "selected_coordinates.parquet",
+        "selected_annual_interventions.parquet",
+        "selection_roles.parquet",
+        "selected_annual_acc_asr.parquet",
+        "selected_environmental_scores.parquet",
+        "selected_life_cycle_stage_scores.parquet",
+        "selected_feedstock_requirements.parquet",
+        "method_summary.json"
+      ],
+      "properties": {
+        "selected_coordinates.parquet": {
+          "$ref": "#/$defs/parquet_artifact"
+        },
+        "selection_roles.parquet": {
+          "$ref": "#/$defs/parquet_artifact"
+        },
+        "selected_annual_acc_asr.parquet": {
+          "$ref": "#/$defs/parquet_artifact"
+        },
+        "selected_environmental_scores.parquet": {
+          "$ref": "#/$defs/parquet_artifact"
+        },
+        "selected_life_cycle_stage_scores.parquet": {
+          "$ref": "#/$defs/parquet_artifact"
+        },
+        "selected_feedstock_requirements.parquet": {
+          "$ref": "#/$defs/parquet_artifact"
+        },
+        "method_summary.json": {
+          "$ref": "#/$defs/json_artifact"
+        },
+        "selected_annual_interventions.parquet": {
+          "$ref": "#/$defs/parquet_artifact"
+        }
+      }
+    }
+  }
+}

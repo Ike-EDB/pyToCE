@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pytoce_optimization_response_bank_schema_v1",
+  "title": "pyToCE optimization response bank manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "complete",
+    "response_method_union",
+    "response_bank_identity",
+    "identity_payload",
+    "artifacts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "pytoce_optimization_response_bank_schema_v1"
+    },
+    "complete": {
+      "const": true
+    },
+    "response_method_union": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "response_bank_identity": {
+      "type": "string",
+      "pattern": "^pytoce_optimization_response_bank_schema_v1::[0-9a-f]{64}$"
+    },
+    "identity_payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "response_method_union", "background_scenarios",
+        "occurrence_years", "provider_anchor_years", "method_union_registry",
+        "method_union_registry_identity", "mandatory_climate_registry_identity",
+        "provider_service_registry", "provider_service_registry_identity",
+        "provider_unit_responses_identity", "timex_year_weights_identity",
+        "native_unit_responses_identity", "direct_characterization_factors_identity",
+        "provider_route_identity",
+        "prepared_background_shared_identity",
+        "prepared_background_shared_manifest_sha256", "builder_identity",
+        "member_parents"
+      ],
+      "properties": {
+        "schema_version": {"const": "pytoce_optimization_response_bank_schema_v1"},
+        "response_method_union": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "background_scenarios": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "prefixItems": [
+            {"const": "remind_ssp2_ndc"}, {"const": "remind_ssp2_npi"},
+            {"const": "remind_ssp2_pkbudg1000"}, {"const": "remind_ssp2_pkbudg650"}
+          ]
+        },
+        "occurrence_years": {
+          "type": "array", "minItems": 2, "maxItems": 2,
+          "prefixItems": [{"const": 2019}, {"const": 2100}]
+        },
+        "provider_anchor_years": {
+          "type": "array", "minItems": 13, "maxItems": 13,
+          "prefixItems": [
+            {"const": 2020}, {"const": 2025}, {"const": 2030}, {"const": 2035},
+            {"const": 2040}, {"const": 2045}, {"const": 2050}, {"const": 2055},
+            {"const": 2060}, {"const": 2070}, {"const": 2080}, {"const": 2090},
+            {"const": 2100}
+          ]
+        },
+        "method_union_registry": {
+          "type": "array", "minItems": 1, "items": {"$ref": "#/$defs/method"}
+        },
+        "method_union_registry_identity": {"$ref": "#/$defs/sha256"},
+        "mandatory_climate_registry_identity": {"$ref": "#/$defs/sha256"},
+        "provider_service_registry": {
+          "type": "array", "minItems": 1, "items": {"$ref": "#/$defs/service"}
+        },
+        "provider_service_registry_identity": {"$ref": "#/$defs/sha256"},
+        "provider_unit_responses_identity": {"$ref": "#/$defs/sha256"},
+        "timex_year_weights_identity": {"$ref": "#/$defs/sha256"},
+        "native_unit_responses_identity": {"$ref": "#/$defs/sha256"},
+        "direct_characterization_factors_identity": {"$ref": "#/$defs/sha256"},
+        "provider_route_identity": {"$ref": "#/$defs/nonempty_text"},
+        "prepared_background_shared_identity": {"$ref": "#/$defs/nonempty_text"},
+        "prepared_background_shared_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "builder_identity": {"$ref": "#/$defs/nonempty_text"},
+        "member_parents": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "prefixItems": [
+            {"$ref": "#/$defs/member_ndc"}, {"$ref": "#/$defs/member_npi"},
+            {"$ref": "#/$defs/member_pkbudg1000"},
+            {"$ref": "#/$defs/member_pkbudg650"}
+          ]
+        }
+      }
+    },
+    "artifacts": {"$ref": "#/$defs/artifact_inventory"}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nonempty_text": {
+      "type": "string", "minLength": 1, "pattern": "^\\S(?:[\\s\\S]*\\S)?$"
+    },
+    "method": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "lcia_method", "selection_order", "method_id", "method_version",
+        "impact_category_id", "impact_category_tuple_json", "unit", "factor_identity"
+      ],
+      "properties": {
+        "lcia_method": {"$ref": "#/$defs/nonempty_text"},
+        "selection_order": {"type": "integer", "minimum": 0},
+        "method_id": {"$ref": "#/$defs/nonempty_text"},
+        "method_version": {"type": "string"},
+        "impact_category_id": {"$ref": "#/$defs/nonempty_text"},
+        "impact_category_tuple_json": {"$ref": "#/$defs/nonempty_text"},
+        "unit": {"$ref": "#/$defs/nonempty_text"},
+        "factor_identity": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "service": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider_service_id", "provider_service_code", "provider_unit"],
+      "properties": {
+        "provider_service_id": {"$ref": "#/$defs/nonempty_text"},
+        "provider_service_code": {"$ref": "#/$defs/nonempty_text"},
+        "provider_unit": {"$ref": "#/$defs/nonempty_text"}
+      }
+    },
+    "member_base": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "background_scenario", "prepared_background_identity",
+        "prepared_background_manifest_sha256"
+      ],
+      "properties": {
+        "background_scenario": {"type": "string"},
+        "prepared_background_identity": {"$ref": "#/$defs/nonempty_text"},
+        "prepared_background_manifest_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "member_ndc": {
+      "allOf": [
+        {"$ref": "#/$defs/member_base"},
+        {"properties": {"background_scenario": {"const": "remind_ssp2_ndc"}}}
+      ]
+    },
+    "member_npi": {
+      "allOf": [
+        {"$ref": "#/$defs/member_base"},
+        {"properties": {"background_scenario": {"const": "remind_ssp2_npi"}}}
+      ]
+    },
+    "member_pkbudg1000": {
+      "allOf": [
+        {"$ref": "#/$defs/member_base"},
+        {"properties": {"background_scenario": {"const": "remind_ssp2_pkbudg1000"}}}
+      ]
+    },
+    "member_pkbudg650": {
+      "allOf": [
+        {"$ref": "#/$defs/member_base"},
+        {"properties": {"background_scenario": {"const": "remind_ssp2_pkbudg650"}}}
+      ]
+    },
+    "artifact_inventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_unit_responses.parquet",
+        "timex_year_weights.parquet",
+        "native_unit_responses.parquet",
+        "direct_characterization_factors.parquet"
+      ],
+      "properties": {
+        "provider_unit_responses.parquet": {"$ref": "#/$defs/artifact"},
+        "timex_year_weights.parquet": {"$ref": "#/$defs/artifact"},
+        "native_unit_responses.parquet": {"$ref": "#/$defs/artifact"},
+        "direct_characterization_factors.parquet": {"$ref": "#/$defs/artifact"}
+      }
+    },
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "row_count", "columns", "scientific_identity", "artifact_sha256"],
+      "properties": {
+        "path": {"type": "string"},
+        "row_count": {"type": "integer", "minimum": 1},
+        "columns": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string"}
+        },
+        "scientific_identity": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "artifact_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

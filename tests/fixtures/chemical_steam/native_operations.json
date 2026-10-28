@@ -1,0 +1,432 @@
+{
+  "description": "Synthetic inventories for steam and its supporting supplies, with different reference production amounts and regional supplier shares.",
+  "activities": {
+    "drum_seals": {
+      "name": "synthetic rubber production",
+      "reference product": "synthetic rubber",
+      "unit": "kilogram",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "drum_seals",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "drum_injection": {
+      "name": "injection moulding",
+      "reference product": "injection moulding",
+      "unit": "kilogram",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "drum_injection",
+          "type": "production",
+          "amount": 1.0
+        },
+        {
+          "input": "steam_power",
+          "type": "technosphere",
+          "amount": 0.08
+        },
+        {
+          "input": "steam_fixture_emission",
+          "type": "biosphere",
+          "amount": 0.02
+        }
+      ]
+    },
+    "drum_road": {
+      "name": "transport, freight, lorry, >32 metric ton, diesel, EURO 6",
+      "reference product": "transport, freight, lorry, >32 metric ton, diesel, EURO 6",
+      "unit": "ton kilometer",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "drum_road",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_water": {
+      "name": "market group for tap water",
+      "reference product": "tap water",
+      "unit": "kilogram",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_water",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_water_a": {
+      "name": "tap water production, fixture A",
+      "reference product": "tap water",
+      "unit": "kilogram",
+      "location": "IN",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_water_a",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_water_b": {
+      "name": "tap water production, fixture B",
+      "reference product": "tap water",
+      "unit": "kilogram",
+      "location": "RoW",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_water_b",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_power": {
+      "name": "market group for electricity, medium voltage",
+      "reference product": "electricity, medium voltage",
+      "unit": "kilowatt hour",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_power",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_power_a": {
+      "name": "electricity production, fixture A",
+      "reference product": "electricity, medium voltage",
+      "unit": "kilowatt hour",
+      "location": "RoW",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_power_a",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_power_b": {
+      "name": "electricity production, fixture B",
+      "reference product": "electricity, medium voltage",
+      "unit": "kilowatt hour",
+      "location": "RoW",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_power_b",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_heat_a": {
+      "name": "heat production, fixture A",
+      "reference product": "heat, district or industrial, natural gas",
+      "unit": "megajoule",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_heat_a",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_heat_b": {
+      "name": "heat production, fixture B",
+      "reference product": "heat, district or industrial, other than natural gas",
+      "unit": "megajoule",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_heat_b",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_factory": {
+      "name": "chemical factory construction, organics",
+      "reference product": "chemical factory, organics",
+      "unit": "unit",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_factory",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "steam_rer": {
+      "name": "steam production, as energy carrier, in chemical industry",
+      "reference product": "heat, from steam, in chemical industry",
+      "unit": "megajoule",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_rer",
+          "type": "production",
+          "amount": 2.0
+        },
+        {
+          "input": "steam_power",
+          "type": "technosphere",
+          "amount": 0.02
+        },
+        {
+          "input": "steam_heat_a",
+          "type": "technosphere",
+          "amount": 1.8
+        },
+        {
+          "input": "steam_heat_b",
+          "type": "technosphere",
+          "amount": 0.6
+        },
+        {
+          "input": "steam_water",
+          "type": "technosphere",
+          "amount": 0.16
+        },
+        {
+          "input": "mc_water_air",
+          "type": "biosphere",
+          "amount": 2.4e-05,
+          "uncertainty type": 2,
+          "loc": -10.0,
+          "scale": 0.3
+        },
+        {
+          "input": "mc_water_final",
+          "type": "biosphere",
+          "amount": 0.000136
+        },
+        {
+          "input": "steam_fixture_emission",
+          "type": "biosphere",
+          "amount": 0.04
+        }
+      ],
+      "native_note": {
+        "region": "RER",
+        "kept": true
+      }
+    },
+    "steam_rer_market": {
+      "name": "market for heat, from steam, in chemical industry",
+      "reference product": "heat, from steam, in chemical industry",
+      "unit": "megajoule",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_rer_market",
+          "type": "production",
+          "amount": 2.0
+        },
+        {
+          "input": "steam_rer",
+          "type": "technosphere",
+          "amount": 2.0
+        }
+      ]
+    },
+    "steam_row": {
+      "name": "steam production, as energy carrier, in chemical industry",
+      "reference product": "heat, from steam, in chemical industry",
+      "unit": "megajoule",
+      "location": "RoW",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_row",
+          "type": "production",
+          "amount": 3.0
+        },
+        {
+          "input": "steam_power_a",
+          "type": "technosphere",
+          "amount": 0.012
+        },
+        {
+          "input": "steam_power_b",
+          "type": "technosphere",
+          "amount": 0.018
+        },
+        {
+          "input": "steam_heat_a",
+          "type": "technosphere",
+          "amount": 2.4
+        },
+        {
+          "input": "steam_heat_b",
+          "type": "technosphere",
+          "amount": 1.5
+        },
+        {
+          "input": "steam_water_a",
+          "type": "technosphere",
+          "amount": 0.06
+        },
+        {
+          "input": "steam_water_b",
+          "type": "technosphere",
+          "amount": 0.18
+        },
+        {
+          "input": "mc_water_air",
+          "type": "biosphere",
+          "amount": 3.5999999999999994e-05,
+          "uncertainty type": 2,
+          "loc": -10.0,
+          "scale": 0.3
+        },
+        {
+          "input": "mc_water_final",
+          "type": "biosphere",
+          "amount": 0.000204
+        },
+        {
+          "input": "steam_fixture_emission",
+          "type": "biosphere",
+          "amount": 0.06
+        }
+      ],
+      "native_note": {
+        "region": "RoW",
+        "kept": true
+      }
+    },
+    "steam_row_market": {
+      "name": "market for heat, from steam, in chemical industry",
+      "reference product": "heat, from steam, in chemical industry",
+      "unit": "megajoule",
+      "location": "RoW",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "steam_row_market",
+          "type": "production",
+          "amount": 3.0
+        },
+        {
+          "input": "steam_row",
+          "type": "technosphere",
+          "amount": 3.0
+        }
+      ]
+    },
+    "drum_hdpe": {
+      "name": "market for polyethylene, high density, granulate",
+      "reference product": "polyethylene, high density, granulate",
+      "unit": "kilogram",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "drum_hdpe",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "drum_hdpe_recycled": {
+      "name": "market for polyethylene, high density, pellets, recycled",
+      "reference product": "polyethylene, high density, pellets, recycled",
+      "unit": "kilogram",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "drum_hdpe_recycled",
+          "type": "production",
+          "amount": 1.0
+        }
+      ]
+    },
+    "drum_blow": {
+      "name": "blow moulding",
+      "reference product": "blow moulding",
+      "unit": "kilogram",
+      "location": "RER",
+      "type": "process",
+      "comment": "Synthetic inventory; quantities are not licensed ecoinvent values.",
+      "exchanges": [
+        {
+          "input": "drum_blow",
+          "type": "production",
+          "amount": 1.0
+        },
+        {
+          "input": "steam_power",
+          "type": "technosphere",
+          "amount": 0.14
+        },
+        {
+          "input": "steam_fixture_emission",
+          "type": "biosphere",
+          "amount": 0.03
+        }
+      ]
+    }
+  },
+  "biosphere": {
+    "steam_nmvoc": {
+      "name": "NMVOC, non-methane volatile organic compounds",
+      "unit": "kilogram",
+      "categories": [
+        "air"
+      ],
+      "type": "emission"
+    },
+    "steam_fixture_emission": {
+      "name": "Fixture supporting emission",
+      "unit": "kilogram",
+      "categories": [
+        "air"
+      ],
+      "type": "emission"
+    }
+  }
+}

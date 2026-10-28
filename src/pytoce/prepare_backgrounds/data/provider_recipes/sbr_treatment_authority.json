@@ -1,0 +1,77 @@
+{
+  "schema_version": "pytoce_sbr_treatment_authority_schema_v1",
+  "method_authority": {
+    "method_authority_id": "sbr_polymer_treatment_analogue_v1",
+    "technology_boundary": "Treat one kilogram of dry SBR-equivalent polymer. Incineration uses the selected municipal waste-rubber inventory for Europe without Switzerland. Landfill, open burning, and open dumping use the fixed PS/PE treatment components.",
+    "allocation_boundary": "Each native treatment inventory retains its ecoinvent 3.12 cut-off allocation, exchange amounts, uncertainty metadata, and embedded supply chain. Portfolio shares combine the listed treatment inventories additively.",
+    "geography_year_boundary": "The PS, PE, and compatible waste-rubber services are selected separately for each background scenario and provider year. Native ecoinvent supplies these treatment technologies. Matching premise 2020/2025 activities supply the declared premise-only services; the general pre-2030 background remains the specified baseline.",
+    "limitation": "For dry SBR in the tire family, PS represents the styrene-derived 25% and PE represents the butadiene-derived 75%. Others uses a separate grade-1502 principal composition of 23.5/76.5 within compound 22, whose inventory and waste treatment are specified separately."
+  },
+  "source_authority_ids": [
+    "accepted_tyre_sbr_equivalent_authority",
+    "accepted_others_composition_authority",
+    "synthos_2024_sbr_1500",
+    "berger_pfeifer_2024_sbr_grade_1502",
+    "eu_jrc_ilcd_handbook_2010",
+    "ecoinvent_3_12_cutoff"
+  ],
+  "source_authorities": [
+    {
+      "source_id": "berger_pfeifer_2024_sbr_grade_1502",
+      "title": "Evaluating the profitability and global warming potential of manufacturing styrene-butadiene rubber with chemicals synthesised from bulk waste plastic and CO2 emissions",
+      "authors": "Nathaniel J. Berger; Christoph Pfeifer",
+      "year": 2024,
+      "doi": "10.1016/j.spc.2024.01.017",
+      "authority_type": "peer_reviewed_process_and_composition_comparator",
+      "role": "dry_emulsion_sbr_grade_1502_styrene_and_butadiene_composition",
+      "source_locations": [
+        "article process description",
+        "official supplementary workbook MSE-Ref._Green-SBR Plan A.xlsm"
+      ],
+      "supporting_archive_sha256": "01fdc91b7971559f07aab72aa93ed146070655950233abd871ddc544fa35d84f",
+      "supporting_workbook_sha256": "b51199c714c5a5f988ef77c535c7f78041c60e93c5fdfa3eaed9ebaa92adc34f",
+      "limitation": "Grade-1502 composition and production reference."
+    }
+  ],
+  "functional_bases": {
+    "Elastomers (tyres)": {
+      "functional_unit": "1 kg dry SBR-equivalent synthetic-rubber polymer",
+      "styrene_derived_mass_share": 0.25,
+      "butadiene_derived_mass_share": 0.75,
+      "composition_authority": "project inference from the 35/39 carbon fraction in REMIND-MFA 0.2.0 under an SBR-only two-repeat-unit interpretation",
+      "composition_equation": "x*(12/13) + (1-x)*(8/9) = 35/39, where 12/13 is the integer-atomic-weight carbon fraction of the styrene repeat C8H8 and 8/9 is that of the butadiene repeat C4H6; the unique solution is x=1/4",
+      "composition_role": "Aggregate SBR-equivalent composition derived from the REMIND-MFA carbon fraction.",
+      "sbr_share_in_material": 1.0
+    },
+    "Others": {
+      "functional_unit": "1 kg dry E-SBR grade-1502 polymer constituent within the Others portfolio",
+      "styrene_derived_mass_share": 0.235,
+      "butadiene_derived_mass_share": 0.765,
+      "composition_authority": "Dry E-SBR grade-1502 contains 23.5% bound styrene and 76.5% butadiene-derived polymer.",
+      "composition_equation": "0.235 kg bound-styrene polymer fraction + 0.765 kg butadiene-derived polymer fraction = 1 kg dry grade-1502 polymer constituent",
+      "composition_role": "Commercial E-SBR grade-1502 composition.",
+      "sbr_share_in_material": 0.108715495226123
+    }
+  },
+  "distinct_composition_decision": {
+    "decision": "retain 0.25/0.75 for Elastomers (tyres) and 0.235/0.765 for the Others E-SBR grade-1502 constituent",
+    "scientific_reason": "The tire-family split follows the REMIND-MFA carbon fraction for SBR-equivalent polymer. The Others constituent uses the reported bound-styrene content of commercial grade 1502.",
+    "treatment_limitation": "The tire-family composition determines its additive PS/PE treatment weights. The Others composition defines the grade-1502 polymer in compound 22, with auxiliaries and waste treatment represented separately."
+  },
+  "portfolio_mapping": {
+    "styrene_derived_fraction": "native polystyrene treatment",
+    "butadiene_derived_fraction": "native polyethylene treatment"
+  },
+  "whole_tyre_constituents_excluded": [
+    "natural rubber",
+    "steel",
+    "textiles",
+    "fillers",
+    "cure systems",
+    "process oils",
+    "additives",
+    "compounding",
+    "tyre manufacture"
+  ],
+  "resolution_status": "source_specific_sbr_compositions_with_disclosed_polymer_treatment_analogue_no_sbr_specific_fate_inventory"
+}

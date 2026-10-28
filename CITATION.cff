@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use pyToCE, cite the software and the sources listed in methodological_notes/recommended_citations.txt."
+title: "pyToCE"
+version: 1.0.0
+type: software
+repository-code: "https://github.com/Ike-EDB/pyToCE"
+url: "https://github.com/Ike-EDB/pyToCE"
+authors:
+  - family-names: "de Bantel"
+    given-names: "Erwan Ike"
+    email: "erwan.de-bantel@centralesupelec.fr"
+    affiliation: "Université Paris-Saclay, CentraleSupélec, Laboratoire Génie Industriel, 91190 Gif-sur-Yvette, France"
+    orcid: "https://orcid.org/0009-0004-5879-6600"
+abstract: >-
+  Python package for target-driven circular economy planning through absolute
+  environmental sustainability assessment (AESA).
+license: BSD-3-Clause
+keywords:
+  - material flow analysis (MFA)
+  - life cycle assessment (LCA)
+  - prospective LCA (pLCA)
+  - time-explicit LCA
+  - absolute environmental sustainability assessment (AESA)
+  - plastics
+  - circular economy
+  - industrial ecology

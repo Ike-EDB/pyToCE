@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Entirely invented fixture; contains no licensed inventory data. -->
+<ecoSpold xmlns="http://www.EcoInvent.org/EcoSpold02">
+  <activityDataset>
+    <activityDescription>
+      <activity id="11111111-1111-4111-8111-111111111111" specialActivityType="0">
+        <activityName>fixture product production</activityName>
+      </activity>
+      <geography><shortname>GLO</shortname></geography>
+      <technology/>
+      <timePeriod startDate="2019-01-01" endDate="2019-12-31" isDataValidForEntirePeriod="true"/>
+    </activityDescription>
+    <flowData>
+      <intermediateExchange id="10000000-0000-4000-8000-000000000001"
+          intermediateExchangeId="aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa" amount="2">
+        <name>fixture product</name><unitName>kg</unitName><outputGroup>0</outputGroup>
+      </intermediateExchange>
+      <intermediateExchange id="10000000-0000-4000-8000-000000000002"
+          intermediateExchangeId="bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb"
+          activityLinkId="22222222-2222-4222-8222-222222222222" amount="-0.5">
+        <name>fixture waste</name><unitName>kg</unitName><inputGroup>1</inputGroup>
+      </intermediateExchange>
+      <elementaryExchange id="10000000-0000-4000-8000-000000000003"
+          elementaryExchangeId="eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee" amount="3">
+        <name>fixture emission</name><unitName>kg</unitName><outputGroup>4</outputGroup>
+        <uncertainty>
+          <lognormal mu="1.0986122886681098" variance="0.04" varianceWithPedigreeUncertainty="0.04"/>
+        </uncertainty>
+      </elementaryExchange>
+    </flowData>
+    <administrativeInformation>
+      <dataEntryBy personName="Fixture author" personEmail="fixture@example.invalid"/>
+      <dataGeneratorAndPublication personName="Fixture author" personEmail="fixture@example.invalid"/>
+    </administrativeInformation>
+  </activityDataset>
+</ecoSpold>

@@ -1,0 +1,225 @@
+Recommended citations
+
+This file lists the software, data, and method references for pyToCE and the
+attribution accompanying retained source material.
+Cite the pyToCE version recorded with the result. CITATION.cff contains
+the software citation metadata.
+
+The plastics MFA uses REMIND-MFA version 0.2.0, commit
+bf95c898e0f6f363196bccb62d34e02d82e4726b, and its input dataset revision
+rev1.0.0_h12_1584d780_mfa.
+
+Dürrwächter, J., Weiss, B., Schweiger, L., Zhang, Q., Benke, F., Hosak, M., &
+Ueckerdt, F. (2025). REMIND-MFA input data (Version 1.0.0) [Data set]. Zenodo.
+https://doi.org/10.5281/zenodo.18019915
+
+REMIND-MFA repository: https://github.com/pik-piam/remind-mfa
+
+Dürrwächter, J., Hosak, M., Weiss, B., & Ueckerdt, F. (2026). flodym: A
+Python package for dynamic material flow analysis. Journal of Open Source
+Software, 11(119), 10105. https://doi.org/10.21105/joss.10105
+
+Prospective LCA uses ecoinvent 3.12, premise, Brightway, bw_timex, and
+bw_temporalis. Cite the exact software versions recorded in the result manifest
+and follow the ecoinvent license and citation requirements.
+
+Sacchi, R., Terlouw, T., Siala, K., Dirnaichner, A., Bauer, C., Cox, B.,
+Mutel, C., Daioglou, V., & Luderer, G. (2022).
+PRospective EnvironMental Impact asSEment (premise): A streamlined approach to
+producing databases for prospective life cycle assessment using integrated
+assessment models. Renewable and Sustainable Energy Reviews, 160, 112311.
+https://doi.org/10.1016/j.rser.2022.112311
+
+Mutel, C. (2017). Brightway: An open source framework for Life Cycle
+Assessment. Journal of Open Source Software, 2(12), 236.
+https://doi.org/10.21105/joss.00236
+
+Diepers, T., Müller, A., & Jakobs, A. (2026). bw_timex: A Python Package for
+Time-Explicit Life Cycle Assessment. Journal of Open Source Software, 11(120),
+9621. https://doi.org/10.21105/joss.09621
+
+Mutel, C. (2025). bw_temporalis (Version 1.2.0) [Computer software].
+https://github.com/brightway-lca/bw_temporalis
+
+The EF v3.1 calculations use the licensed ecoinvent 3.12 LCIA implementation.
+The 16-category selection follows Commission Recommendation (EU) 2021/2279,
+Annex I, Table 2.
+
+European Commission. (2021). Commission Recommendation (EU) 2021/2279 on the
+use of the Environmental Footprint methods. https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32021H2279
+
+The PB-LCIA calculations use AESA (PBs-LCIA) version 0.9.2, branch ei_312,
+commit 00003e27a04bfc5662bf561cf7a092ba5324d67c.
+
+The following citation identifies the original archived software. Calculations
+use the separately identified ecoinvent 3.12 adaptation above.
+
+Tulus, V. (2023). Implementation of AESA methods for Brightway2 (v0.9.0).
+https://doi.org/10.5281/zenodo.7575887
+
+Chemical recycling is modeled using the hydrothermal treatment boundary and
+the ecoinvent activities listed in the prepared provider tables.
+
+Ozoemena, M. C., & Coles, S. R. (2023). Hydrothermal Treatment of Waste
+Plastics: An Environmental Impact Study. Journal of Polymers and the
+Environment, 31(7), 3120–3130. https://doi.org/10.1007/s10924-023-02792-3
+
+In the plastic families Elastomers (tyres) and Others, the SBR processes use
+the composition and processes listed in the prepared provider tables.
+
+Berger, N. J., & Pfeifer, C. (2024). Evaluating the profitability and global
+warming potential of manufacturing styrene-butadiene rubber with chemicals
+synthesised from bulk waste plastic and CO2 emissions. Sustainable Production
+and Consumption, 45, 408-428. https://doi.org/10.1016/j.spc.2024.01.017
+
+Synthos. (2024). Synthos Rubber Brochure.
+https://www.synthosgroup.com/wp-content/uploads/2024/03/March-2024-Synthos-Rubber-Brochure.pdf
+
+Open burning and open dumping use the global uncollected waste estimates and
+data from Cottom et al. (2024). The non-burned remainder uses the open-dump inventory.
+
+Cottom, J. W., Cook, E., & Velis, C. A. (2024). A local-to-global emissions
+inventory of macroplastic pollution. Nature, 633, 101-108.
+https://doi.org/10.1038/s41586-024-07758-6
+
+Cottom, J. W., Cook, E., & Velis, C. A. (2024). Data from: A local-to-global
+emissions inventory of macroplastic pollution [Data set]. Dryad.
+https://doi.org/10.5061/dryad.8cz8w9gxb
+
+The DAC methane standard-volume conversion uses the NIST Chemistry WebBook,
+Standard Reference Database 69, implementation of the methane equation of
+state of Setzmann and Wagner (1991).
+
+NIST Chemistry WebBook, SRD 69. https://doi.org/10.18434/T4D303
+
+The fixed reference-gas net calorific value is 36 MJ per standard cubic meter
+at 15 degrees Celsius and 1013 mbar. This is distinct from pure-methane density.
+
+Meili, C., Jungbluth, N., & Bussa, M. (2021). Life cycle inventories of crude oil
+and natural gas extraction. ESU-services, version 5.0, section 5.2.1, p. 13.
+https://esu-services.ch/fileadmin/download/publicLCI/meili-2021-LCI%20for%20the%20oil%20and%20gas%20extraction.pdf
+
+The adopted starch condition is 14 percent water by wet mass, following
+Blanco et al. (2020). The same specification applies to synthetic technical amylose.
+
+Blanco, J., Iglesias, J., Morales, G., Melero, J. A., & Moreno, J. (2020).
+Comparative Life Cycle Assessment of Glucose Production from Maize Starch and
+Woody Biomass Residues as a Feedstock. Applied Sciences, 10, 2946.
+Section 2.2.1, p. 4. https://doi.org/10.3390/app10082946
+
+The nominal maize-starch wastewater loading is 0.105 kg total phosphorus as P
+per cubic meter. The constructed inventory retains the selected native
+treatment chain and reports its additional phosphorus release separately.
+
+Doka, G. (2003). Life Cycle Inventories of Waste Treatment Services, Part I:
+General Introduction; Waste Material Compositions; Municipal Waste Collection.
+Ecoinvent report No. 13, Part I, Tables A.17 and A.19, pp. 84 and 86.
+https://www.doka.ch/13_I_WasteTreatmentGeneral.pdf
+
+Setzmann, U., & Wagner, W. (1991). A New Equation of State and Tables of
+Thermodynamic Properties for Methane Covering the Range from the Melting Line
+to 625 K at Pressures up to 1000 MPa. Journal of Physical and Chemical
+Reference Data, 20, 1061. https://doi.org/10.1063/1.555898
+(via the NIST Chemistry WebBook methane-property implementation).
+
+The ABS and SAN material and energy estimates use Eerens and van Dam (2022),
+Sections 3.6 and 3.7, Tables 15 and 16. The provider tables document the
+additional process and carbon-origin assumptions.
+
+Eerens, H. C., & van Dam, D. (2022). Decarbonisation options for Large Volume
+Organic Chemicals Production, DOW Chemical Terneuzen. PBL Netherlands
+Environmental Assessment Agency and TNO Energy Transition. Publication 4883.
+https://www.pbl.nl/downloads/pbl-2022-decarbonisation-options-for-large-volume-organic-chemicals-production-dow-terneuzen-4883pdf
+
+The complete data-use notice for the USLCI ABS source identified by UUID
+0e42a306-ee2d-362e-8bc3-580000096459 is distributed with the package.
+
+U.S. Life Cycle Inventory Database. (2026). National Renewable Energy
+Laboratory, version 1.2026-06.0. https://www.lcacommons.gov/nrel/search
+
+Monitoring and target setting use allocated carrying capacities calculated
+through the pyaesa tutorial workflow or supplied by the user.
+Cite the source recorded in each `cc_authority` column. If pyaesa produced the
+result, cite the exact pyaesa version recorded there. Use the citation guide in
+the pyaesa workspace at `data_raw/methodological_notes/recommended_citations.txt`
+for the UNCASExt article, Appendices B and C, and input-source citations.
+
+de Bantel, E. I., Pirson, T., Puig-Samper, G., Hartmann, J. M., Bol, D.,
+Bouillass, G., Yannou, B., Jankovic, M., & Hauschild, M. Z. (2026). UNCASExt:
+A systematic computational framework for uncertainty propagation and scope
+consistency in absolute environmental sustainability assessments (AESA).
+Sustainable Production and Consumption, 69, 394–415. https://doi.org/10.1016/j.spc.2026.09.018
+
+Additional references cited in the source comments
+
+PlasticsEurope, Life Cycle and Sustainability working group. (2017).
+PlasticsEurope recommendation on Steam Cracker allocation. 14 September 2017.
+https://plasticseurope.org/wp-content/uploads/2021/12/PlasticsEurope_recommendation_on_Steam_Cracker_allocation-_Juillet_2018.pdf
+
+National Development and Reform Commission, Ministry of Ecology and
+Environment, & Ministry of Industry and Information Technology. (2018).
+合成纤维制造业（锦纶6）清洁生产评价指标体系. Notice No. 17, dated
+29 December 2018; posted 18 January 2019.
+https://www.ndrc.gov.cn/xxgk/zcfb/gg/201901/t20190118_961216.html
+
+南通九州新材料科技有限公司 (project owner). (2022). 锦纶长丝及锦纶布生产项目
+建设项目环境影响报告表（污染影响类）. November 2022. Hosted by Haian government.
+https://www.haian.gov.cn/hasspj/upload/d2f8d80b-5ba6-4df8-85d5-4cf96d7f3e1d.pdf
+
+Michel, R. (1938), via Doka (2003), Part II, p. 88. Berechnung der
+Verbrennungswärmen fester und flüssiger Brennstoffe nach den Wärmewerten ihrer
+Einzelbestandteile. Feuerungstechnik, 26(9), 273–278. Source consulted: Doka (2003), Part II, p. 88.
+https://www.doka.ch/13_II_WasteIncineration.pdf
+
+Gendorf. (2000), via ecoinvent chemical-factory inventory documentation.
+Umwelterklärung 2000, Werk Gendorf. Werk Gendorf, Burgkirchen. This is the
+factory-infrastructure reference. The public ecoinvent 3.11 catalogue corroborates its bibliographic record.
+https://ecoquery.ecoinvent.org/3.11/cutoff/dataset/3465
+
+Gendorf operation data (2011–2015), via ecoinvent 3.12,
+"sodium hydrogen sulfate production" activity metadata. This is the nitrogen
+blanketing reference, distinct from the 2000 factory-infrastructure reference.
+
+Polynt. (2025). New Life Cycle Assessment (LCA) Data Available for Unsaturated
+Polyester (UP) and Vinyl Ester (VE) Resins. 13 January 2025. The producer
+identifies EY as the study contractor and December 2024 as the dataset release.
+https://www.polynt.com/en/news/lca-upr-e-ver/
+
+
+Indirect source chains
+
+The following references identify original publications through the consulted
+source named after "via".
+
+- Michel (1938), via Muñoz et al. (2007), Section 2.2.5, Eq. 9 and Table 5,
+  supplies the generic kg-element heat coefficients. Explicit Doka report and
+  WWcalc references retain their local carriers: Doka (2003), Part II, Section
+  2.4.2, or Doka (2021), WWcalc DT18, as cited at the point of use.
+  https://www.doka.ch/CEShumanExcretion07.pdf
+- Downard et al. (2015), via Doka (2017), Section 4, pp. 6–7, supplies the
+  tentative tire-fire particulate-size profile.
+- Hirsinger and Schick (1995), via the selected ecoinvent 3.12 petrochemical
+  fatty-alcohol-sulfate producer documentation, supplies the original inventory
+  attribution.
+- Chase (1998) review entries, via NIST Chemistry WebBook, SRD 69, supply the
+  selected thermochemistry values. PA thermal-species calculations retain the
+  separate CODATA water review entries, also via WebBook.
+- Senko et al. (1995), via UCSF Protein Prospector, supplies the averagine
+  reference.
+- Genchel et al. (1973), via NIST Chemistry WebBook, SRD 69, supplies the
+  titanium-butoxide thermochemical attribution, with the original citation
+  details retained as listed by NIST.
+- Althaus et al. (2007) and Gendorf (2000), via ecoinvent chemical-factory
+  inventory documentation, identify the factory-infrastructure references.
+  Gendorf operation data (2011–2015), via the ecoinvent 3.12 sodium-hydrogen-
+  sulfate activity metadata, remain a separate nitrogen-blanketing reference.
+- IFEU/PlasticsEurope (2021), via ecoinvent 3.12 activity documentation, identifies
+  the ethylene-oxide eco-profile; the Swiss 2015 wood-adhesive formulation and
+  Eurostat 2016 waste-market freight attribution are likewise via their selected
+  ecoinvent 3.12 activity documentation.
+- Setzmann and Wagner (1991), via NIST Chemistry WebBook's methane-property
+  implementation, identifies the equation of state underlying the adopted NIST
+  density value. The equation is reproduced through the cited secondary source.
+- The American Chemistry Council (2022) ABS report is identified via consulted
+  USLCI publication-source metadata. This retained attribution is separate from
+  the sources used to construct the current pyToCE ABS inventory.

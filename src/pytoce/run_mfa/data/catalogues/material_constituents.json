@@ -1,0 +1,693 @@
+{
+  "schema_version": "pytoce_material_constituents_schema_v1",
+  "method": "pytoce_fixed_material_constituents_v5",
+  "interpretation": "Fixed within-family mass shares apply to historical cohorts, new products and family-level trade across 12 world regions and years. Only the selected PE/PP constituents use hydrothermal chemical recycling. Classes remain distinct when they share a provider. Conditional conversion portfolios partition each constituent's finished output; the family share is applied once in MFA. Mechanical-recovery names select fixed dry-principal process functions in the locally derived material recipe. A null binding excludes fresh-resin return for the represented cured product. Original rounded family and conversion weights are normalized before capacity calculations.",
+  "source_authorities": [
+    {
+      "source_id": "accepted_bioplastics_composition_authority",
+      "authority_type": "project_portfolio_definition",
+      "role": "accepted_ten_class_bioplastics_portfolio_weights",
+      "direct_source_authority_ids": [
+        "material_composition_bridge_v1",
+        "oecd_global_plastics_outlook_annex",
+        "european_bioplastics_market_data_2017",
+        "european_bioplastics_market_data_2025"
+      ]
+    },
+    {
+      "source_id": "accepted_others_composition_authority",
+      "authority_type": "project_portfolio_definition",
+      "role": "accepted_ten_class_others_portfolio_weights",
+      "direct_source_authority_ids": [
+        "material_composition_bridge_v1",
+        "oecd_global_plastics_outlook_annex",
+        "unep_ryberg_plastics_value_chain"
+      ]
+    },
+    {
+      "source_id": "accepted_fibre_composition_authority",
+      "authority_type": "project_portfolio_definition",
+      "role": "accepted_pp_pet_pa6_and_pa66_fibre_portfolio_weights",
+      "direct_source_authority_ids": [
+        "material_composition_bridge_v1",
+        "oecd_global_plastics_outlook_annex",
+        "unep_ryberg_plastics_value_chain",
+        "murphy_2019_fibers_update"
+      ],
+      "limitation": "The global PA6/PA66 industrial-filament split applies across 12 world regions and years."
+    },
+    {
+      "source_id": "fixed_manufacturing_portfolios",
+      "authority_type": "project_portfolio_definition",
+      "role": "fixed_finished_output_processing_portfolios",
+      "method_note": "Study-declared processing mixes; the packaged original weights are normalized once before MFA or LCI use.",
+      "limitation": "Global processing portfolios apply across 12 world regions and years. Process yields and inventory quantities are specified separately.",
+      "direct_source_authority_ids": []
+    },
+    {
+      "source_id": "eionet_2021_processing_assumptions",
+      "title": "Vanderreydt et al.: Greenhouse gas emissions and natural capital implications of plastics (including biobased plastics)",
+      "version": "2021",
+      "url": "https://www.eionet.europa.eu/etcs/etc-wmge/products/etc-wmge-reports/greenhouse-gas-emissions-and-natural-capital-implications-of-plastics-including-biobased-plastics",
+      "authority_type": "institutional_report",
+      "role": "conditional_finished_output_processing_assumptions",
+      "source_locations": [
+        "Section 2.2.3, printed pages 19-20, Table 2-6"
+      ],
+      "limitation": "EU-2018 converter-demand assumptions supply the fixed HDPE, PP, PET and PVC processing selections. Current native inventories supply the process yields and burdens."
+    },
+    {
+      "source_id": "keoleian_2012_abs_forming",
+      "title": "Life Cycle Material Data Update for GREET Model",
+      "version": "2012",
+      "url": "https://css.umich.edu/sites/default/files/css_doc/CSS12-12.pdf",
+      "authority_type": "institutional_report",
+      "role": "abs_injection_route_relevance",
+      "source_locations": [
+        "Section 2.2.26, printed pages 67-68, Table 2.41"
+      ],
+      "limitation": "ABS injection in US vehicle applications supports the selected ABS/SAN injection-forming proxy.",
+      "authors": "Gregory Keoleian; Shelie Miller; Robert De Kleine; Andrew Fang; Janet Mosley",
+      "year": 2012
+    },
+    {
+      "source_id": "ben_amor_2023_pa6_forming",
+      "title": "Mechanical Recycling and Its Effects on the Physical and Mechanical Properties of Polyamides",
+      "version": "2023",
+      "url": "https://doi.org/10.3390/polym15234561",
+      "authority_type": "peer_reviewed_article",
+      "role": "pa6_injection_route_compatibility",
+      "source_locations": [
+        "Sections 2.1-2.2: Chemlon MD82 PA6, grinding, drying and injection"
+      ],
+      "limitation": "PA6 represents Bio-PA. The Chemlon MD82 sequence supplies the injection-forming reference.",
+      "authors": "Ichrak Ben Amor; Olga Klinkova; Mouna Baklouti; Riadh Elleuch; Imad Tawfiq",
+      "year": 2023
+    },
+    {
+      "source_id": "tabi_kovacs_2007_tps_forming",
+      "title": "Examination of injection moulded thermoplastic maize starch",
+      "version": "2007",
+      "url": "https://doi.org/10.3144/expresspolymlett.2007.111",
+      "authority_type": "peer_reviewed_article",
+      "role": "related_tps_injection_route_compatibility",
+      "source_locations": [
+        "Printed page 805, Section 2 and Table 1"
+      ],
+      "limitation": "The 70:16:14 maize starch:glycerol:water formulation supplies the TPS forming reference. The modeled corn-starch/glycerol formulation remains unchanged; other_biodegradable and starch_blends retain separate family amounts of that recipe.",
+      "authors": "T. Tabi; J. G. Kovacs",
+      "year": 2007
+    },
+    {
+      "source_id": "reis_2015_neat_phb_forming",
+      "title": "Particles of Coffee Wastes as Reinforcement in Polyhydroxybutyrate (PHB) Based Composites",
+      "version": "2015",
+      "url": "https://doi.org/10.1590/1516-1439.318114",
+      "authority_type": "peer_reviewed_article",
+      "role": "neat_phb_injection_route_compatibility",
+      "source_locations": [
+        "Sections 2.1-2.2: BIOCYCLE PHB powder and zero-filler control"
+      ],
+      "limitation": "The neat P(3HB) control supplies the injection-forming reference. Powder supply, extrusion/pellet preparation and final injection remain separate functions.",
+      "authors": "Kelen Cristina Reis; Lucinéia Pereira; Isabel Cristina Nogueira Alves Melo; José Manoel Marconcini; Paulo Fernando Trugilho; Gustavo Henrique Denzin Tonoli",
+      "year": 2015
+    },
+    {
+      "source_id": "shell_1999_ptt_forming",
+      "title": "Polytrimethylene terephthalate composition",
+      "version": "1999",
+      "url": "https://patents.google.com/patent/US5994451A/en",
+      "authority_type": "patent",
+      "role": "unmodified_ptt_injection_route_compatibility",
+      "source_locations": [
+        "Example 1 and Table 1: unreinforced 100/0 PTT/polyketone control"
+      ],
+      "limitation": "The unmodified PTT control supplies the injection-forming reference.",
+      "authors": "Kailash Dangayach",
+      "year": 1999
+    },
+    {
+      "source_id": "pre_2019_flexible_pe_applications",
+      "title": "Plastics Recyclers Europe: Flexible Polyethylene Recycling in Europe",
+      "version": "2019",
+      "url": "https://www.plasticsrecyclers.eu/wp-content/uploads/2022/10/flexible-pe-recycling-in-europe-june-2019.pdf",
+      "authority_type": "industry_association_report",
+      "role": "ldpe_flexible_film_function",
+      "source_locations": [
+        "June 2019, printed page 5: LDPE/LLDPE flexible-film applications"
+      ],
+      "limitation": "Major European LDPE/LLDPE flexible-film applications motivate the selected film-extrusion proxy."
+    },
+    {
+      "source_id": "constituent_injection_forming_reference",
+      "authority_type": "project_portfolio_definition",
+      "role": "whole_forming_proxy_for_actual_abs_and_residual_bioplastic_constituents",
+      "method_note": "Apply the existing complete RER injection service to actual ABS/SAN, PA6, PTT, corn-starch/glycerol TPS, neat PBAT, PBS, P(3HB) and PLA. The two TPS constituent labels remain separate amounts of the same formulation. Bio-HDPE and Bio-PET instead use their own conditional PE/PET portfolios. Native principal polymer is excluded from the forming service and supplied once by the material owner.",
+      "direct_source_authority_ids": [
+        "keoleian_2012_abs_forming",
+        "ben_amor_2023_pa6_forming",
+        "shell_1999_ptt_forming",
+        "tabi_kovacs_2007_tps_forming",
+        "nomadolo_2024_biopolyester_reprocessing",
+        "reis_2015_neat_phb_forming"
+      ],
+      "limitation": "Injection molding represents the specified engineering thermoplastics and bioplastics. Nomadolo supplies separate neat PBAT Ecoflex C1200, PBS FZ91 and PLA LX175 injection references. The modeled resin compositions and complete native forming services are retained."
+    },
+    {
+      "source_id": "ldpe_film_forming_reference",
+      "authority_type": "project_portfolio_definition",
+      "role": "whole_ldpe_film_extrusion_proxy",
+      "direct_source_authority_ids": [
+        "pre_2019_flexible_pe_applications"
+      ],
+      "method_note": "Select the complete existing native film-extrusion service for all represented LDPE finished output; use its separately admitted finished-output normalization and actual principal demand.",
+      "limitation": "Film extrusion represents LDPE forming, based on its major flexible-film applications."
+    },
+    {
+      "source_id": "ps_forming_portfolio_reference",
+      "authority_type": "project_portfolio_definition",
+      "role": "ps_finished_output_pools_and_complete_forming_proxies",
+      "direct_source_authority_ids": [
+        "lbnl_primary_plastic_energy"
+      ],
+      "source_locations": [
+        "LBNL-2001585 (2024), section 2.5, printed pages 28 and 31, Figure 18; Table A.18, printed page 104"
+      ],
+      "method_note": "Table A.18 reports 2019 shaping demand in Mt: GPPS 2.7, HIPS 7.2, EPS 7.4, XPS 2.1 and other PS 1.2, total 20.6. Finished-output pool weights are 9.5 for EPS+XPS, 9.9 for GPPS+HIPS and 1.2 for other products. Normalize these rounded source weights once. Select complete native foaming for the foam pool, injection for the solid pool and film extrusion for the residual pool; the source identifies injection as compatible with both solid grades and film products such as OPS in the residual category.",
+      "limitation": "The source output pools select foaming, injection and film extrusion for foam, solid and residual PS, respectively. These forming assignments apply across 12 world regions, years and backgrounds; dated native supplies vary separately."
+    }
+  ],
+  "constituents": [
+    {
+      "material": "ABS_ASA_SAN",
+      "constituent": "abs_asa_san",
+      "share": 1.0,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "engineering_granulate"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "bio_pa",
+      "share": 0.119,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "pa_granulate"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "bio_pe",
+      "share": 0.097,
+      "chemical_polymer": "hdpe",
+      "conversion_portfolio": "polyethylene",
+      "mechanical_recovery": "hdpe_granulate"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "bio_pet",
+      "share": 0.263,
+      "chemical_polymer": null,
+      "conversion_portfolio": "pet",
+      "mechanical_recovery": "pet_granulate"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "other_bio_based",
+      "share": 0.092,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "biopolyester_granulate"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "other_biodegradable",
+      "share": 0.015,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "tps_compound"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "pbat",
+      "share": 0.05,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "biopolyester_granulate"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "pbs",
+      "share": 0.049,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "biopolyester_granulate"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "pha",
+      "share": 0.024,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "phb_granulate"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "pla",
+      "share": 0.103,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "biopolyester_granulate"
+    },
+    {
+      "material": "BioPlastics",
+      "constituent": "starch_blends",
+      "share": 0.188,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "tps_compound"
+    },
+    {
+      "material": "Fibres",
+      "constituent": "polypropylene",
+      "share": 0.5642138274879658,
+      "chemical_polymer": "pp",
+      "conversion_portfolio": "fibres_pp_conversion",
+      "mechanical_recovery": "pp_granulate"
+    },
+    {
+      "material": "Fibres",
+      "constituent": "polyethylene_terephthalate",
+      "share": 0.353411962583902,
+      "chemical_polymer": null,
+      "conversion_portfolio": "fibres_pet_conversion",
+      "mechanical_recovery": "pet_granulate"
+    },
+    {
+      "material": "Fibres",
+      "constituent": "polyamide_6_resin",
+      "share": 0.047199410872872466,
+      "chemical_polymer": null,
+      "conversion_portfolio": "fibres_pa6_conversion",
+      "mechanical_recovery": "pa_granulate"
+    },
+    {
+      "material": "Fibres",
+      "constituent": "polyamide_66_resin",
+      "share": 0.03517479905525972,
+      "chemical_polymer": null,
+      "conversion_portfolio": "fibres_pa66_conversion",
+      "mechanical_recovery": "pa_granulate"
+    },
+    {
+      "material": "Elastomers (tyres)",
+      "constituent": "elastomers",
+      "share": 1.0,
+      "chemical_polymer": null,
+      "conversion_portfolio": "tyre",
+      "mechanical_recovery": null
+    },
+    {
+      "material": "HDPE",
+      "constituent": "hdpe",
+      "share": 1.0,
+      "chemical_polymer": "hdpe",
+      "conversion_portfolio": "polyethylene",
+      "mechanical_recovery": "hdpe_granulate"
+    },
+    {
+      "material": "PET",
+      "constituent": "pet",
+      "share": 1.0,
+      "chemical_polymer": null,
+      "conversion_portfolio": "pet",
+      "mechanical_recovery": "pet_granulate"
+    },
+    {
+      "material": "PP",
+      "constituent": "pp",
+      "share": 1.0,
+      "chemical_polymer": "pp",
+      "conversion_portfolio": "pp",
+      "mechanical_recovery": "pp_granulate"
+    },
+    {
+      "material": "PS",
+      "constituent": "ps",
+      "share": 1.0,
+      "chemical_polymer": null,
+      "conversion_portfolio": "ps_forming",
+      "mechanical_recovery": "ps_granulate"
+    },
+    {
+      "material": "PUR",
+      "constituent": "pur",
+      "share": 1.0,
+      "chemical_polymer": null,
+      "conversion_portfolio": "finished_pur",
+      "mechanical_recovery": null
+    },
+    {
+      "material": "LDPE",
+      "constituent": "ldpe",
+      "share": 1.0,
+      "chemical_polymer": "ldpe",
+      "conversion_portfolio": "conversion_film",
+      "mechanical_recovery": "ldpe_granulate"
+    },
+    {
+      "material": "PVC",
+      "constituent": "pvc",
+      "share": 1.0,
+      "chemical_polymer": null,
+      "conversion_portfolio": "pvc",
+      "mechanical_recovery": "pvc_granulate"
+    },
+    {
+      "material": "Others",
+      "constituent": "adhesives",
+      "share": 0.12870827684465494,
+      "chemical_polymer": null,
+      "conversion_portfolio": "finished_pur",
+      "mechanical_recovery": null
+    },
+    {
+      "material": "Others",
+      "constituent": "general_coatings",
+      "share": 0.038775664313868856,
+      "chemical_polymer": null,
+      "conversion_portfolio": "others_epoxy_coating_conversion",
+      "mechanical_recovery": null
+    },
+    {
+      "material": "Others",
+      "constituent": "marine_coatings",
+      "share": 0.006581245355026663,
+      "chemical_polymer": null,
+      "conversion_portfolio": "others_epoxy_coating_conversion",
+      "mechanical_recovery": null
+    },
+    {
+      "material": "Others",
+      "constituent": "non_tyre_elastomers",
+      "share": 0.108715495226123,
+      "chemical_polymer": null,
+      "conversion_portfolio": "others_esbr_compounding_conversion",
+      "mechanical_recovery": null
+    },
+    {
+      "material": "Others",
+      "constituent": "other_thermoplastics",
+      "share": 0.14748680072933834,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "engineering_granulate"
+    },
+    {
+      "material": "Others",
+      "constituent": "pa",
+      "share": 0.036871700182334585,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "pa_granulate"
+    },
+    {
+      "material": "Others",
+      "constituent": "pc",
+      "share": 0.036871700182334585,
+      "chemical_polymer": null,
+      "conversion_portfolio": "conversion_injection",
+      "mechanical_recovery": "engineering_granulate"
+    },
+    {
+      "material": "Others",
+      "constituent": "road_marking_coatings",
+      "share": 0.008295774234176085,
+      "chemical_polymer": null,
+      "conversion_portfolio": "others_road_marking_conversion",
+      "mechanical_recovery": null
+    },
+    {
+      "material": "Others",
+      "constituent": "sealants",
+      "share": 0.02522079120278648,
+      "chemical_polymer": null,
+      "conversion_portfolio": "finished_pur",
+      "mechanical_recovery": null
+    },
+    {
+      "material": "Others",
+      "constituent": "thermosets",
+      "share": 0.4624725517293565,
+      "chemical_polymer": null,
+      "conversion_portfolio": "others_upr_hand_lay_up_conversion",
+      "mechanical_recovery": null
+    }
+  ],
+  "conversion_portfolios": {
+    "polyethylene": {
+      "components": [
+        {
+          "operation": "conversion_injection",
+          "share": 0.67
+        },
+        {
+          "operation": "conversion_pipe",
+          "share": 0.09
+        },
+        {
+          "operation": "conversion_blow",
+          "share": 0.24
+        }
+      ],
+      "source_authority_ids": [
+        "eionet_2021_processing_assumptions"
+      ],
+      "interpretation": "Eionet EU-2018 finished-output assumptions define HDPE and Bio-HDPE processing shares across 12 world regions and years. Principal resin and native forming-service quantities remain separate."
+    },
+    "pet": {
+      "components": [
+        {
+          "operation": "conversion_blow",
+          "share": 0.5
+        },
+        {
+          "operation": "conversion_injection",
+          "share": 0.5
+        }
+      ],
+      "source_authority_ids": [
+        "eionet_2021_processing_assumptions"
+      ],
+      "interpretation": "Eionet EU-2018 finished-output assumptions define PET and Bio-PET processing shares. Blow molding and injection are alternative allocated operations."
+    },
+    "pp": {
+      "components": [
+        {
+          "operation": "conversion_injection",
+          "share": 0.74
+        },
+        {
+          "operation": "conversion_pipe",
+          "share": 0.02
+        },
+        {
+          "operation": "conversion_blow",
+          "share": 0.24
+        }
+      ],
+      "source_authority_ids": [
+        "eionet_2021_processing_assumptions"
+      ],
+      "interpretation": "Eionet EU-2018 finished-output assumptions define PP processing shares across 12 world regions and years. Native operations supply yields and inventory quantities."
+    },
+    "pvc": {
+      "components": [
+        {
+          "operation": "conversion_injection",
+          "share": 0.29
+        },
+        {
+          "operation": "conversion_pipe",
+          "share": 0.51
+        },
+        {
+          "operation": "conversion_blow",
+          "share": 0.02
+        },
+        {
+          "operation": "conversion_calendering",
+          "share": 0.18
+        }
+      ],
+      "source_authority_ids": [
+        "eionet_2021_processing_assumptions"
+      ],
+      "interpretation": "Eionet EU-2018 finished-output assumptions define PVC processing shares: 51% pipe extrusion, 18% rigid-sheet calendering, 29% injection and 2% blow molding. Calendering supplies sheet forming. The native recipe determines finished yield, principal input and PVC-waste treatment."
+    },
+    "ps_forming": {
+      "components": [
+        {
+          "operation": "conversion_foaming",
+          "share": 9.5
+        },
+        {
+          "operation": "conversion_injection",
+          "share": 9.9
+        },
+        {
+          "operation": "conversion_film",
+          "share": 1.2
+        }
+      ],
+      "source_authority_ids": [
+        "ps_forming_portfolio_reference"
+      ],
+      "interpretation": "Normalized LBNL 2019 finished-output pools assign (7.4+2.1) Mt foam to foaming, (2.7+7.2) Mt solid GPPS/HIPS to injection and 1.2 Mt residual PS to film extrusion. Native operation yields, auxiliaries and waste remain separate from principal resin supply."
+    },
+    "tyre": {
+      "components": [
+        {
+          "operation": "conversion_tyre",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "fixed_manufacturing_portfolios"
+      ],
+      "interpretation": "Fixed finished-output operation shares transferred across 12 world regions and years. Original rounded weights are retained here and normalized once by the composition owner. Operation sources separately define inventory quantities and principal-resin requirements."
+    },
+    "finished_pur": {
+      "components": [
+        {
+          "operation": "pur_conversion_included_in_finished_products",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "fixed_manufacturing_portfolios"
+      ],
+      "interpretation": "Fixed finished-output operation shares transferred across 12 world regions and years. Original rounded weights are retained here and normalized once by the composition owner. Operation sources separately define inventory quantities and principal-resin requirements."
+    },
+    "fibres_pp_conversion": {
+      "components": [
+        {
+          "operation": "fibres_pp_conversion",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "accepted_fibre_composition_authority"
+      ],
+      "interpretation": "The selected constituent's finished-fibre operation; resin supply is owned separately."
+    },
+    "fibres_pet_conversion": {
+      "components": [
+        {
+          "operation": "fibres_pet_conversion",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "accepted_fibre_composition_authority"
+      ],
+      "interpretation": "The selected constituent's finished-fibre operation; resin supply is owned separately."
+    },
+    "fibres_pa6_conversion": {
+      "components": [
+        {
+          "operation": "fibres_pa6_conversion",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "accepted_fibre_composition_authority"
+      ],
+      "interpretation": "The selected constituent's finished-fibre operation; resin supply is owned separately."
+    },
+    "fibres_pa66_conversion": {
+      "components": [
+        {
+          "operation": "fibres_pa66_conversion",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "accepted_fibre_composition_authority"
+      ],
+      "interpretation": "The selected constituent's finished-fibre operation; resin supply is owned separately."
+    },
+    "others_epoxy_coating_conversion": {
+      "components": [
+        {
+          "operation": "others_epoxy_coating_conversion",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "accepted_others_composition_authority"
+      ],
+      "interpretation": "One declared operation for the finished Others constituent; family composition is applied only in MFA."
+    },
+    "others_esbr_compounding_conversion": {
+      "components": [
+        {
+          "operation": "others_esbr_compounding_conversion",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "accepted_others_composition_authority"
+      ],
+      "interpretation": "One declared operation for the finished Others constituent; family composition is applied only in MFA."
+    },
+    "conversion_injection": {
+      "components": [
+        {
+          "operation": "conversion_injection",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "accepted_others_composition_authority",
+        "constituent_injection_forming_reference"
+      ],
+      "interpretation": "One complete injection-molding service represents the specified engineering-thermoplastic and residual bioplastic constituents. Actual constituent resin is supplied separately, and family shares are applied once in MFA. The forming references are listed in constituent_injection_forming_reference; Others constituents retain their separate assignments."
+    },
+    "others_road_marking_conversion": {
+      "components": [
+        {
+          "operation": "others_road_marking_conversion",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "accepted_others_composition_authority"
+      ],
+      "interpretation": "One declared operation for the finished Others constituent; family composition is applied only in MFA."
+    },
+    "others_upr_hand_lay_up_conversion": {
+      "components": [
+        {
+          "operation": "others_upr_hand_lay_up_conversion",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "accepted_others_composition_authority"
+      ],
+      "interpretation": "One declared operation for the finished Others constituent; family composition is applied only in MFA."
+    },
+    "conversion_film": {
+      "components": [
+        {
+          "operation": "conversion_film",
+          "share": 1.0
+        }
+      ],
+      "source_authority_ids": [
+        "ldpe_film_forming_reference"
+      ],
+      "interpretation": "One complete film-extrusion service represents LDPE forming. Principal LDPE supply remains separate from the native process yield, auxiliaries and waste."
+    }
+  }
+}

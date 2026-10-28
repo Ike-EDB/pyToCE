@@ -1,0 +1,113 @@
+name: Quality Checks
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out the candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install the release toolchain
+        run: python -m pip install ".[dev,docs]"
+      - name: Create the disposable Brightway store
+        run: python -c "import os; from pathlib import Path; path = Path(os.environ['RUNNER_TEMP']) / 'brightway'; path.mkdir(parents=True, exist_ok=True); Path(os.environ['GITHUB_ENV']).open('a', encoding='utf-8').write(f'BRIGHTWAY2_DIR={path}\n')"
+      - name: Check source and typing
+        run: |
+          python -m ruff check .
+          python -m ruff format --check .
+          pyright
+      - name: Validate citation metadata
+        run: |
+          python -m venv "${RUNNER_TEMP}/cff"
+          "${RUNNER_TEMP}/cff/bin/python" -m pip install cffconvert==2.0.0
+          "${RUNNER_TEMP}/cff/bin/cffconvert" --validate -i CITATION.cff
+      - name: Install PDF inspection tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes poppler-utils
+      - name: Build documentation and validate tutorials
+        run: python -m pytest -q -n 0 tests/docs/test_documentation_build.py
+
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out the candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Build and inspect the exact candidate
+        run: |
+          python -m pip install build==1.5.0 setuptools==84.2.1 wheel==0.47.0
+          python -m build
+          python tests/package/verify_release_artifacts.py dist
+      - name: Store distribution artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: python-package-distributions
+          path: dist/
+
+  artifact-install:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - name: Check out the candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - name: Download the exact distribution artifacts
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Install and smoke-test the wheel
+        run: |
+          python -m venv "${RUNNER_TEMP}/wheel-env"
+          "${RUNNER_TEMP}/wheel-env/bin/python" -m pip install dist/*.whl pyright==1.1.405
+          "${RUNNER_TEMP}/wheel-env/bin/python" -m pip check
+          mkdir "${RUNNER_TEMP}/wheel-smoke"
+          cd "${RUNNER_TEMP}/wheel-smoke"
+          "${RUNNER_TEMP}/wheel-env/bin/python" "${GITHUB_WORKSPACE}/tests/package/installed_artifact_smoke.py" "${RUNNER_TEMP}/wheel-workspace"
+      - name: Install and smoke-test the sdist
+        run: |
+          python -m venv "${RUNNER_TEMP}/sdist-env"
+          "${RUNNER_TEMP}/sdist-env/bin/python" -m pip install dist/*.tar.gz pyright==1.1.405
+          "${RUNNER_TEMP}/sdist-env/bin/python" -m pip check
+          mkdir "${RUNNER_TEMP}/sdist-smoke"
+          cd "${RUNNER_TEMP}/sdist-smoke"
+          "${RUNNER_TEMP}/sdist-env/bin/python" "${GITHUB_WORKSPACE}/tests/package/installed_artifact_smoke.py" "${RUNNER_TEMP}/sdist-workspace"

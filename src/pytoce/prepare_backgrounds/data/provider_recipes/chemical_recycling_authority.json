@@ -1,0 +1,103 @@
+{
+  "schema_version": "pytoce_chemical_recycling_authority_schema_v1",
+  "method_authority_id": "pytoce_constituent_chemical_recycling_v3",
+  "source_authority_ids": [
+    "ozoemena_coles_2023_hydrothermal_recycling",
+    "ecoinvent_3_12_cutoff",
+    "premise_2_4_6"
+  ],
+  "source_authorities": [
+    {
+      "source_id": "ozoemena_coles_2023_hydrothermal_recycling",
+      "title": "Hydrothermal Treatment of Waste Plastics: An Environmental Impact Study",
+      "doi": "10.1007/s10924-023-02792-3",
+      "role": "facility-gate mixed-polyolefin preparation and hydrothermal-treatment process boundary",
+      "source_locations": [
+        "journal pages 3122-3124, Figure 1 and Table 1",
+        "ecoinvent 3.12 linked documentation and native activities"
+      ],
+      "direct_source_authority_ids": [],
+      "authors": "Matthew C. Ozoemena; Stuart R. Coles",
+      "year": 2023
+    }
+  ],
+  "method_authority": {
+    "technology_boundary": "Only the material composition catalogue's eligible PE/PP constituents enter mixed-polyolefin preparation and hydrothermal treatment. Naphtha plus distillate gas oil supplies the native naphtha cracker as a prospective proxy. Recovered ethylene/propylene and virgin makeup supply one destination polymerization operation.",
+    "allocation_boundary": "Normalize preparation to processed plastic plus combustible plastic reject and hydrothermal inventories to processed plastic input. The MFA recipe removes allocation to derive yields and gross monomer requirements; LCI retains actual dated allocated monomer exchange coefficients.",
+    "geography_year_boundary": "Preparation, hydrothermal treatment, embedded reject treatment, cracking and polymerization use ecoinvent 3.12 through 2025, interpolate to the matching premise 2030 anchor during 2026-2029, and use matching-member premise anchors from 2030. The preparation and hydrothermal operations use the native GB datasets as common technology proxies; locations in the 12 world regions and selected inventory location remain distinct.",
+    "limitation": "Fixed constituent shares apply across regions and years. Hydrothermal naphtha/DGO supplies the naphtha steam-cracker proxy. The tracked-plastic denominator includes inseparable reject dust. Heavy oil, wax and nonpolymer cracker products leave the plastics boundary. Effective monomer-carbon retention is equal across the recovered monomers."
+  },
+  "resolution_status": "physical_constituent_feed_and_monomer_yields",
+  "stages": {
+    "preparation": {
+      "provider_demand_type": "chemical_recycling_preparation",
+      "stage_owner": "chemical_recycling_input_operations",
+      "mapping_basis": "kg_tracked_plastic_chemical_recycling_input",
+      "component_role": "recycling_operations",
+      "functional_unit": "1 kg tracked plastic entering chemical-recycling preparation",
+      "selector": {
+        "name": "treatment of waste mixed polyolefins, unprocessed, sorting",
+        "reference_product": "waste mixed polyolefins, unprocessed",
+        "unit": "kilogram",
+        "exact_location": "GB"
+      },
+      "processed_output_selector": {
+        "reference_product": "waste mixed polyolefins, processed",
+        "unit": "kilogram",
+        "exchange_type": "technosphere",
+        "sign": "negative"
+      },
+      "plastic_reject_output_selector": {
+        "reference_product": "waste plastic, mixture",
+        "unit": "kilogram",
+        "exchange_type": "technosphere",
+        "sign": "negative"
+      },
+      "tracked_plastic_denominator": {
+        "included_output_classes": [
+          "processed_plastic",
+          "combustible_plastic_reject"
+        ],
+        "excluded_output_classes": [
+          "water",
+          "ferrous_metal",
+          "non_ferrous_metal",
+          "inert_material",
+          "other_source_classified_nonplastic_output"
+        ],
+        "equation": "m_tracked_plastic = abs(m_processed_plastic) + abs(m_combustible_plastic_reject)",
+        "normalization_status": "tracked_plastic_functional_unit"
+      },
+      "retained_boundary": "Remove only self-production and the internal processed-feed output; retain utilities, infrastructure, water, combustible reject routing and treatment, inert output, and zero-burden metal outputs once. Normalize the project production to the tracked-plastic denominator."
+    },
+    "conversion": {
+      "provider_demand_type": "chemical_recycling_conversion",
+      "stage_owner": "chemical_recycling_input_operations",
+      "mapping_basis": "kg_tracked_plastic_chemical_recycling_input",
+      "component_role": "recycling_operations",
+      "activity_name": "treatment of waste mixed polyolefins, processed, hydrothermal treatment",
+      "reference_products": [
+        "naphtha",
+        "distillate gas oil",
+        "heavy gas oil",
+        "heavy wax residue"
+      ],
+      "canonical_reference_product": "naphtha",
+      "unit": "kilogram",
+      "exact_location": "GB",
+      "denominator_selector": {
+        "name": "market for waste mixed polyolefins, processed",
+        "reference_product": "waste mixed polyolefins, processed",
+        "unit": "kilogram",
+        "location": "GB",
+        "exchange_type": "technosphere",
+        "sign": "positive"
+      },
+      "premise_tolerance": {
+        "relative": 5e-07,
+        "absolute": 1e-12
+      },
+      "retained_boundary": "Retain the common operation vector after removing the sibling productions and processed-feed denominator."
+    }
+  }
+}

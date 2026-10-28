@@ -1,0 +1,97 @@
+{
+  "schema_version": "pytoce_download_data_workspace_guides_schema_v1",
+  "guides": [
+    {
+      "guide_id": "ecoinvent_source",
+      "workspace_path": "data_raw/ecoinvent",
+      "title": "Licensed ecoinvent files",
+      "purpose": "This directory holds the user-supplied ecoinvent 3.12 cut-off EcoSpold and LCIA implementation archives.",
+      "created_by": "download_data",
+      "inputs": ["`ecoinvent_3.12_cutoff_ecoSpold02.7z` placed here by the user.", "`ecoinvent 3.12_LCIA_implementation.7z` placed here by the user."],
+      "expected_contents": [
+        {"name": "ecoinvent_3.12_cutoff_ecoSpold02.7z", "description": "verified licensed Allocation, cut-off by classification EcoSpold source"},
+        {"name": "ecoinvent 3.12_LCIA_implementation.7z", "description": "verified licensed Environmental Footprint implementation source"},
+        {"name": "lcia_implementation.xlsx", "description": "verified workbook extracted from the licensed LCIA archive"},
+        {"name": "manifest.json", "description": "source version, content hashes, licenses, and citations; written last"}
+      ],
+      "tables_and_schemas": ["The manifest records the source file and its hash; the workbook retains the ecoinvent 3.12 sheet structure and is read by `prepare_backgrounds`."],
+      "units_signs_and_identifiers": ["Archive bytes and native workbook factors are preserved exactly.", "The system model is ecoinvent 3.12 Allocation, cut-off by classification."],
+      "pandas_example": "import pandas as pd\n\nworkbook = pd.ExcelFile(workspace / \"data_raw/ecoinvent/lcia_implementation.xlsx\")\nprint(workbook.sheet_names)",
+      "reuse_and_refresh": ["`download_data` reuses licensed sources with a completed manifest.", "The user supplies both licensed archives locally for verification and registration."],
+      "scientific_limitations": ["Possession and use remain subject to the user's ecoinvent license.", "Raw source verification records the versions, file hashes, and locations used by later workflows."]
+    },
+    {
+      "guide_id": "remind_mfa_source",
+      "workspace_path": "data_raw/remind_mfa",
+      "title": "REMIND-MFA files",
+      "purpose": "This directory contains the REMIND-MFA 0.2.0 source archive and input-data 1.0.0 archive used by `run_mfa`.",
+      "created_by": "download_data",
+      "inputs": ["Open REMIND-MFA v0.2.0 source downloaded from its recorded upstream revision.", "Open input archive 1.0.0 / rev1.0.0_h12_1584d780_mfa."],
+      "expected_contents": [
+        {"name": "remind_mfa_v0_2_0.tar.gz", "description": "REMIND-MFA 0.2.0 source archive"},
+        {"name": "input_data_1_0_0.zip", "description": "regional input-data archive"},
+        {"name": "manifest.json", "description": "source versions, content hashes, licenses, and citations; written last"}
+      ],
+      "tables_and_schemas": ["The manifest binds both archives; `run_mfa` later extracts the source code and input data under `data_processed/remind_mfa/`."],
+      "units_signs_and_identifiers": ["Archive contents preserve REMIND-MFA's native units, labels, and regional coordinates.", "The adapter records normalized units while preserving the downloaded source archives."],
+      "pandas_example": "import pandas as pd\n\nmanifest = pd.read_json(workspace / \"data_raw/remind_mfa/manifest.json\", typ=\"series\")\nprint(manifest[\"identity\"])",
+      "reuse_and_refresh": ["`download_data` reuses open sources with a completed manifest unless `refresh=True`.", "`download_data(refresh=True)` downloads public archives again using atomic file replacement."],
+      "scientific_limitations": ["`run_mfa` uses these source archives as inputs for its stock and flow calculations.", "Inherited equations and source quantities remain attributable to REMIND-MFA."]
+    },
+    {
+      "guide_id": "pb_lcia_source",
+      "workspace_path": "data_raw/pb_lcia",
+      "title": "AESA PB-LCIA files",
+      "purpose": "This directory holds the exact AESA PB-LCIA 0.9.2 source used to register the supported PB-LCIA impact categories.",
+      "created_by": "download_data",
+      "inputs": ["Open PB-LCIA branch `ei_312` at the package-recorded commit."],
+      "expected_contents": [
+        {"name": "pb_lcia_0_9_2.tar.gz", "description": "verified PB-LCIA source archive"},
+        {"name": "manifest.json", "description": "source revision, content hash, license, and citation; written last"}
+      ],
+      "tables_and_schemas": ["The manifest records the source file and hash. `prepare_backgrounds` resolves the factors and writes the prepared table of impact categories."],
+      "units_signs_and_identifiers": ["Native factor units are preserved.", "Only the ten impact categories listed in the package catalog are registered for `pb_lcia`."],
+      "pandas_example": "import pandas as pd\n\nmanifest = pd.read_json(workspace / \"data_raw/pb_lcia/manifest.json\", typ=\"series\")\nprint(manifest[\"identity\"])",
+      "reuse_and_refresh": ["A completed manifest selects ordinary reuse.", "`download_data(refresh=True)` replaces this downloaded open source after the refreshed copy is complete."],
+      "scientific_limitations": ["The downloaded factor archive supplies characterization methods for background preparation.", "Background preparation registers the selected PB-LCIA impact categories from the downloaded archive."]
+    },
+    {
+      "guide_id": "ecoinvent_material_recipe",
+      "workspace_path": "data_processed/ecoinvent",
+      "title": "Plastics inputs from ecoinvent",
+      "purpose": "This directory contains monomer requirements, chemical-recovery product yields, manufacturing input/output bases and mechanical-recovery declarations derived from selected licensed ecoinvent records and documented process references. The numerical file is private to the licensed workspace.",
+      "created_by": "download_data",
+      "inputs": [
+        "The authenticated ecoinvent 3.12 Allocation, cut-off by classification EcoSpold archive under data_raw/ecoinvent/."
+      ],
+      "expected_contents": [
+        {
+          "name": "material_recipe.json",
+          "description": "Completed material recipe, source member identities and hashes; written last."
+        }
+      ],
+      "tables_and_schemas": [
+        "The JSON contract is pytoce_ecoinvent_material_recipe_schema_v1. It contains three granulate monomer requirements, four hydrothermal products, seven cracker products, 16 manufacturing input/output bases, 11 mechanical-recovery declarations, eight recycling-operation normalization bases and 35 source records."
+      ],
+      "units_signs_and_identifiers": [
+        "Granulate monomer requirements use kg monomer per kg new granulate, before economic allocation. Actual allocated exchanges remain the LCA inputs.",
+        "Preparation quantities use kg tracked plastic per kg original bale; moisture and contaminants are outside the tracked-plastic denominator.",
+        "Hydrothermal yields use kg product per kg processed plastic; cracker yields use kg product per kg naphtha-equivalent feed. Carbon fractions use kg C per kg product.",
+        "Manufacturing records distinguish resin input per kilogram of finished polymer from finished polymer output per kilogram of the processing activity's reference product. Generic processing activities refer to the total mass processed; PET spinning refers to finished fiber. Waste treatment quantities remain separate.",
+        "Mechanical recovery reports kilograms of recovered polymer, polymer lost to water, and polymer lost to air per kilogram of incoming dry polymer. The remaining polymer goes to the specified waste treatment. Recycling inventory scaling uses kilograms of dry feed per kilogram of the activity's reference output and retains allocation.",
+        "The identity binds the source archive, selected member bytes, calculation method and derived quantities."
+      ],
+      "pandas_example": "import json\n\nrecipe = json.loads((workspace / \"data_processed/ecoinvent/material_recipe.json\").read_text(encoding=\"utf-8\"))\nprint(recipe[\"identity\"])",
+      "reuse_and_refresh": [
+        "A completed material_recipe.json is reused from its completion manifest. If the licensed source is already registered but the derived directory is absent, download_data creates the recipe.",
+        "download_data(refresh=True) downloads public sources again; the completed material recipe remains unchanged.",
+        "An existing directory whose completion file is missing is preserved. Select a new workspace before retrying."
+      ],
+      "scientific_limitations": [
+        "These coefficients describe selected native datasets and their documented technology transfers, applied to the modeled world regions.",
+        "The recipe reports the feed and named products specified by the source datasets. Preparation reject treatment remains owned by the preparation LCI.",
+        "The recipe contains licensed-derived quantities. Do not redistribute it as package data or as a public substitute for the licensed database."
+      ]
+    }
+  ]
+}

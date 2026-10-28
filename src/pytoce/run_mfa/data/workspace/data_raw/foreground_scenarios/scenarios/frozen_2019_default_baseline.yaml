@@ -1,0 +1,43 @@
+schema_version: pytoce_foreground_scenario_schema_v1
+foreground_scenario: frozen_2019_default_baseline
+ssp_scenario: SSP2
+description: >-
+  After 2019, retain each region's 2019 collection rate, treatment shares and virgin
+  feedstock shares. In-use stock targets, lifetimes and material composition follow
+  the REMIND-MFA defaults. Annual waste import and export requests use the default
+  trade shares and that year's local collection before trade. The model then
+  balances global imports and exports. Mechanical recovery efficiencies and losses
+  follow the constituent process recipes.
+changes:
+  - parameter: collection_rate
+    selector: uniform_all_h12
+    changes:
+      - {year: 2020, mode: retain_2019}
+  - parameter: mechanical_recycling_rate
+    selector: uniform_all_h12
+    changes:
+      - {year: 2020, mode: retain_2019}
+  - parameter: chemical_recycling_rate
+    selector: uniform_all_h12
+    changes:
+      - {year: 2020, mode: retain_2019}
+  - parameter: incineration_rate
+    selector: uniform_all_h12
+    changes:
+      - {year: 2020, mode: retain_2019}
+  - parameter: bio_production_rate
+    selector: uniform_all_h12
+    changes:
+      - {year: 2020, mode: retain_2019}
+  - parameter: daccu_production_rate
+    selector: uniform_all_h12
+    changes:
+      - {year: 2020, mode: retain_2019}
+  - parameter: waste_imports
+    regions: [CAZ, CHA, EUR, IND, JPN, LAM, MEA, NEU, OAS, REF, SSA, USA]
+    changes:
+      - {year: 2020, mode: retain_default_propensity_pretrade_collected}
+  - parameter: waste_exports
+    regions: [CAZ, CHA, EUR, IND, JPN, LAM, MEA, NEU, OAS, REF, SSA, USA]
+    changes:
+      - {year: 2020, mode: retain_default_propensity_pretrade_collected}

@@ -1,0 +1,201 @@
+original_classification,aggregated_mrio
+Paddy rice,Paddy rice
+Wheat,Wheat
+Cereal grains nec,Cereal grains nec
+"Vegetables, fruit, nuts","Vegetables, fruit, nuts"
+Oil seeds,Oil seeds
+"Sugar cane, sugar beet","Sugar cane, sugar beet"
+Plant-based fibers,Plant-based fibers
+Crops nec,Crops nec
+Cattle,Cattle
+Pigs,Pigs
+Poultry,Poultry
+Meat animals nec,Meat animals nec
+Animal products nec,Animal products nec
+Raw milk,Raw milk
+"Wool, silk-worm cocoons","Wool, silk-worm cocoons"
+Manure (conventional treatment),Manure (conventional treatment)
+Manure (biogas treatment),Manure (biogas treatment)
+"Products of forestry, logging and related services (02)","Products of forestry, logging and related services (02)"
+Fish and other fishing products; services incidental of fishing (05),Fish and other fishing products; services incidental of fishing (05)
+Anthracite,Anthracite
+Coking Coal,Coking Coal
+Other Bituminous Coal,Other Bituminous Coal
+Sub-Bituminous Coal,Sub-Bituminous Coal
+Patent Fuel,Patent Fuel
+Lignite/Brown Coal,Lignite/Brown Coal
+BKB/Peat Briquettes,BKB/Peat Briquettes
+Peat,Peat
+"Crude petroleum and services related to crude oil extraction, excluding surveying","Crude petroleum and services related to crude oil extraction, excluding surveying"
+"Natural gas and services related to natural gas extraction, excluding surveying","Natural gas and services related to natural gas extraction, excluding surveying"
+Natural Gas Liquids,Natural Gas Liquids
+Other Hydrocarbons,Other Hydrocarbons
+Uranium and thorium ores (12),Uranium and thorium ores (12)
+Iron ores,Iron ores
+Copper ores and concentrates,Copper ores and concentrates
+Nickel ores and concentrates,Nickel ores and concentrates
+Aluminium ores and concentrates,Aluminium ores and concentrates
+Precious metal ores and concentrates,Precious metal ores and concentrates
+"Lead, zinc and tin ores and concentrates","Lead, zinc and tin ores and concentrates"
+Other non-ferrous metal ores and concentrates,Other non-ferrous metal ores and concentrates
+Stone,Stone
+Sand and clay,Sand and clay
+"Chemical and fertilizer minerals, salt and other mining and quarrying products n.e.c.","Chemical and fertilizer minerals, salt and other mining and quarrying products n.e.c."
+Products of meat cattle,Products of meat cattle
+Products of meat pigs,Products of meat pigs
+Products of meat poultry,Products of meat poultry
+Meat products nec,Meat products nec
+products of Vegetable oils and fats,products of Vegetable oils and fats
+Dairy products,Dairy products
+Processed rice,Processed rice
+Sugar,Sugar
+Food products nec,Food products nec
+Beverages,Beverages
+Fish products,Fish products
+Tobacco products (16),Tobacco products (16)
+Textiles (17),Textiles (17)
+Wearing apparel; furs (18),Wearing apparel; furs (18)
+Leather and leather products (19),Leather and leather products (19)
+Wood and products of wood and cork (except furniture); articles of straw and plaiting materials (20),Wood and products of wood and cork (except furniture); articles of straw and plaiting materials (20)
+"Wood material for treatment, Re-processing of secondary wood material into new wood material","Wood material for treatment, Re-processing of secondary wood material into new wood material"
+Pulp,Pulp
+"Secondary paper for treatment, Re-processing of secondary paper into new pulp","Secondary paper for treatment, Re-processing of secondary paper into new pulp"
+Paper and paper products,Paper and paper products
+Printed matter and recorded media (22),Printed matter and recorded media (22)
+Coke Oven Coke,Coke Oven Coke
+Gas Coke,Gas Coke
+Coal Tar,Coal Tar
+Motor Gasoline,Motor Gasoline
+Aviation Gasoline,Aviation Gasoline
+Gasoline Type Jet Fuel,Gasoline Type Jet Fuel
+Kerosene Type Jet Fuel,Kerosene Type Jet Fuel
+Kerosene,Kerosene
+Gas/Diesel Oil,Gas/Diesel Oil
+Heavy Fuel Oil,Heavy Fuel Oil
+Refinery Gas,Refinery Gas
+Liquefied Petroleum Gases (LPG),Liquefied Petroleum Gases (LPG)
+Refinery Feedstocks,Refinery Feedstocks
+Ethane,Ethane
+Naphtha,Naphtha
+White Spirit & SBP,White Spirit & SBP
+Lubricants,Lubricants
+Bitumen,Bitumen
+Paraffin Waxes,Paraffin Waxes
+Petroleum Coke,Petroleum Coke
+Non-specified Petroleum Products,Non-specified Petroleum Products
+Nuclear fuel,Nuclear fuel
+"Plastics, basic",Plastics
+"Secondary plastic for treatment, Re-processing of secondary plastic into new plastic",Plastics
+N-fertiliser,N-fertiliser
+P- and other fertiliser,P- and other fertiliser
+Chemicals nec,Chemicals nec
+Charcoal,Charcoal
+Additives/Blending Components,Additives/Blending Components
+Biogasoline,Biogasoline
+Biodiesels,Biodiesels
+Other Liquid Biofuels,Other Liquid Biofuels
+Rubber and plastic products (25),Rubber and plastic products (25)
+Glass and glass products,Glass and glass products
+"Secondary glass for treatment, Re-processing of secondary glass into new glass","Secondary glass for treatment, Re-processing of secondary glass into new glass"
+Ceramic goods,Ceramic goods
+"Bricks, tiles and construction products, in baked clay","Bricks, tiles and construction products, in baked clay"
+"Cement, lime and plaster","Cement, lime and plaster"
+"Ash for treatment, Re-processing of ash into clinker","Ash for treatment, Re-processing of ash into clinker"
+Other non-metallic mineral products,Other non-metallic mineral products
+Basic iron and steel and of ferro-alloys and first products thereof,Basic iron and steel and of ferro-alloys and first products thereof
+"Secondary steel for treatment, Re-processing of secondary steel into new steel","Secondary steel for treatment, Re-processing of secondary steel into new steel"
+Precious metals,Precious metals
+"Secondary preciuos metals for treatment, Re-processing of secondary preciuos metals into new preciuos metals","Secondary preciuos metals for treatment, Re-processing of secondary preciuos metals into new preciuos metals"
+Aluminium and aluminium products,Aluminium and aluminium products
+"Secondary aluminium for treatment, Re-processing of secondary aluminium into new aluminium","Secondary aluminium for treatment, Re-processing of secondary aluminium into new aluminium"
+"Lead, zinc and tin and products thereof","Lead, zinc and tin and products thereof"
+"Secondary lead for treatment, Re-processing of secondary lead into new lead","Secondary lead for treatment, Re-processing of secondary lead into new lead"
+Copper products,Copper products
+"Secondary copper for treatment, Re-processing of secondary copper into new copper","Secondary copper for treatment, Re-processing of secondary copper into new copper"
+Other non-ferrous metal products,Other non-ferrous metal products
+"Secondary other non-ferrous metals for treatment, Re-processing of secondary other non-ferrous metals into new other non-ferrous metals","Secondary other non-ferrous metals for treatment, Re-processing of secondary other non-ferrous metals into new other non-ferrous metals"
+Foundry work services,Foundry work services
+"Fabricated metal products, except machinery and equipment (28)","Fabricated metal products, except machinery and equipment (28)"
+Machinery and equipment n.e.c. (29),Machinery and equipment n.e.c. (29)
+Office machinery and computers (30),Office machinery and computers (30)
+Electrical machinery and apparatus n.e.c. (31),Electrical machinery and apparatus n.e.c. (31)
+"Radio, television and communication equipment and apparatus (32)","Radio, television and communication equipment and apparatus (32)"
+"Medical, precision and optical instruments, watches and clocks (33)","Medical, precision and optical instruments, watches and clocks (33)"
+"Motor vehicles, trailers and semi-trailers (34)","Motor vehicles, trailers and semi-trailers (34)"
+Other transport equipment (35),Other transport equipment (35)
+Furniture; other manufactured goods n.e.c. (36),Furniture; other manufactured goods n.e.c. (36)
+Secondary raw materials,Secondary raw materials
+"Bottles for treatment, Recycling of bottles by direct reuse","Bottles for treatment, Recycling of bottles by direct reuse"
+Electricity by coal,Electricity by coal
+Electricity by gas,Electricity by gas
+Electricity by nuclear,Electricity by nuclear
+Electricity by hydro,Electricity by hydro
+Electricity by wind,Electricity by wind
+Electricity by petroleum and other oil derivatives,Electricity by petroleum and other oil derivatives
+Electricity by biomass and waste,Electricity by biomass and waste
+Electricity by solar photovoltaic,Electricity by solar photovoltaic
+Electricity by solar thermal,Electricity by solar thermal
+"Electricity by tide, wave, ocean","Electricity by tide, wave, ocean"
+Electricity by Geothermal,Electricity by Geothermal
+Electricity nec,Electricity nec
+Transmission services of electricity,Transmission services of electricity
+Distribution and trade services of electricity,Distribution and trade services of electricity
+Coke oven gas,Coke oven gas
+Blast Furnace Gas,Blast Furnace Gas
+Oxygen Steel Furnace Gas,Oxygen Steel Furnace Gas
+Gas Works Gas,Gas Works Gas
+Biogas,Biogas
+Distribution services of gaseous fuels through mains,Distribution services of gaseous fuels through mains
+Steam and hot water supply services,Steam and hot water supply services
+"Collected and purified water, distribution services of water (41)","Collected and purified water, distribution services of water (41)"
+Construction work (45),Construction work (45)
+"Secondary construction material for treatment, Re-processing of secondary construction material into aggregates","Secondary construction material for treatment, Re-processing of secondary construction material into aggregates"
+"Sale, maintenance, repair of motor vehicles, motor vehicles parts, motorcycles, motor cycles parts and accessoiries","Sale, maintenance, repair of motor vehicles, motor vehicles parts, motorcycles, motor cycles parts and accessoiries"
+Retail trade services of motor fuel,Retail trade services of motor fuel
+"Wholesale trade and commission trade services, except of motor vehicles and motorcycles (51)","Wholesale trade and commission trade services, except of motor vehicles and motorcycles (51)"
+"Retail  trade services, except of motor vehicles and motorcycles; repair services of personal and household goods (52)","Retail  trade services, except of motor vehicles and motorcycles; repair services of personal and household goods (52)"
+Hotel and restaurant services (55),Hotel and restaurant services (55)
+Railway transportation services,Railway transportation services
+Other land transportation services,Other land transportation services
+Transportation services via pipelines,Transportation services via pipelines
+Sea and coastal water transportation services,Sea and coastal water transportation services
+Inland water transportation services,Inland water transportation services
+Air transport services (62),Air transport services (62)
+Supporting and auxiliary transport services; travel agency services (63),Supporting and auxiliary transport services; travel agency services (63)
+Post and telecommunication services (64),Post and telecommunication services (64)
+"Financial intermediation services, except insurance and pension funding services (65)","Financial intermediation services, except insurance and pension funding services (65)"
+"Insurance and pension funding services, except compulsory social security services (66)","Insurance and pension funding services, except compulsory social security services (66)"
+Services auxiliary to financial intermediation (67),Services auxiliary to financial intermediation (67)
+Real estate services (70),Real estate services (70)
+Renting services of machinery and equipment without operator and of personal and household goods (71),Renting services of machinery and equipment without operator and of personal and household goods (71)
+Computer and related services (72),Computer and related services (72)
+Research and development services (73),Research and development services (73)
+Other business services (74),Other business services (74)
+Public administration and defence services; compulsory social security services (75),Public administration and defence services; compulsory social security services (75)
+Education services (80),Education services (80)
+Health and social work services (85),Health and social work services (85)
+Food waste for treatment: incineration,Food waste for treatment: incineration
+Paper waste for treatment: incineration,Paper waste for treatment: incineration
+Plastic waste for treatment: incineration,Plastics
+Intert/metal waste for treatment: incineration,Intert/metal waste for treatment: incineration
+Textiles waste for treatment: incineration,Textiles waste for treatment: incineration
+Wood waste for treatment: incineration,Wood waste for treatment: incineration
+Oil/hazardous waste for treatment: incineration,Oil/hazardous waste for treatment: incineration
+Food waste for treatment: biogasification and land application,Food waste for treatment: biogasification and land application
+Paper waste for treatment: biogasification and land application,Paper waste for treatment: biogasification and land application
+Sewage sludge for treatment: biogasification and land application,Sewage sludge for treatment: biogasification and land application
+Food waste for treatment: composting and land application,Food waste for treatment: composting and land application
+Paper and wood waste for treatment: composting and land application,Paper and wood waste for treatment: composting and land application
+Food waste for treatment: waste water treatment,Food waste for treatment: waste water treatment
+Other waste for treatment: waste water treatment,Other waste for treatment: waste water treatment
+Food waste for treatment: landfill,Food waste for treatment: landfill
+Paper for treatment: landfill,Paper for treatment: landfill
+Plastic waste for treatment: landfill,Plastics
+Inert/metal/hazardous waste for treatment: landfill,Inert/metal/hazardous waste for treatment: landfill
+Textiles waste for treatment: landfill,Textiles waste for treatment: landfill
+Wood waste for treatment: landfill,Wood waste for treatment: landfill
+Membership organisation services n.e.c. (91),Membership organisation services n.e.c. (91)
+"Recreational, cultural and sporting services (92)","Recreational, cultural and sporting services (92)"
+Other services (93),Other services (93)
+Private households with employed persons (95),Private households with employed persons (95)
+Extra-territorial organizations and bodies,Extra-territorial organizations and bodies

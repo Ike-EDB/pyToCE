@@ -1,0 +1,26 @@
+schema_version: pytoce_foreground_scenario_schema_v1
+foreground_scenario: example_plastic_family_mix
+ssp_scenario: SSP2
+description: >-
+  Retain the default material shares of new inflow in EUR packaging without changing
+  the material composition of existing stock.
+changes:
+  - parameter: plastic_family_share
+    region: EUR
+    good: Packaging
+    materials:
+      - ABS_ASA_SAN
+      - BioPlastics
+      - Fibres
+      - Elastomers (tyres)
+      - HDPE
+      - PET
+      - PP
+      - PS
+      - PUR
+      - LDPE
+      - PVC
+      - Others
+    changes:
+      - year: 2035
+        mode: retain_default

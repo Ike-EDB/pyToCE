@@ -1,0 +1,140 @@
+pyToCE third-party and data notices
+==============================================
+
+Project code
+------------
+
+The independently authored pyToCE source code is licensed under the
+BSD 3-Clause License in LICENSE.
+
+REMIND-MFA software
+-------------------
+
+The package downloads and invokes REMIND-MFA v0.2.0 at commit
+bf95c898e0f6f363196bccb62d34e02d82e4726b. REMIND-MFA is licensed
+GPL-3.0-only by its copyright holders. It is not copied into this source
+distribution or wheel.
+
+REMIND-MFA input data
+---------------------
+
+REMIND-MFA input data v1.0.0, revision
+rev1.0.0_h12_1584d780_mfa, is published at
+https://doi.org/10.5281/zenodo.18019915 under CC BY-SA 4.0.
+
+The package contains one compact Parquet serialization of the annual default
+input table derived from that source. The format and row
+ordering were changed for package installation; the scientific values and
+coordinates were not changed. This file remains licensed CC BY-SA 4.0:
+https://creativecommons.org/licenses/by-sa/4.0/
+
+The package generates a user-readable CSV from this compact source table
+when a workspace is initialized. It does not distribute a second default-input
+serialization.
+
+The package also contains a compact regional 2019 waste trade share table
+derived from the same REMIND-MFA input and its 2019 default output. It records
+import and export mass divided by local collected waste before trade for each
+H12 region, together with the source and balanced flow reference
+amounts needed to interpret that ratio. The table is a pyToCE
+transformation distributed under CC BY-SA 4.0; it does not replace or modify
+the REMIND-MFA source data or equations.
+
+AESA PB-LCIA
+------------
+
+The package downloads AESA PB-LCIA 0.9.2 from branch ei_312 at commit
+00003e27a04bfc5662bf561cf7a092ba5324d67c under BSD-3-Clause. The package
+retains only the authorized ten-category selection and source metadata.
+Resolved factors and biosphere links remain in the user workspace.
+
+Global open burning and non-burned waste shares
+------------------------------------------------
+
+The package calculates global open burning and non-burned waste shares from
+Cottom, Cook, and Velis (2024), *A local-to-global emissions inventory of
+macroplastic pollution*, Nature 633, 101-108, DOI
+10.1038/s41586-024-07758-6, and its Dryad dataset, DOI
+10.5061/dryad.8cz8w9gxb. Dryad publishes datasets under the CC0 instrument.
+pyToCE distributes the calculated fate shares, route selections and
+material mappings. It does not redistribute the article or the 1.45 GB Dryad
+dataset. The open-dump infiltration weights have a separate licensed source:
+preparation derives them once from the ecoinvent 3.12 RoW polyethylene waste
+market and saves them only in the prepared workspace. They are not Cottom data
+and are not covered by the Dryad CC0 instrument.
+
+The package models the non-burned remainder with an open dump LCI; it is not a
+measured H12 dumping share. The treatment activities and their exchanges remain
+in each licensed Brightway workspace.
+
+ecoinvent
+---------
+
+ecoinvent 3.12 Allocation, cut-off by classification, and the ecoinvent 3.12
+LCIA implementation workbook are user-supplied licensed inputs. They are
+not distributed by pyToCE. Generated activity codes, exchanges,
+crosswalks, matrices, characterization factors, and other licensed derivatives
+remain in the prepared workspace.
+
+Methane density source
+----------------------
+
+The direct air capture methane inventory uses the NIST Chemistry
+WebBook, Standard Reference Database 69 (DOI 10.18434/T4D303), implementation
+of the Setzmann–Wagner methane equation of state (DOI 10.1063/1.555898). The package
+uses the reported pure-methane density of 0.67983 kg/m3 at 288.15 K and
+0.101325 MPa only to convert the DAC methane service between mass and the
+ecoinvent standard-volume unit. It is not used for another methane route,
+emission, yield, or inventory adjustment.
+
+USLCI/ACC ABS unit-process data
+-------------------------------
+
+The retained USLCI ABS attribution identifies the non-confidential North
+American unit process in USLCI 1.2026-06.0. The source process is UUID
+0e42a306-ee2d-362e-8bc3-580000096459, version 00.01.009, at data-repository
+commit a900b507109a80c21db983e5f13f283f4a84aa51:
+
+https://www.lcacommons.gov/lca-collaboration/National_Renewable_Energy_Laboratory/USLCI_Database_Public/dataset/PROCESS/0e42a306-ee2d-362e-8bc3-580000096459?commitId=a900b507109a80c21db983e5f13f283f4a84aa51
+
+The publication-source UUID is fb5e258c-aee8-4c18-af99-fd993391a0b0:
+
+https://www.lcacommons.gov/lca-collaboration/National_Renewable_Energy_Laboratory/USLCI_Database_Public/dataset/SOURCE/fb5e258c-aee8-4c18-af99-fd993391a0b0
+
+The ACC (2022) report is identified indirectly via the consulted USLCI
+publication-source metadata above; the original report text was not consulted.
+
+The American Chemistry Council owns the source data; Eastern Research Group
+generated and documented them. The current pyToCE ABS inventory uses the
+continuous-mass formulation and process-energy sources described in
+methodological_notes/recommended_citations.txt. It is not reconstructed from
+this USLCI unit process.
+
+The complete source data-use notice follows:
+
+These U.S. LCI Database Project data ("Data") are provided by the National Renewable Energy Laboratory ("NREL"), operated by the Alliance for Sustainable Energy, LLC ("Alliance") for the US Department of Energy ("DOE") under Contract No. DE-AC36-08GO28308. The United States Government (the "Government") retains and the user acknowledges that the Government retains a non-exclusive, paid-up, irrevocable, worldwide license to publish or reproduce the published form of these data, or allow others to do so, for Government purposes.
+
+Access to and use of these Data shall impose the following obligations on the user, as set forth in this Agreement. The user is granted the right, without any fee or cost, to use, copy, modify, alter, enhance and distribute these Data for any purpose whatsoever, provided that this entire notice appears in all copies of the Data. Any modification, alteration or enhancement of these data shall be identified and documented by the user. Further, the user agrees to credit the DOE/NREL/Alliance in any publication that results from the use of these Data. The names DOE/NREL/Alliance, however, may not be used in any advertising or publicity to endorse or promote any products or commercial entities unless specific written permission is obtained from DOE/NREL/Alliance. The user also understands that DOE/NREL/Alliance is not obligated to provide the user with any support, consulting, training or assistance of any kind with regard to the use of these Data or to provide the user with any updates, revisions or new versions of these Data.
+
+YOU AGREE TO INDEMNIFY THE GOVERNMENT AND DOE/NREL/ALLIANCE, AND ITS SUBSIDIARIES, AFFILIATES, OFFICERS, AGENTS, AND EMPLOYEES AGAINST ANY CLAIM OR DEMAND, INCLUDING REASONABLE ATTORNEYS' FEES, RELATED TO YOUR USE OF THESE DATA. THESE DATA ARE PROVIDED BY DOE/NREL/ALLIANCE "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE GOVERNMENT OR DOE/NREL/ALLIANCE BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER, INCLUDING BUT NOT LIMITED TO CLAIMS ASSOCIATED WITH THE LOSS OF DATA OR PROFITS, WHICH MAY RESULT FROM AN ACTION IN CONTRACT, NEGLIGENCE OR OTHER TORTIOUS CLAIM THAT ARISES OUT OF OR IN CONNECTION WITH THE ACCESS, USE OR PERFORMANCE OF THESE DATA.
+
+World Bank World Development Indicators
+----------------------------------------
+
+The H12 regional mapping used by the optional pyaesa tutorial is an adaptation
+of the World Bank World Development Indicators series `NY.GDP.MKTP.PP.KD`. The source data
+are licensed under Creative Commons Attribution 4.0 International, with the
+World Bank dataset terms at:
+
+https://datacatalog.worldbank.org/public-licenses
+
+The mapping README describes regional and sector aggregation, GDP weighting,
+source attribution, and limitations.
+
+Other dependencies
+------------------
+
+Brightway, bw_timex, FLODYM, premise, and other Python dependencies retain
+their own licenses and authorship. Their versions are recorded in project
+metadata and result provenance. See `methodological_notes/recommended_citations.txt`
+for scientific citations.

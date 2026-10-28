@@ -1,0 +1,291 @@
+{
+  "guides": [
+    {
+      "guide_id": "compiled_scenarios",
+      "workspace_path": "data_processed/foreground_scenarios",
+      "title": "Compiled foreground scenarios",
+      "purpose": "This directory contains the compiled annual inputs for each foreground scenario.",
+      "created_by": "run_mfa",
+      "inputs": [
+        "Runnable YAML from `data_raw/foreground_scenarios/scenarios/` and the versioned default inputs."
+      ],
+      "expected_contents": [
+        {
+          "name": "<foreground_scenario>/",
+          "description": "one readable compiled scenario product and adjacent guide"
+        }
+      ],
+      "tables_and_schemas": [
+        "Each child contains `compiled_annual_input_parameters.parquet` under the installed compiled-input schema and `scenario_manifest.json`."
+      ],
+      "units_signs_and_identifiers": [
+        "Values and units are explicit per parameter coordinate; readable child names match YAML stems.",
+        "The compiled table contains inputs and fixed execution references."
+      ],
+      "pandas_example": "import pandas as pd\n\ninputs = pd.read_parquet(\n    workspace / \"data_processed/foreground_scenarios/remind_mfa_default/compiled_annual_input_parameters.parquet\"\n)",
+      "reuse_and_refresh": [
+        "`run_mfa` reuses a child when its scenario manifest exists.",
+        "After changing the YAML for your_name, use `run_mfa(foreground_scenario=\"your_name\", refresh=True)` or choose a new scenario name."
+      ],
+      "scientific_limitations": [
+        "Compilation checks only conditions that depend on the scenario inputs. MFA execution checks the resulting stocks and flows."
+      ]
+    },
+    {
+      "guide_id": "compiled_scenario",
+      "workspace_path": "data_processed/foreground_scenarios/<foreground_scenario>",
+      "title": "Compiled annual foreground inputs",
+      "purpose": "This directory contains the compiled annual inputs used to run one foreground scenario.",
+      "created_by": "run_mfa",
+      "inputs": [
+        "One runnable YAML scenario, the annual default values, and the parameter catalog content identifier."
+      ],
+      "expected_contents": [
+        {
+          "name": "compiled_annual_input_parameters.parquet",
+          "description": "explicit resolved input values for 2020-2100 over all applicable coordinates"
+        },
+        {
+          "name": "scenario_manifest.json",
+          "description": "normalized scenario, source filename, file hashes, and completion marker; written last"
+        }
+      ],
+      "tables_and_schemas": [
+        "The Parquet table follows `compiled_annual_input_parameters_schema_v1.json`; waste-trade propensity rows are converted to amounts using current-year collection."
+      ],
+      "units_signs_and_identifiers": [
+        "Units come from the parameter catalog; shares are fractions and mass/stock quantities use their declared units.",
+        "`foreground_scenario` is readable; the content identifier is stored in the manifest."
+      ],
+      "pandas_example": "import pandas as pd\n\ninputs = pd.read_parquet(\n    workspace / \"data_processed/foreground_scenarios/<foreground_scenario>/compiled_annual_input_parameters.parquet\"\n)",
+      "reuse_and_refresh": [
+        "A completed manifest selects ordinary reuse.",
+        "Refresh recompiles only this foreground scenario; completed MFA and LCA results remain separate."
+      ],
+      "scientific_limitations": [
+        "History through 2019 remains fixed.",
+        "The MFA calculates stocks, flows, production, discard, and treatment from the scenario inputs."
+      ]
+    },
+    {
+      "guide_id": "normalized_remind_mfa",
+      "workspace_path": "data_processed/remind_mfa",
+      "title": "Extracted REMIND-MFA execution source",
+      "purpose": "This directory holds the exact extracted code and data trees used by the REMIND-MFA 0.2.0 adapter.",
+      "created_by": "run_mfa",
+      "inputs": [
+        "Verified REMIND-MFA source and input archives under `data_raw/remind_mfa/`."
+      ],
+      "expected_contents": [
+        {
+          "name": "code/",
+          "description": "extracted REMIND-MFA 0.2.0 source tree"
+        },
+        {
+          "name": "data/",
+          "description": "extracted input-data tree"
+        },
+        {
+          "name": "manifest.json",
+          "description": "source revisions, archive hashes, and completion marker; written last"
+        }
+      ],
+      "tables_and_schemas": [
+        "The manifest binds extracted trees; internal files retain upstream schemas and are accessed only by `run_mfa/remind_mfa`."
+      ],
+      "units_signs_and_identifiers": [
+        "Upstream dimensions, labels, and units are preserved until lossless adapter translation.",
+        "`code/` and `data/` are upstream-controlled internals."
+      ],
+      "pandas_example": "import pandas as pd\n\nmanifest = pd.read_json(workspace / \"data_processed/remind_mfa/manifest.json\", typ=\"series\")\nprint(manifest[\"data_revision\"])",
+      "reuse_and_refresh": [
+        "An existing manifest reuses this extracted REMIND-MFA source.",
+        "The extracted source remains fixed when a scenario result is refreshed."
+      ],
+      "scientific_limitations": [
+        "These source files supply the MFA calculation.",
+        "Keep extracted upstream files consistent with their recorded source version."
+      ]
+    },
+    {
+      "guide_id": "foreground_result",
+      "workspace_path": "results/<foreground_scenario>",
+      "title": "Foreground scenario results",
+      "purpose": "This scenario directory contains its MFA result and any LCA, monitoring ASR, or optimization results calculated from it.",
+      "created_by": "run_mfa",
+      "inputs": [
+        "The completed foreground scenario and REMIND-MFA input data 1.0.0."
+      ],
+      "expected_contents": [
+        {
+          "name": "mfa_results/",
+          "description": "the scenario's single completed model result"
+        },
+        {
+          "name": "lca_results/",
+          "description": "created later by `run_lca` for readable background/method selections"
+        },
+        {
+          "name": "asr_results/",
+          "description": "created later by `run_asr` to assess completed environmental burdens against supplied allocated carrying capacities"
+        },
+        {
+          "name": "optimization_results/",
+          "description": "created later by `run_optimization` for readable allocated carrying capacity, LCIA method, optimization block, background scenario, and case selections"
+        }
+      ],
+      "tables_and_schemas": [
+        "Each child result has its own manifest and guide."
+      ],
+      "units_signs_and_identifiers": [
+        "The directory name is the readable foreground scenario.",
+        "MFA, LCA, ASR, and optimization child tables record their units."
+      ],
+      "pandas_example": "import pandas as pd\n\nderived = pd.read_parquet(\n    workspace / \"results/<foreground_scenario>/mfa_results/derived_annual_outputs.parquet\"\n)",
+      "reuse_and_refresh": [
+        "MFA, LCA, and optimization children are independently selected by their own manifest existence.",
+        "`run_mfa(foreground_scenario=\"your_name\", refresh=True)` recalculates MFA for the named foreground scenario."
+      ],
+      "scientific_limitations": [
+        "LCA and optimization children bind the exact MFA manifest."
+      ]
+    },
+    {
+      "guide_id": "mfa_result",
+      "workspace_path": "results/<foreground_scenario>/mfa_results",
+      "title": "Material flow analysis result",
+      "purpose": "One direct pyToCE MFA: polymer movements, constituent treatment and monomer quantities, stocks, cohort history, nominal REMIND bookkeeping, and their scientific checks.",
+      "created_by": "run_mfa",
+      "inputs": [
+        "Compiled annual controls, authenticated REMIND-MFA source and historical state, the locally derived licensed material recipe, and the packaged fixed constituent composition."
+      ],
+      "expected_contents": [
+        {
+          "name": "resolved_annual_input_parameters.parquet",
+          "description": "annual controls and their source or scenario values"
+        },
+        {
+          "name": "derived_annual_outputs.parquet",
+          "description": "annual stocks, discard, mechanical resin and new polymer production"
+        },
+        {
+          "name": "flows.parquet",
+          "description": "final polymer movements, partitioned into nominal REMIND elements"
+        },
+        {
+          "name": "stocks.parquet",
+          "description": "in-use and accumulated disposal stocks; the distinct C-only signed nominal atmospheric account"
+        },
+        {
+          "name": "material_realization.parquet",
+          "description": "amounts sent to treatment, recovered resin and monomers, virgin monomer use, and new polymer production, in Mt"
+        },
+        {
+          "name": "nominal_feedstock_equivalents.parquet",
+          "description": "fossil, biogenic and DAC virgin-feed polymer equivalents for nominal reporting only"
+        },
+        {
+          "name": "cohort_state.parquet",
+          "description": "annual surviving and discarded cohort mass, preserving entry year, region and good"
+        },
+        {
+          "name": "cohort_material_identity.parquet",
+          "description": "material shares assigned to each historical or prospective entry cohort"
+        },
+        {
+          "name": "cohort_composition.parquet",
+          "description": "nominal REMIND source element fractions by material"
+        },
+        {
+          "name": "physical_reconciliation_ledger.parquet",
+          "description": "requested/admitted regional treatment and paired trade amounts, differences and method"
+        },
+        {
+          "name": "stock_balance.parquet",
+          "description": "period summaries of annual in-use, disposal and nominal atmosphere stock-recurrence checks, separately for 1950-2019 and 2020-2100; maximum absolute residual, status and numerical tolerance"
+        },
+        {
+          "name": "transition_ledger.parquet",
+          "description": "prospective stock and lifetime transitions with opening/surviving/entering/discarded/closing amounts"
+        },
+        {
+          "name": "waste_trade_propensity_ledger.parquet",
+          "description": "source and balanced trade, chosen propensity basis, local collection and residuals"
+        },
+        {
+          "name": "sankey/",
+          "description": "final polymer-flow edges and nodes"
+        },
+        {
+          "name": "manifest.json",
+          "description": "exact sources, methods, table schemas/hashes and completion marker, written last"
+        }
+      ],
+      "tables_and_schemas": [
+        "File paths and columns follow `mfa_result_schema_v1.json`; the manifest records columns, types, row counts, and method and content identifiers.",
+        "`flows.parquet` and `stocks.parquet` retain historical 1950-2019 and prospective 2020-2100 records. Cohort tables retain historical and prospective cohort years. `derived_annual_outputs.parquet` and Sankey tables cover 2019-2100; compiled and resolved annual controls concern 2020-2100. The article's reporting period remains 2019--2100."
+      ],
+      "units_signs_and_identifiers": [
+        "Polymer and chemical tables use Mt. In material_realization.parquet, select the quantity of interest with flow_name. Adding all rows would count material more than once: for example, both the ethylene used in polymerization and the resulting polyethylene are recorded.",
+        "C plus Other Elements in polymer-flow and stock tables equals polymer mass. These are nominal REMIND partitions. LCA tracks constituent carbon separately.",
+        "The atmospheric account uses Mt nominal C and may be negative. Feedstock equivalents use Mt polymer equivalent.",
+        "Chemical source and destination coordinates are recorded separately. Each row reports the source or destination coordinates available for that quantity.",
+        "`cohort_state.parquet` retains nonzero stock and outflow rows and distinguishes `event_year` from `cohort_year`. Its initial 1950 cohort represents the stock present at the start of the model. `cohort_material_identity.parquet` includes zero material shares.",
+        "Derived stock, gross inflow, outflow, discard and collected mass use Mt by year, region, material and good. Mechanically recycled resin and new polymer production use Mt by year, region and material. Gross inflow supplies the stock target after accounting for surviving cohorts.",
+        "`landfill_share` divides collected waste sent to landfill by total collected waste sent to mechanical recycling, chemical recycling, incineration and landfill in the same year and region, summed across materials and nominal elements. It excludes uncollected disposal and downstream residues. A zero denominator gives an undefined amount with `derivation_status=undefined_zero_total_treatment`.",
+        "In `resolved_annual_input_parameters.parquet`, `requested_value` retains the authored change-point or target value in its specified mode. Default-origin and derived-input rows leave `requested_value` empty. Missing requested values are distinct from zero.",
+        "For deferred waste trade, `resolved_value` is the source input in Mt before global balancing; final balanced amounts are recorded in `waste_trade_propensity_ledger.parquet`. The literal field `absolute_difference` contains the signed difference `resolved_value - default_value`. `ratio_to_default` is undefined when `default_value` is zero.",
+        "Deferred waste imports and exports equal their propensity multiplied by local collected waste before trade. Contemporaneous default and retained-2019 propensities have separate bases; global balancing can change the resulting source amounts. Only deferred import or export coordinates receive a propensity and formula residual in the ledger; missing values mark the inapplicable side.",
+        "`global_trade_balance_residual_mt` is a yearly global quantity repeated on regional ledger rows; use one value per region and year when aggregating it. The default propensity constructor assigns zero only when both source trade and default local collection are zero, and rejects nonzero trade with zero collection. This convention applies to the default waste-trade propensity calculation."
+      ],
+      "pandas_example": "import pandas as pd\n\nderived = pd.read_parquet(\n    workspace / \"results/<foreground_scenario>/mfa_results/derived_annual_outputs.parquet\"\n)\nprint(derived.query(\"year == 2050\").head())",
+      "reuse_and_refresh": [
+        "Completed MFA products are reused when their manifest is present. LCA and optimization read the recorded tables and identities.",
+        "After editing an existing scenario, use `run_mfa(foreground_scenario=\"your_name\", refresh=True)`."
+      ],
+      "scientific_limitations": [
+        "Fixed within-family constituent shares apply across regions and years.",
+        "Chemical recycling distinguishes tracked plastic entering preparation, processed feed, preparation rejects, hydrothermal products and recovered ethylene and propylene. Gross yields determine recovered monomer supply and the remaining virgin requirement; allocated LCI activity coefficients are separate. Preparation rejects are accounted for through their native treatment in the preparation LCI.",
+        "Landfill and uncontrolled accumulation start from the source zero reference before 1950. The 2019 row therefore includes historical accumulation.",
+        "Reporting ends at 2100; surviving cohorts remain in use. Full scientific derivations and the differences from REMIND-MFA belong to the article appendix."
+      ]
+    },
+    {
+      "guide_id": "sankey",
+      "workspace_path": "results/<foreground_scenario>/mfa_results/sankey",
+      "title": "MFA Sankey tables",
+      "purpose": "This directory provides node identifiers and directed MFA flow edges for visualization and diagnostics. Nodes contain identifiers and coordinates; edges retain the material flows at each successive process step.",
+      "created_by": "run_mfa",
+      "inputs": [
+        "The completed direct polymer-flow table, including its declared nominal element basis."
+      ],
+      "expected_contents": [
+        {
+          "name": "nodes.parquet",
+          "description": "Sankey node identifiers and labels"
+        },
+        {
+          "name": "edges.parquet",
+          "description": "directed flow edges by year, world region, material, and good"
+        }
+      ],
+      "tables_and_schemas": [
+        "The MFA manifest records columns, types, row counts, and hashes for every Sankey table. The installed mfa_result_schema_v1.json records the Sankey method and the meaning of node and edge coordinates."
+      ],
+      "units_signs_and_identifiers": [
+        "Edges cover nonzero flows from 2019 through 2100 and retain each selected MFA row's original coordinates, including good, amount, unit and nominal element basis.",
+        "Fabrication and end-of-life nodes use good=all to connect flows across end-use groups within each foreground scenario, year, region, material and element. Nodes for use, good_market, sysenv and all other processes retain the flow's good.",
+        "Node identifiers bind the process and its coordinates. Edge identifiers bind the source node, target node and source_flow_name; separate process fields contain readable model labels."
+      ],
+      "pandas_example": "import pandas as pd\n\nedges = pd.read_parquet(\n    workspace / \"results/<foreground_scenario>/mfa_results/sankey/edges.parquet\"\n)",
+      "reuse_and_refresh": [
+        "Sankey tables are written with the MFA result.",
+        "Refresh the MFA result to regenerate them after an intentional scenario change."
+      ],
+      "scientific_limitations": [
+        "The Sankey represents polymer movements.",
+        "New polymer and chemical feed/reject are explicit account boundaries. Use material_realization.parquet for gross chemical products and monomers."
+      ]
+    }
+  ]
+}

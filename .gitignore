@@ -1,0 +1,37 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyright/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Coverage and build outputs
+.coverage
+.coverage.*
+.coverage*.json
+coverage-*.json
+coverage.xml
+htmlcov/
+build/
+dist/
+site/
+docs/_build/
+*.egg-info/
+# Tutorial media copied beside notebook wrappers by nbsphinx-link.
+/docs/tutorials/optional_workflows/data/pyaesa_plastics/
+
+# Local credentials and workspace outputs
+.env
+.env.*
+!.env.example
+local_paths.toml
+premise_key.txt
+/data_raw/
+/data_processed/
+/results/
+/pytoce_workspace/
+*.log

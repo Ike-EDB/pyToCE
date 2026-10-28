@@ -1,0 +1,45 @@
+{
+  "schema_version": "pytoce_default_annual_inputs_schema_v1",
+  "identity": "pytoce_default_annual_inputs_schema_v1::38ce99d8349d670af9aada6eb8d3915ab6570c9efe33008313f11fa3e7e7d331",
+  "ssp_scenario": "SSP2",
+  "historical_reference_year": 2019,
+  "prospective_years": [
+    2020,
+    2100
+  ],
+  "row_count": 100532,
+  "columns": [
+    "year",
+    "region",
+    "material",
+    "good",
+    "process",
+    "route",
+    "parameter_id",
+    "unit",
+    "parameter_role",
+    "default_value",
+    "value_origin"
+  ],
+  "canonical_table_sha256": "38ce99d8349d670af9aada6eb8d3915ab6570c9efe33008313f11fa3e7e7d331",
+  "artifact_sha256": "21157f3007d2b61647ed6c3fff0a2c75c590c76c6a83940a86f91ba04e7dd468",
+  "parameter_catalogue_identity": "pytoce_parameter_catalogue_schema_v1::816406f18876296b9ff12292921c4f9bae340bcc7cd993951555ed599b37b34e",
+  "upstream_identity": {
+    "repository": "https://github.com/pik-piam/remind-mfa",
+    "tag": "v0.2.0",
+    "commit": "bf95c898e0f6f363196bccb62d34e02d82e4726b",
+    "tree": "c16eacdb66a1082891fbbbca62a636993c245711",
+    "input_revision": "rev1.0.0_h12_1584d780_mfa",
+    "input_archive_sha256": "73bcf80f53513dcdf6f946afabb333a13792f087029550a95ea6c52f8d068419",
+    "input_doi": "10.5281/zenodo.18019915",
+    "input_license": "CC-BY-SA-4.0",
+    "input_license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "mrmfa_commit": "8135ab7a96214b12e9ecc3b3949dac75cccb6828",
+    "madrat_version": "3.28.4",
+    "flodym_version": "0.8.1",
+    "raw_flow_tensor_signature": "bf24380453d62254e1e851c9fb14e842a6ce5edb2ee5fcc56ebf6cdda35ffbcc",
+    "raw_stock_tensor_signature": "fb5e1b91c6b202f77abfb36898625a604d573a6ad317ca2bbb4d29010b859f49",
+    "physical_system_identity": "remind-mfa-plastics-ca03bdad2efd56c70706"
+  },
+  "complete": true
+}

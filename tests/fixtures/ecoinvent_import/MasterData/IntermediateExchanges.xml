@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<intermediateExchanges xmlns="http://www.EcoInvent.org/EcoSpold02">
+  <intermediateExchange id="aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa">
+    <name>fixture product</name>
+    <unitName>kg</unitName>
+    <productInformation>
+      <text>Invented product for importer validation.</text>
+    </productInformation>
+  </intermediateExchange>
+  <intermediateExchange id="bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb">
+    <name>fixture waste</name>
+    <unitName>kg</unitName>
+    <productInformation>
+      <text>Invented waste for signed treatment validation.</text>
+    </productInformation>
+  </intermediateExchange>
+</intermediateExchanges>

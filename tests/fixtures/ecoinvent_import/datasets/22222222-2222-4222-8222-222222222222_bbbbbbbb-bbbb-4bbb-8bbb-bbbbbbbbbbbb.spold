@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Entirely invented fixture; contains no licensed inventory data. -->
+<ecoSpold xmlns="http://www.EcoInvent.org/EcoSpold02">
+  <activityDataset>
+    <activityDescription>
+      <activity id="22222222-2222-4222-8222-222222222222" specialActivityType="0">
+        <activityName>fixture waste treatment</activityName>
+      </activity>
+      <geography><shortname>GLO</shortname></geography>
+      <technology/>
+      <timePeriod startDate="2019-01-01" endDate="2019-12-31" isDataValidForEntirePeriod="true"/>
+    </activityDescription>
+    <flowData>
+      <intermediateExchange id="20000000-0000-4000-8000-000000000001"
+          intermediateExchangeId="bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb" amount="-4">
+        <name>fixture waste</name><unitName>kg</unitName><outputGroup>0</outputGroup>
+      </intermediateExchange>
+      <elementaryExchange id="20000000-0000-4000-8000-000000000002"
+          elementaryExchangeId="eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee" amount="-0.25">
+        <name>fixture emission</name><unitName>kg</unitName><outputGroup>4</outputGroup>
+      </elementaryExchange>
+    </flowData>
+    <administrativeInformation>
+      <dataEntryBy personName="Fixture author" personEmail="fixture@example.invalid"/>
+      <dataGeneratorAndPublication personName="Fixture author" personEmail="fixture@example.invalid"/>
+    </administrativeInformation>
+  </activityDataset>
+</ecoSpold>

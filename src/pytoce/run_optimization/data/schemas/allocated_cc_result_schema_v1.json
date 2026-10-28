@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "pytoce_allocated_cc_result_schema_v1",
+  "title": "pyToCE allocated carrying capacity (aCC) result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "allocated_cc_result",
+    "description",
+    "ssp_scenario",
+    "lcia_method",
+    "annual_allocated_cc",
+    "cumulative_gwp100_allocated_cc"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "pytoce_allocated_cc_result_schema_v1"
+    },
+    "allocated_cc_result": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ssp_scenario": {
+      "const": "SSP2"
+    },
+    "lcia_method": {
+      "const": ["ef31"]
+    },
+    "annual_allocated_cc": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cumulative_gwp100_allocated_cc": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

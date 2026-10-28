@@ -1,0 +1,40 @@
+{
+  "schema_version": "pytoce_compiled_annual_input_parameters_schema_v1",
+  "historical_boundary": 2019,
+  "year_range": [
+    2020,
+    2100
+  ],
+  "columns": [
+    {"name": "year", "type": "int64", "nullable": false},
+    {"name": "region", "type": "string", "nullable": true},
+    {"name": "material", "type": "string", "nullable": true},
+    {"name": "good", "type": "string", "nullable": true},
+    {"name": "process", "type": "string", "nullable": true},
+    {"name": "route", "type": "string", "nullable": true},
+    {"name": "parameter_id", "type": "string", "nullable": false},
+    {"name": "unit", "type": "string", "nullable": false},
+    {"name": "parameter_role", "type": "string", "nullable": false},
+    {"name": "resolved_value", "type": "float64", "nullable": true},
+    {"name": "value_mode", "type": "string", "nullable": false},
+    {"name": "value_origin", "type": "string", "nullable": false},
+    {"name": "controlling_change_point_year", "type": "int64", "nullable": true},
+    {"name": "default_value", "type": "float64", "nullable": false},
+    {"name": "reference_value", "type": "float64", "nullable": false},
+    {"name": "deferred_propensity", "type": "float64", "nullable": true},
+    {"name": "deferred_denominator_id", "type": "string", "nullable": true},
+    {"name": "direct_dependencies", "type": "string", "nullable": false},
+    {"name": "invalidated_descendants", "type": "string", "nullable": false}
+  ],
+  "nullable_resolved_value_modes": [
+    "retain_2019_propensity_pretrade_collected",
+    "retain_default_propensity_pretrade_collected"
+  ],
+  "roles_allowed": [
+    "editable_input",
+    "derived_input",
+    "fixed_historical_boundary",
+    "structural_configuration"
+  ],
+  "derived_outputs_allowed": false
+}

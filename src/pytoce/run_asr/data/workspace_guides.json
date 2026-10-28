@@ -1,0 +1,22 @@
+{
+  "guides": [
+    {
+      "guide_id": "asr_result",
+      "workspace_path": "results/<foreground_scenario>/asr_results/<selection>",
+      "title": "Monitoring absolute environmental sustainability",
+      "purpose": "Compare user-defined CE performance trajectories with allocated carrying capacities through annual and cumulative Absolute Sustainability Ratios (ASRs).",
+      "created_by": "run_asr",
+      "expected_contents": [
+        {"name": "annual_asr.parquet", "description": "Annual regional and global environmental burdens, allocated carrying capacities, ASRs, and compliance indicators."},
+        {"name": "cumulative_gwp100_asr.parquet", "description": "Independent cumulative GWP100 assessment for 2019--2100."},
+        {"name": "manifest.json", "description": "Completion record, LCA and aCC input identities, selected cases, and output hashes."}
+      ],
+      "inputs": ["Completed run_lca results and allocated carrying capacities calculated with pyaesa through the tutorial workflow or supplied by the user, stored in data_raw/allocated_cc/results/<name>."],
+      "tables_and_schemas": ["Each table identifies the foreground, background, aCC case, region, and impact category. Annual rows include year; cumulative rows include period_start and period_end.", "Annual results include 2019 for reporting; assessed_for_compliance marks the 2020--2100 assessment years."],
+      "units_signs_and_identifiers": ["Scores and allocated carrying capacities use matching native LCIA units. Signed scores are retained.", "ASR <= 1 indicates compliance; ASR > 1 indicates transgression. Case labels identify the supplied allocated carrying capacity inputs.", "The global row divides separately summed regional burdens and allocated carrying capacities."],
+      "pandas_example": "import pandas as pd\nannual = pd.read_parquet(result_directory / 'annual_asr.parquet')\ncumulative = pd.read_parquet(result_directory / 'cumulative_gwp100_asr.parquet')",
+      "reuse_and_refresh": ["A repeated request reuses its completed result. Use refresh=True to recalculate only the selected ASR results.", "Completed aCC inputs are immutable: supply corrected allocated carrying capacities under a new allocated_cc_result name."],
+      "scientific_limitations": ["Annual assessment covers all sixteen EF v3.1 categories and 12 world regions. Cumulative climate assessment additionally covers 2019--2100.", "The cumulative denominator is the separately supplied allocated carrying capacity for 2019--2100.", "Ensure consistent functional units, geographical boundaries, and allocation choices between environmental burdens and allocated carrying capacities."]
+    }
+  ]
+}

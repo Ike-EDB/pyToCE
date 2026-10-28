@@ -1,0 +1,14 @@
+schema_version: pytoce_foreground_scenario_schema_v1
+foreground_scenario: example_virgin_feedstock
+ssp_scenario: SSP2
+description: Shares of virgin production supplied by fossil, biogenic and DACCU routes.
+changes:
+  - parameter_group: virgin_feedstock_shares
+    selector: uniform_all_h12
+    trajectory:
+      mode: linear_from_2019
+      target_year: 2050
+      target_values:
+        fossil_share: 0.70
+        bio_production_rate: 0.20
+        daccu_production_rate: 0.10
