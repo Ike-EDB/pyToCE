@@ -120,8 +120,8 @@ def test_distributions_have_only_the_public_release_contents(tmp_path: Path) -> 
     assert all(
         any(name.endswith(f"/{item}") for name in sdist_names) for item in required_public_files
     )
-    assert sum(name.endswith(".ipynb") and "/tutorials/" in name for name in sdist_names) == 6
-    assert sum(name.endswith(".nblink") for name in sdist_names) == 6
+    assert sum(name.endswith(".ipynb") and "/tutorials/" in name for name in sdist_names) == 7
+    assert sum(name.endswith(".nblink") for name in sdist_names) == 7
     assert any(
         item.endswith("/tutorials/optional_workflows/data/pyaesa_plastics/agg_reg_h12_plast.csv")
         for item in sdist_names
