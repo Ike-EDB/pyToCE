@@ -2,7 +2,8 @@
 
 ![pyToCE logo](https://github.com/Ike-EDB/pyToCE/raw/refs/heads/main/docs/_static/pytoce-logo.svg)
 
-**Documentation:** [Package documentation](https://github.com/Ike-EDB/pyToCE/blob/main/docs/index.md)
+**Documentation:** [pytoce.readthedocs.io](https://pytoce.readthedocs.io/)
+reproduces the documentation of this GitHub repository.
 
 **Issues and feedback:** Please report bugs, unexpected behavior, documentation gaps,
 and installation or workflow issues on the [GitHub Issues page](https://github.com/Ike-EDB/pyToCE/issues).
@@ -185,7 +186,7 @@ run_optimization(
 )
 ```
 
-The [Workflow Reference](https://github.com/Ike-EDB/pyToCE/blob/main/docs/workflow_reference.md) explains background
+The [Workflow Reference](https://pytoce.readthedocs.io/en/latest/workflow_reference.html) explains background
 selection, runtime controls, search settings, and reuse of completed calculations.
 
 ## Set of tutorials
@@ -237,12 +238,13 @@ with `pyToCE`:
 
 ## Documentation
 
-Use the API reference in [docs/api.rst](https://github.com/Ike-EDB/pyToCE/blob/main/docs/api.rst) for exact signatures and parameter
-contracts. Use [docs/tutorial.rst](https://github.com/Ike-EDB/pyToCE/blob/main/docs/tutorial.rst) for the notebook index.
+Use the [API Reference](https://pytoce.readthedocs.io/en/latest/api.html) for exact
+signatures and parameter contracts. Use [Tutorials](https://pytoce.readthedocs.io/en/latest/tutorial.html)
+for the notebook index.
 
-- [Package Overview](https://github.com/Ike-EDB/pyToCE/blob/main/docs/overview.md)
-- [Workflow Reference](https://github.com/Ike-EDB/pyToCE/blob/main/docs/workflow_reference.md)
-- [Methodological Notes](https://github.com/Ike-EDB/pyToCE/blob/main/docs/publications_and_resources.md)
+- [Package Overview](https://pytoce.readthedocs.io/en/latest/overview.html)
+- [Workflow Reference](https://pytoce.readthedocs.io/en/latest/workflow_reference.html)
+- [Methodological Notes](https://pytoce.readthedocs.io/en/latest/publications_and_resources.html)
 
 For development and documentation build instructions, see
 [CONTRIBUTING.md](https://github.com/Ike-EDB/pyToCE/blob/main/CONTRIBUTING.md).

@@ -52,6 +52,7 @@ dependencies = [
 Homepage = "https://github.com/Ike-EDB/pyToCE"
 Repository = "https://github.com/Ike-EDB/pyToCE"
 Issues = "https://github.com/Ike-EDB/pyToCE/issues"
+Documentation = "https://pytoce.readthedocs.io/"
 
 [project.optional-dependencies]
 article-support = [
