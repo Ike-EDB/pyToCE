@@ -29,6 +29,7 @@ from pytoce.run_optimization.calculation.response_bank import (
     select_response_bank_method_registry,
 )
 from pytoce.run_optimization.calculation.response_bank_contract import (
+    _NATIVE_COLUMNS,
     ResponseBankError,
 )
 from pytoce.run_optimization.calculation.response_bank_store import (
@@ -362,3 +363,17 @@ def test_selected_backgrounds_read_only_their_rows_from_the_complete_bank(tmp_pa
     full_projection = project_optimization_response_bank(complete, _methods(), role="result")
     subset_projection = project_optimization_response_bank(selected, _methods(), role="result")
     assert full_projection.projection_identity != subset_projection.projection_identity
+
+
+def test_empty_native_response_table_can_be_read_with_background_filter(tmp_path: Path) -> None:
+    """Read an empty native-response table when selecting background scenarios."""
+    empty_native_responses = pd.DataFrame(columns=_NATIVE_COLUMNS)
+    bank = _write_bank(tmp_path, native_unit_responses=empty_native_responses)
+
+    selected = read_optimization_response_bank(
+        bank,
+        background_scenarios=("remind_ssp2_npi", "remind_ssp2_pkbudg650"),
+    )
+
+    assert selected.native_unit_responses.empty
+    assert tuple(selected.native_unit_responses.columns) == _NATIVE_COLUMNS

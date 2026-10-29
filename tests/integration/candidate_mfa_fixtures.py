@@ -275,6 +275,20 @@ def _write_public_baseline_results(
         (directory / "manifest.json").write_bytes(canonical_json_bytes(manifest))
 
 
+def _empty_native_responses() -> pd.DataFrame:
+    """Return an empty native-response table with the production column dtypes."""
+    return pd.DataFrame(columns=_NATIVE_COLUMNS).astype(
+        {
+            column: "int64"
+            if column == "source_anchor_year"
+            else "float64"
+            if column in ("unit_score", "unit_contribution_norm")
+            else "string"
+            for column in _NATIVE_COLUMNS
+        }
+    )
+
+
 def _prepare_worker_workspace(
     workspace: Path,
     source_root: Path,
@@ -351,16 +365,7 @@ def _prepare_worker_workspace(
             ].reset_index(drop=True),
             provider_service_registry=services,
             provider_unit_responses=responses,
-            native_unit_responses=pd.DataFrame(columns=_NATIVE_COLUMNS).astype(
-                {
-                    column: "int64"
-                    if column == "source_anchor_year"
-                    else "float64"
-                    if column in ("unit_score", "unit_contribution_norm")
-                    else "string"
-                    for column in _NATIVE_COLUMNS
-                }
-            ),
+            native_unit_responses=_empty_native_responses(),
             direct_characterization_factors=pd.DataFrame(columns=_DIRECT_COLUMNS),
             timex_year_weights=weights,
             source_inputs=source_inputs,

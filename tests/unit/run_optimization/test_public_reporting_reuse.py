@@ -16,7 +16,6 @@ from pytoce.run_optimization.calculation.candidate_worker import (
 )
 from pytoce.run_optimization.calculation.response_bank_contract import (
     _DIRECT_COLUMNS,
-    _NATIVE_COLUMNS,
     _SERVICE_COLUMNS,
     ResponseBankInputs,
     ResponseBankMemberParent,
@@ -38,6 +37,7 @@ from pytoce.run_optimization.run_optimization import normalize_run_optimization_
 from pytoce.run_optimization.runtime.result_store import OptimizationResultTarget
 from tests.integration.candidate_mfa_fixtures import (
     _WORKER_FOREGROUND,
+    _empty_native_responses,
     _pb_reporting_methods,
     _prepare_worker_workspace,
     _response_rows,
@@ -79,7 +79,7 @@ def _reporting_contexts(
             ].reset_index(drop=True),
             provider_service_registry=services,
             provider_unit_responses=_response_rows(services, methods),
-            native_unit_responses=pd.DataFrame(columns=_NATIVE_COLUMNS),
+            native_unit_responses=_empty_native_responses(),
             direct_characterization_factors=pd.DataFrame(columns=_DIRECT_COLUMNS),
             timex_year_weights=pd.read_parquet(
                 owner / "ef31_response_v3/timex_year_weights.parquet"

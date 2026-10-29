@@ -284,6 +284,7 @@ def _write_bank(
     *,
     methods: pd.DataFrame | None = None,
     response_method_union: str = "ef31_pb_lcia",
+    native_unit_responses: pd.DataFrame | None = None,
 ) -> OptimizationResponseBank:
     """Write and return a complete optimization response-bank fixture."""
 
@@ -302,7 +303,11 @@ def _write_bank(
             provider_service_registry=_services(),
             provider_unit_responses=_provider_responses(methods),
             timex_year_weights=_weights(),
-            native_unit_responses=_native_responses(methods),
+            native_unit_responses=(
+                _native_responses(methods)
+                if native_unit_responses is None
+                else native_unit_responses
+            ),
             direct_characterization_factors=_direct_factors(methods),
             source_inputs=_inputs(),
         )

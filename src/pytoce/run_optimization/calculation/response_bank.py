@@ -2,8 +2,10 @@
 
 import json
 from collections.abc import Sequence
+from pathlib import Path
 
 import pandas as pd
+import pyarrow.parquet as pq
 
 from pytoce.run_lca.calculation.lcia import (
     LCIAMethodSelection,
@@ -25,6 +27,17 @@ from .response_bank_contract import (
     _method_signature_records,
     method_registry_from_records,
 )
+
+
+def _read_response_table(
+    path: Path,
+    *,
+    filters: list[tuple[str, str, list[str]]] | None,
+) -> pd.DataFrame:
+    """Read a response table, omitting member filters for empty Parquet files."""
+    if filters is not None and pq.read_metadata(path).num_rows == 0:
+        filters = None
+    return pd.read_parquet(path, filters=filters)
 
 
 def read_optimization_response_bank(
@@ -49,13 +62,13 @@ def read_optimization_response_bank(
         provider_service_registry=pd.DataFrame.from_records(
             payload["provider_service_registry"], columns=_SERVICE_COLUMNS
         ).astype("string"),
-        provider_unit_responses=pd.read_parquet(
+        provider_unit_responses=_read_response_table(
             directory / "provider_unit_responses.parquet", filters=filters
         ),
-        timex_year_weights=pd.read_parquet(
+        timex_year_weights=_read_response_table(
             directory / "timex_year_weights.parquet", filters=filters
         ),
-        native_unit_responses=pd.read_parquet(
+        native_unit_responses=_read_response_table(
             directory / "native_unit_responses.parquet", filters=filters
         ),
         direct_characterization_factors=pd.read_parquet(
