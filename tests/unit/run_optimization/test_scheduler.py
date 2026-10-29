@@ -9,6 +9,7 @@ from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
 from threading import Lock, Timer
+from types import ModuleType
 from typing import TypeVar
 
 import pytest
@@ -568,6 +569,74 @@ def test_empty_scheduler_batch_emits_no_completion_claim(
     with scheduler.CandidateProcessPool(worker_initializer_payload=b"initializer") as pool:
         assert pool.evaluate_batch((), result_store=result_store, read_result=bytes.decode) == ()
     assert capsys.readouterr().out == ""
+
+
+@pytest.mark.parametrize(
+    ("kernel_stream", "active_shell", "uses_display"),
+    (
+        pytest.param(True, True, True, id="active-notebook"),
+        pytest.param(False, True, False, id="redirected-stdout"),
+        pytest.param(True, False, False, id="missing-interactive-shell"),
+    ),
+)
+def test_batch_progress_selects_notebook_display_or_stdout(
+    monkeypatch: pytest.MonkeyPatch,
+    kernel_stream: bool,
+    active_shell: bool,
+    uses_display: bool,
+) -> None:
+    """Update one notebook display only for an active kernel output stream."""
+
+    class KernelOutStream(StringIO):
+        """Represent the stream type used by an IPython kernel."""
+
+        def isatty(self) -> bool:
+            return False
+
+    displayed: list[str] = []
+    updated: list[str] = []
+
+    class DisplayHandle:
+        """Record the initial notebook display and its subsequent update."""
+
+        def display(self, message: str) -> None:
+            displayed.append(message)
+
+        def update(self, message: str) -> None:
+            updated.append(message)
+
+    ipykernel_iostream = ModuleType("ipykernel.iostream")
+    ipykernel_iostream.OutStream = KernelOutStream
+    ipython = ModuleType("IPython")
+    ipython.__path__ = []
+    ipython.get_ipython = lambda: object() if active_shell else None
+    ipython_display = ModuleType("IPython.display")
+    ipython_display.DisplayHandle = DisplayHandle
+    monkeypatch.setitem(scheduler.sys.modules, "ipykernel.iostream", ipykernel_iostream)
+    monkeypatch.setitem(scheduler.sys.modules, "IPython", ipython)
+    monkeypatch.setitem(scheduler.sys.modules, "IPython.display", ipython_display)
+
+    output = KernelOutStream() if kernel_stream else StringIO()
+    monkeypatch.setattr(scheduler.sys, "stdout", output)
+
+    progress = scheduler._CandidateBatchProgress(total=2, reused=0)
+    progress.advance()
+    progress.close()
+
+    initial = (
+        "run_optimization: candidate batch 0/2 (0.0%) evaluations completed; computed=0 reused=0"
+    )
+    completed = (
+        "run_optimization: candidate batch 1/2 (50.0%) evaluations completed; computed=1 reused=0"
+    )
+    if uses_display:
+        assert displayed == [initial]
+        assert updated == [completed]
+        assert output.getvalue() == ""
+    else:
+        assert displayed == []
+        assert updated == []
+        assert output.getvalue() == f"{initial}\n{completed}\n"
 
 
 def test_redirected_progress_stays_in_stdout_with_active_ipython(
